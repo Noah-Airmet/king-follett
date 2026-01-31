@@ -1,0 +1,10 @@
+# Manuscript images (large, not needed for site)
+*-jpgs/
+*.jpgs/
+
+# Temp files
+~$*
+.DS_Store
+
+# Segments (generated, can be recreated)
+data/segments/
