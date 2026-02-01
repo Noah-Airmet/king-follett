@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>King Follett Discourse: Digital Critical Edition</title>
 <style>
   * { box-sizing: border-box; }
@@ -42,7 +43,7 @@
     align-self: flex-start;
     height: 100vh;
     overflow-y: auto;
-    padding: 20px 14px 40px 20px;
+    padding: 54px 14px 40px 20px;
     border-right: 1px solid #ddd;
     background: #fafaf5;
     font-size: 0.82em;
@@ -215,17 +216,73 @@
     margin-bottom: 20px;
     border-bottom-color: #999;
   }
+  /* Sidebar toggle button */
+  .sidebar-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100;
+    background: #fafaf5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    color: #444;
+  }
+  .sidebar-toggle:hover { background: #eee; }
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.25);
+    z-index: 999;
+  }
+  /* Desktop sidebar collapse */
+  @media (min-width: 861px) {
+    .sidebar {
+      transition: width 0.25s ease, min-width 0.25s ease, padding 0.25s ease;
+    }
+    body:not(.sidebar-open) .sidebar {
+      width: 0;
+      min-width: 0;
+      padding: 0;
+      overflow: hidden;
+      border-right: none;
+    }
+  }
+  /* Mobile */
   @media (max-width: 860px) {
+    body { font-size: 18px; }
+    header { margin-top: 50px; }
     .layout { flex-direction: column; }
     .sidebar {
-      width: 100%;
-      min-width: 100%;
-      height: auto;
-      max-height: 50vh;
-      position: static;
-      border-right: none;
-      border-bottom: 1px solid #ddd;
-      padding: 15px 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      width: 300px;
+      min-width: 300px;
+      height: 100vh;
+      max-height: 100vh;
+      overflow-y: auto;
+      padding: 54px 14px 40px 20px;
+      border-right: 1px solid #ddd;
+      border-bottom: none;
+      background: #fafaf5;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+    body.sidebar-open .sidebar {
+      transform: translateX(0);
+    }
+    body.sidebar-open .sidebar-overlay {
+      display: block;
     }
     .content { padding: 20px; }
   }
@@ -233,6 +290,14 @@
 </head>
 <body>
 
+<button class="sidebar-toggle" aria-label="Toggle table of contents" aria-expanded="false">
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+<line x1="3" y1="5" x2="17" y2="5"/>
+<line x1="3" y1="10" x2="17" y2="10"/>
+<line x1="3" y1="15" x2="17" y2="15"/>
+</svg>
+</button>
+<div class="sidebar-overlay"></div>
 
 <header>
 <h1>The King Follett Discourse</h1>
@@ -1460,6 +1525,51 @@ document.querySelectorAll('.sidebar a[href^="#"]').forEach(function(link) {
   }
   window.addEventListener('scroll', onScroll, {passive: true});
   onScroll();
+})();
+
+// Sidebar toggle
+(function() {
+  var toggle = document.querySelector('.sidebar-toggle');
+  var overlay = document.querySelector('.sidebar-overlay');
+  var mql = window.matchMedia('(min-width: 861px)');
+
+  function initSidebar() {
+    if (mql.matches) {
+      document.body.classList.add('sidebar-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    } else {
+      document.body.classList.remove('sidebar-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  toggle.addEventListener('click', function() {
+    document.body.classList.toggle('sidebar-open');
+    var open = document.body.classList.contains('sidebar-open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  overlay.addEventListener('click', function() {
+    document.body.classList.remove('sidebar-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+
+  // Close sidebar on mobile when clicking a TOC link
+  document.querySelectorAll('.sidebar a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function() {
+      if (!mql.matches) {
+        document.body.classList.remove('sidebar-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  initSidebar();
+  if (mql.addEventListener) {
+    mql.addEventListener('change', initSidebar);
+  } else {
+    mql.addListener(initSidebar);
+  }
 })();
 </script>
 </body>
