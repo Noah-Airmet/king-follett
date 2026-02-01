@@ -4,26 +4,118 @@
 <meta charset="UTF-8">
 <title>King Follett Discourse: Digital Critical Edition</title>
 <style>
+  * { box-sizing: border-box; }
   body {
     font-family: 'Georgia', 'Times New Roman', serif;
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
+    margin: 0;
+    padding: 0;
     line-height: 1.7;
     color: #222;
   }
-  h1 {
+  header {
+    max-width: 900px;
+    margin: 30px auto 0 auto;
+    padding: 0 30px;
     text-align: center;
+  }
+  h1 {
     font-size: 1.8em;
     margin-bottom: 5px;
     border-bottom: 2px solid #333;
     padding-bottom: 10px;
   }
   .subtitle {
-    text-align: center;
     font-style: italic;
     color: #555;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+  }
+  .layout {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .sidebar {
+    width: 260px;
+    min-width: 260px;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 20px 14px 40px 20px;
+    border-right: 1px solid #ddd;
+    background: #fafaf5;
+    font-size: 0.82em;
+    line-height: 1.45;
+  }
+  .sidebar-title {
+    font-weight: bold;
+    font-size: 1.05em;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  .sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .sidebar > ul > li {
+    margin: 6px 0;
+  }
+  .sidebar a {
+    color: #444;
+    text-decoration: none;
+    display: block;
+    padding: 2px 0;
+    transition: color 0.15s;
+  }
+  .sidebar a:hover,
+  .sidebar a.active {
+    color: #4a90d9;
+  }
+  .sidebar a.active {
+    font-weight: bold;
+  }
+  .sidebar details {
+    margin: 0;
+  }
+  .sidebar details summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 2px 0;
+    color: #444;
+  }
+  .sidebar details summary::-webkit-details-marker { display: none; }
+  .sidebar details summary::before {
+    content: '\25B6\00a0';
+    font-size: 0.65em;
+    vertical-align: middle;
+    color: #999;
+  }
+  .sidebar details[open] summary::before {
+    content: '\25BC\00a0';
+  }
+  .sidebar details ul {
+    margin: 2px 0 4px 8px;
+    padding-left: 10px;
+    border-left: 1px solid #ddd;
+  }
+  .sidebar details li {
+    margin: 1px 0;
+  }
+  .sidebar details a {
+    font-size: 0.93em;
+    color: #666;
+  }
+  .sidebar details a:hover,
+  .sidebar details a.active {
+    color: #4a90d9;
+  }
+  .content {
+    flex: 1;
+    min-width: 0;
+    max-width: 850px;
+    padding: 20px 30px 40px 40px;
   }
   h2 {
     font-size: 1.3em;
@@ -55,24 +147,16 @@
     font-size: 0.88em;
     line-height: 1.6;
   }
-  .apparatus p {
-    margin: 6px 0;
-  }
-  .apparatus .lemma {
-    font-weight: bold;
-  }
+  .apparatus p { margin: 6px 0; }
+  .apparatus .lemma { font-weight: bold; }
   .apparatus .note {
     color: #555;
     font-style: italic;
     font-size: 0.92em;
     margin-top: 2px;
   }
-  .flag-high {
-    border-left-color: #c0392b;
-  }
-  .flag-medium {
-    border-left-color: #f39c12;
-  }
+  .flag-high { border-left-color: #c0392b; }
+  .flag-medium { border-left-color: #f39c12; }
   table {
     border-collapse: collapse;
     width: 100%;
@@ -88,23 +172,13 @@
     background: #f0f0e8;
     font-weight: bold;
   }
-  td.center {
-    text-align: center;
-  }
+  td.center { text-align: center; }
   .stats-bar {
     background: #4a90d9;
     height: 14px;
     display: inline-block;
     border-radius: 2px;
   }
-  .toc {
-    background: #fafaf5;
-    padding: 15px 20px;
-    border: 1px solid #ddd;
-    margin: 20px 0;
-  }
-  .toc ul { margin: 5px 0; padding-left: 20px; }
-  .toc li { margin: 3px 0; }
   .coverage-grid td {
     text-align: center;
     font-weight: bold;
@@ -124,10 +198,7 @@
     border-top: 1px dashed #ccc;
     margin: 30px 0;
   }
-
-  details.section-v {
-    margin: 10px 0;
-  }
+  details.section-v { margin: 10px 0; }
   details.section-v > summary {
     cursor: pointer;
     font-style: italic;
@@ -139,59 +210,39 @@
     margin-bottom: 15px;
     font-size: 0.95em;
   }
-  details.section-v > summary:hover {
-    background: #f0f0e5;
-  }
+  details.section-v > summary:hover { background: #f0f0e5; }
   details.section-v[open] > summary {
     margin-bottom: 20px;
     border-bottom-color: #999;
   }
-  .toc a {
-    color: #333;
-    text-decoration: none;
-  }
-  .toc a:hover {
-    text-decoration: underline;
-    color: #4a90d9;
-  }
-  .toc details {
-    margin: 0;
-  }
-  .toc details summary {
-    cursor: pointer;
-    color: #333;
-    list-style: none;
-  }
-  .toc details summary::-webkit-details-marker {
-    display: none;
-  }
-  .toc details summary::before {
-    content: '\25B6\00a0';
-    font-size: 0.7em;
-    vertical-align: middle;
-  }
-  .toc details[open] summary::before {
-    content: '\25BC\00a0';
-  }
-  .toc details ul {
-    margin: 2px 0 2px 10px;
-    padding-left: 12px;
-    font-size: 0.9em;
-  }
-  .toc details li {
-    margin: 1px 0;
+  @media (max-width: 860px) {
+    .layout { flex-direction: column; }
+    .sidebar {
+      width: 100%;
+      min-width: 100%;
+      height: auto;
+      max-height: 50vh;
+      position: static;
+      border-right: none;
+      border-bottom: 1px solid #ddd;
+      padding: 15px 20px;
+    }
+    .content { padding: 20px; }
   }
 </style>
 </head>
 <body>
 
 
+<header>
 <h1>The King Follett Discourse</h1>
 <p class="subtitle">A Digital Critical Edition from Four Eyewitness Accounts<br>
 7 April 1844, Nauvoo, Illinois</p>
+</header>
+<div class="layout">
+<nav class="sidebar">
+<div class="sidebar-title">Contents</div>
 
-<div class="toc">
-<b>Contents</b>
 <ul>
 <li><a href="#intro">I. Introduction &amp; Methodology</a></li>
 <li><a href="#witnesses">II. The Four Witnesses</a></li>
@@ -241,8 +292,9 @@
 <li><a href="#analysis">VIII. Analysis and Commentary</a></li>
 <li><a href="#bibliography">IX. Sources and Bibliography</a></li>
 </ul>
-</div>
 
+</nav>
+<main class="content">
 
 <h2 id="intro">I. Introduction &amp; Methodology</h2>
 
@@ -1359,12 +1411,13 @@ Generated with the assistance of Claude (Anthropic)
 </p>
 
 
+</main>
+</div>
 <script>
-// Auto-open collapsed details when navigating to a hash target inside
 function openDetailsForHash() {
   var hash = window.location.hash;
   if (!hash) return;
-  var target = document.querySelector(hash);
+  try { var target = document.querySelector(hash); } catch(e) { return; }
   if (!target) return;
   var details = target.closest('details');
   while (details) {
@@ -1376,11 +1429,10 @@ function openDetailsForHash() {
 document.addEventListener('DOMContentLoaded', openDetailsForHash);
 window.addEventListener('hashchange', openDetailsForHash);
 
-// Also handle clicks on TOC links that target inside collapsed details
-document.querySelectorAll('.toc a[href^="#"]').forEach(function(link) {
+document.querySelectorAll('.sidebar a[href^="#"]').forEach(function(link) {
   link.addEventListener('click', function(e) {
     var hash = this.getAttribute('href');
-    var target = document.querySelector(hash);
+    try { var target = document.querySelector(hash); } catch(err) { return; }
     if (target) {
       var details = target.closest('details');
       while (details) {
@@ -1391,6 +1443,24 @@ document.querySelectorAll('.toc a[href^="#"]').forEach(function(link) {
     }
   });
 });
+
+(function() {
+  var headings = document.querySelectorAll('h2[id], h3[id]');
+  var links = document.querySelectorAll('.sidebar a[href^="#"]');
+  var linkMap = {};
+  links.forEach(function(a) { linkMap[a.getAttribute('href').slice(1)] = a; });
+  function onScroll() {
+    var scrollY = window.scrollY + 120;
+    var current = '';
+    headings.forEach(function(h) {
+      if (h.offsetTop <= scrollY) current = h.id;
+    });
+    links.forEach(function(a) { a.classList.remove('active'); });
+    if (current && linkMap[current]) linkMap[current].classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll, {passive: true});
+  onScroll();
+})();
 </script>
 </body>
 </html>
