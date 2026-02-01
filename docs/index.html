@@ -4,103 +4,13 @@
 <meta charset="UTF-8">
 <title>King Follett Discourse: Digital Critical Edition</title>
 <style>
-  * { box-sizing: border-box; }
   body {
     font-family: 'Georgia', 'Times New Roman', serif;
-    margin: 0;
-    padding: 0;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
     line-height: 1.7;
     color: #222;
-    display: flex;
-  }
-  /* ── Sidebar TOC ── */
-  #sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 280px;
-    height: 100vh;
-    overflow-y: auto;
-    background: #fafaf7;
-    border-right: 1px solid #ddd;
-    padding: 20px 12px 40px 16px;
-    font-size: 0.78em;
-    line-height: 1.5;
-    z-index: 100;
-    transition: transform 0.3s ease;
-  }
-  #sidebar .toc-title {
-    font-weight: bold;
-    font-size: 1.1em;
-    color: #333;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #ccc;
-  }
-  #sidebar a {
-    display: block;
-    text-decoration: none;
-    color: #555;
-    padding: 3px 6px;
-    border-radius: 3px;
-    transition: background 0.15s, color 0.15s;
-  }
-  #sidebar a:hover {
-    background: #eee;
-    color: #222;
-  }
-  #sidebar a.active {
-    background: #e8e4d9;
-    color: #222;
-    font-weight: bold;
-  }
-  #sidebar a.toc-h3 {
-    padding-left: 18px;
-    font-size: 0.92em;
-    color: #777;
-  }
-  #sidebar a.toc-h3.active {
-    color: #444;
-    background: #eee8d5;
-  }
-  /* Toggle button (for mobile) */
-  #toc-toggle {
-    display: none;
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 200;
-    background: #fafaf7;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 6px 10px;
-    font-size: 1.1em;
-    cursor: pointer;
-    font-family: Georgia, serif;
-  }
-  /* ── Main content ── */
-  #content {
-    margin-left: 280px;
-    max-width: 800px;
-    padding: 40px 30px;
-    flex: 1;
-  }
-  /* ── Responsive ── */
-  @media (max-width: 1000px) {
-    #sidebar {
-      transform: translateX(-100%);
-    }
-    #sidebar.open {
-      transform: translateX(0);
-      box-shadow: 2px 0 12px rgba(0,0,0,0.15);
-    }
-    #toc-toggle {
-      display: block;
-    }
-    #content {
-      margin-left: 0;
-      padding: 50px 20px 40px 20px;
-    }
   }
   h1 {
     text-align: center;
@@ -214,66 +124,127 @@
     border-top: 1px dashed #ccc;
     margin: 30px 0;
   }
+
+  details.section-v {
+    margin: 10px 0;
+  }
+  details.section-v > summary {
+    cursor: pointer;
+    font-style: italic;
+    color: #555;
+    padding: 8px 12px;
+    background: #fafaf5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+  }
+  details.section-v > summary:hover {
+    background: #f0f0e5;
+  }
+  details.section-v[open] > summary {
+    margin-bottom: 20px;
+    border-bottom-color: #999;
+  }
+  .toc a {
+    color: #333;
+    text-decoration: none;
+  }
+  .toc a:hover {
+    text-decoration: underline;
+    color: #4a90d9;
+  }
+  .toc details {
+    margin: 0;
+  }
+  .toc details summary {
+    cursor: pointer;
+    color: #333;
+    list-style: none;
+  }
+  .toc details summary::-webkit-details-marker {
+    display: none;
+  }
+  .toc details summary::before {
+    content: '\25B6\00a0';
+    font-size: 0.7em;
+    vertical-align: middle;
+  }
+  .toc details[open] summary::before {
+    content: '\25BC\00a0';
+  }
+  .toc details ul {
+    margin: 2px 0 2px 10px;
+    padding-left: 12px;
+    font-size: 0.9em;
+  }
+  .toc details li {
+    margin: 1px 0;
+  }
 </style>
 </head>
 <body>
-<button id="toc-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰ Contents</button>
-<nav id="sidebar">
-  <div class="toc-title">Contents</div>
-    <a href="#sec-1" class="toc-h2">I. Introduction &amp; Methodology</a>
-    <a href="#sec-2" class="toc-h2">II. The Four Witnesses</a>
-    <a href="#sec-3" class="toc-h2">III. Alignment Overview</a>
-    <a href="#sec-4" class="toc-h2">IV. Reading the Apparatus</a>
-    <a href="#sec-5" class="toc-h2">V. Text and Critical Apparatus</a>
-    <a href="#sec-6" class="toc-h3">S01. Introduction: Occasion and Subject</a>
-    <a href="#sec-7" class="toc-h3">S02. Preliminary: Paving the Way</a>
-    <a href="#sec-8" class="toc-h3">S03. Need to Understand God from the Beginning</a>
-    <a href="#sec-9" class="toc-h3">S04. The World Knows Little of God</a>
-    <a href="#sec-10" class="toc-h3">S05. What Kind of Being Is God?</a>
-    <a href="#sec-11" class="toc-h3">S06. Challenge: If I Show God's Character</a>
-    <a href="#sec-12" class="toc-h3">S07. Right of Conscience / False Prophets</a>
-    <a href="#sec-13" class="toc-h3">S08. God Is a Man in Form</a>
-    <a href="#sec-14" class="toc-h3">S09. God Was Once a Man / Refuting Eternal Godhood</a>
-    <a href="#sec-15" class="toc-h3">S10. Christ's Power from the Father</a>
-    <a href="#sec-16" class="toc-h3">S11. Becoming Gods: Exaltation by Degrees</a>
-    <a href="#sec-17" class="toc-h3">S12. Consolation for Mourners: Heirs of God</a>
-    <a href="#sec-18" class="toc-h3">S13. Christ Followed the Father's Pattern</a>
-    <a href="#sec-19" class="toc-h3">S14. First Principles / Not All Comprehended in...</a>
-    <a href="#sec-20" class="toc-h3">S15. Hebrew Exegesis: Bereshit / Genesis 1:1</a>
-    <a href="#sec-21" class="toc-h3">S16. Grand Council of the Gods</a>
-    <a href="#sec-22" class="toc-h3">S17. The Polyglot Bible: Jacob vs. James</a>
-    <a href="#sec-23" class="toc-h3">S18. Creation Ex Nihilo Refuted</a>
-    <a href="#sec-24" class="toc-h3">S19. The Soul / Mind of Man: Pre-existence</a>
-    <a href="#sec-25" class="toc-h3">S20. Mind of Man Coequal with God / Mourners' C...</a>
-    <a href="#sec-26" class="toc-h3">S21. Intelligence Is Self-Existent: The Ring An...</a>
-    <a href="#sec-27" class="toc-h3">S22. God Instituted Laws for Lesser Intelligences</a>
-    <a href="#sec-28" class="toc-h3">S23. Revelations Save Spirit and Body</a>
-    <a href="#sec-29" class="toc-h3">S24. Awful Responsibility for Our Dead</a>
-    <a href="#sec-30" class="toc-h3">S25. All Sins Forgiven Except One</a>
-    <a href="#sec-31" class="toc-h3">S26. Cannot Commit Unpardonable Sin After Death...</a>
-    <a href="#sec-32" class="toc-h3">S27. The Devil's Plan vs. Christ's Plan</a>
-    <a href="#sec-33" class="toc-h3">S28. The Unpardonable Sin Defined</a>
-    <a href="#sec-34" class="toc-h3">S29. Apostates of the Church</a>
-    <a href="#sec-35" class="toc-h3">S30. Warning: Be Careful</a>
-    <a href="#sec-36" class="toc-h3">S31. Many Mansions / Degrees of Glory</a>
-    <a href="#sec-37" class="toc-h3">S32. Friends Gone for a Moment / Eternity</a>
-    <a href="#sec-38" class="toc-h3">S33. Mothers Shall Have Their Children</a>
-    <a href="#sec-39" class="toc-h3">S34. Baptism: Water, Fire, and Holy Ghost</a>
-    <a href="#sec-40" class="toc-h3">S35. Closing: Personal Testimony / 'You Don't K...</a>
-    <a href="#sec-41" class="toc-h2">VI. Manuscript Verification Notes</a>
-</nav>
-<div id="content">
-
 
 
 <h1>The King Follett Discourse</h1>
 <p class="subtitle">A Digital Critical Edition from Four Eyewitness Accounts<br>
 7 April 1844, Nauvoo, Illinois</p>
 
-<!-- TOC is now in the sidebar -->
+<div class="toc">
+<b>Contents</b>
+<ul>
+<li><a href="#intro">I. Introduction &amp; Methodology</a></li>
+<li><a href="#witnesses">II. The Four Witnesses</a></li>
+<li><a href="#alignment">III. Alignment Overview</a></li>
+<li><a href="#reading-apparatus">IV. Reading the Apparatus</a></li>
+<li><details><summary><a href="#text-apparatus">V. Text and Critical Apparatus (Sections S01–S35)</a></summary>
+<ul>
+<li><a href="#S01">S01. Introduction: Occasion and Subject</a></li>
+<li><a href="#S02">S02. Preliminary: Paving the Way</a></li>
+<li><a href="#S03">S03. Need to Understand God from the Beginning</a></li>
+<li><a href="#S04">S04. The World Knows Little of God</a></li>
+<li><a href="#S05">S05. What Kind of Being Is God?</a></li>
+<li><a href="#S06">S06. Challenge: If I Show God's Character</a></li>
+<li><a href="#S07">S07. Right of Conscience / False Prophets</a></li>
+<li><a href="#S08">S08. God Is a Man in Form</a></li>
+<li><a href="#S09">S09. God Was Once a Man / Refuting Eternal Godhood</a></li>
+<li><a href="#S10">S10. Christ's Power from the Father</a></li>
+<li><a href="#S11">S11. Becoming Gods: Exaltation by Degrees</a></li>
+<li><a href="#S12">S12. Consolation for Mourners: Heirs of God</a></li>
+<li><a href="#S13">S13. Christ Followed the Father's Pattern</a></li>
+<li><a href="#S14">S14. First Principles / Not All Comprehended in This World</a></li>
+<li><a href="#S15">S15. Hebrew Exegesis: Bereshit / Genesis 1:1</a></li>
+<li><a href="#S16">S16. Grand Council of the Gods</a></li>
+<li><a href="#S17">S17. The Polyglot Bible: Jacob vs. James</a></li>
+<li><a href="#S18">S18. Creation Ex Nihilo Refuted</a></li>
+<li><a href="#S19">S19. The Soul / Mind of Man: Pre-existence</a></li>
+<li><a href="#S20">S20. Mind of Man Coequal with God / Mourners' Comfort</a></li>
+<li><a href="#S21">S21. Intelligence Is Self-Existent: The Ring Analogy</a></li>
+<li><a href="#S22">S22. God Instituted Laws for Lesser Intelligences</a></li>
+<li><a href="#S23">S23. Revelations Save Spirit and Body</a></li>
+<li><a href="#S24">S24. Awful Responsibility for Our Dead</a></li>
+<li><a href="#S25">S25. All Sins Forgiven Except One</a></li>
+<li><a href="#S26">S26. Cannot Commit Unpardonable Sin After Death / Knowledge Saves</a></li>
+<li><a href="#S27">S27. The Devil's Plan vs. Christ's Plan</a></li>
+<li><a href="#S28">S28. The Unpardonable Sin Defined</a></li>
+<li><a href="#S29">S29. Apostates of the Church</a></li>
+<li><a href="#S30">S30. Warning: Be Careful</a></li>
+<li><a href="#S31">S31. Many Mansions / Degrees of Glory</a></li>
+<li><a href="#S32">S32. Friends Gone for a Moment / Eternity</a></li>
+<li><a href="#S33">S33. Mothers Shall Have Their Children</a></li>
+<li><a href="#S34">S34. Baptism: Water, Fire, and Holy Ghost</a></li>
+<li><a href="#S35">S35. Closing: Personal Testimony / 'You Don't Know Me'</a></li>
+</ul>
+</details></li>
+<li><a href="#verification">VI. Manuscript Verification Notes</a></li>
+<li><a href="#apparatus-criticus">VII. Apparatus Criticus (Consolidated)</a></li>
+<li><a href="#analysis">VIII. Analysis and Commentary</a></li>
+<li><a href="#bibliography">IX. Sources and Bibliography</a></li>
+</ul>
+</div>
 
 
-<h2 id="sec-1">I. Introduction &amp; Methodology</h2>
+<h2 id="intro">I. Introduction &amp; Methodology</h2>
 
 <p>This critical edition reconstructs the King Follett Discourse from four primary
 eyewitness accounts recorded on 7 April 1844 at the general conference of the Church
@@ -297,7 +268,7 @@ high-priority variants were verified against manuscript scans of the original
 handwritten documents.</p>
 
 
-<h2 id="sec-2">II. The Four Witnesses</h2>
+<h2 id="witnesses">II. The Four Witnesses</h2>
 
 <table>
 <tr>
@@ -355,7 +326,7 @@ closing sections and many mansions passage.</li>
 </ul>
 
 
-<h2 id="sec-3">III. Alignment Overview</h2>
+<h2 id="alignment">III. Alignment Overview</h2>
 
 <p>The discourse has been segmented into 35 thematic sections. The table below shows
 which witnesses cover each section.</p>
@@ -413,7 +384,7 @@ S31–S32 (many mansions, friends in eternity) and S35 (closing). Woodruff omits
 S35 (closing personal testimony). Bullock alone covers all 35 sections.</p>
 
 
-<h2 id="sec-4">IV. Reading the Apparatus</h2>
+<h2 id="reading-apparatus">IV. Reading the Apparatus</h2>
 
 <p>Below the base text for each section, the critical apparatus lists meaning-changing
 variants in this format:</p>
@@ -439,9 +410,10 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 
 
 <hr class="section-divider">
-<h2 id="sec-5">V. Text and Critical Apparatus</h2>
-
-<h3 id="sec-6">S01. Introduction: Occasion and Subject</h3>
+<h2 id="text-apparatus">V. Text and Critical Apparatus</h2>
+<details class="section-v" id="section-v-details">
+<summary>Expand full text with inline critical apparatus (35 sections)</summary>
+<h3 id="S01">S01. Introduction: Occasion and Subject</h3>
 <p class="section-summary">Opening remarks identifying the occasion (King Follett's death) and the subject (the dead).</p>
 <p class="base-text">The Prophet while I address you on the subject which in the fore part. of the Conference was contemplated.— as the wind blows very hard it will be hardly possible for me to make you all hear it is of the greatest importance & the most solemn of any that could. occupy our attention. & that is the subject of the dead on the decease of our bror. Follit King Follett who was crushed to death in a well— & inasmuch as there are a great many in this congregation who live in this city & who have lost friend I shall speak in general. & offer you my ideas so far as I have ability & so far as I shall be inspired. by the H S. Holy Spirit to dwell on this subject. I want your prayer, faith the instruction. of Almighty God to say things that are true & shall carry the testimony to your hearts & pray that he may strengthen my lungs— stay the winds— & let the prayers of the Saints to heaven appear— for the prayers of the righteous avail much</p>
 <div class="apparatus flag-medium">
@@ -450,31 +422,31 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Richards alone preserves the detail of HOW Follett died (a tub of rock falling on him). Clayton omits 'in a well' entirely.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-7">S02. Preliminary: Paving the Way</h3>
+<h3 id="S02">S02. Preliminary: Paving the Way</h3>
 <p class="section-summary">Transition announcing he will build up to the main subject, not please with oratory but edify with truths.</p>
 <p class="base-text">before I enter in the investigation. fully of the subjt. that is lying before us I wish to make a few preliminaries in order that you may understand when I come to it I do not calculate to please your ears with oratory with much learning but I calculate to edify you with simple truths from Heaven—</p>
 <hr class="section-divider">
-<h3 id="sec-8">S03. Need to Understand God from the Beginning</h3>
+<h3 id="S03">S03. Need to Understand God from the Beginning</h3>
 <p class="section-summary">Going back to the beginning of creation; necessary to understand God and the Elohim; starting right vs. starting wrong.</p>
 <p class="base-text">I wish to go back to the beginning: of creation— it is necessary to know the mind decree & ordination. of the great Eloe Elōheem or Elohim beginning at the creation. & it is necessary. for us to have an understanding. of God in the beging. if we start right it is very easy for us to go right all the time but if we start wrong it is hard to get right</p>
 <hr class="section-divider">
-<h3 id="sec-9">S04. The World Knows Little of God</h3>
+<h3 id="S04">S04. The World Knows Little of God</h3>
 <p class="section-summary">Few understand God's character; mankind knows no more than the brute beast without inspiration.</p>
 <p class="base-text">there are very few who understand rightly the character of God— they do not comprehend any thing that is past or that which is to come & com: but little more than the brute beast if a man learns know nothing more than to eat, drink, sleep, & does not comprehend any of the designs of God the Beast can the same thing eats drinks sleeps— noes [knows] nothing more & how are we to do it by no other. way than the Inspiration of Almighty God</p>
 <hr class="section-divider">
-<h3 id="sec-10">S05. What Kind of Being Is God?</h3>
+<h3 id="S05">S05. What Kind of Being Is God?</h3>
 <p class="section-summary">Asks the congregation what kind of being God is; cites John 17:3 on eternal life being to know God.</p>
 <p class="base-text">I want to ask this congregation: every man woman: & child to answer. the question. in their own heart what kind of a being is God I again. repeat. the questn. what kind of a being is God does any man or woman know have any of you seen, him heard him, communed with him, here is the questn. that will peradventure from this time henceforth occupy your attentn.— the Apostle: says this is Eternal life to know God & J. C Jesus Christ who he has sent— that is eternal. life if any man enquire what kind of a being is God if he will search deligently his own heart that unless he knows God he has no eternal life— my first object is to find out the character of the true God & if I should.</p>
 <hr class="section-divider">
-<h3 id="sec-11">S06. Challenge: If I Show God's Character</h3>
+<h3 id="S06">S06. Challenge: If I Show God's Character</h3>
 <p class="section-summary">If I am the man to comprehend and explain God, let every person be silent; if I fail, I have no right to revelation.</p>
 <p class="base-text">my first object is to find out the character of the true God & if I should. be the man to comprehend: the God & I com: them to your heart let every man & woman henceforth shut their mouths & never say anything against. the man of God & If I do not do it I have no right to revelation. inspn. if all are pretension to the God they will all be as bad off as I am they will all say I ought to be damned</p>
 <hr class="section-divider">
-<h3 id="sec-12">S07. Right of Conscience / False Prophets</h3>
+<h3 id="S07">S07. Right of Conscience / False Prophets</h3>
 <p class="section-summary">Every man has a right to be a false prophet as well as a true one; no government should interfere with religion.</p>
 <p class="base-text">if any man is authd. to take away my life who say I am a false teacher so I shod. have the same right to all false teacher & where wod. be the end of the blood & there is no law in the heart of God that wod. allow any one to interfere with the rights of man every man has a right to be a false as well as a true prophet— if I shew verily that I have the truth of God & shew that ninety nine of 1 are false prophets it wod. deluge the whole world with blood</p>
 <hr class="section-divider">
-<h3 id="sec-13">S08. God Is a Man in Form</h3>
+<h3 id="S08">S08. God Is a Man in Form</h3>
 <p class="section-summary">God who sits enthroned in yonder heavens is a man like yourselves; Adam was made in his image and walked and talked with him.</p>
 <p class="base-text">God himself who sits enthroned in yonder Heavens is a man like unto one of yourselves who holds this world in its orbit & upholds all things by his power if you were to see him to day you wod. see him a man for Adam was an man like in fashion & image like unto him Adam walkd talked & communed. with him as one man talks & communes: with another.</p>
 <div class="apparatus flag-high">
@@ -484,7 +456,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="verification-note">Manuscript verification: Woodruff's 'worlds' (plural) visible with terminal 's'. Bullock/Clayton singular 'world' consistent. Variant genuine.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-14">S09. God Was Once a Man / Refuting Eternal Godhood</h3>
+<h3 id="S09">S09. God Was Once a Man / Refuting Eternal Godhood</h3>
 <p class="section-summary">We suppose God was God from all eternity; I will refute that. God the Father once dwelt on an earth as Jesus did.</p>
 <p class="base-text">in order to speak for the consolation. of those who mourn for the loss of their friend it is necy. to understand the character. & being of God for I am going to tell you what sort of a being of God for he was God from the begin of all Eternity & if I do not refute it— truth is the touchstone they are the simple & first principles: of truth to know for a certainty the char. of God that we may converse with him same as a man & God himself the father of us all dwelt on a Earth same as J C himself did & I will shew it from the Bible— I wish I had the trump of an Arch Angel I cod.</p>
 <div class="apparatus flag-high">
@@ -500,11 +472,11 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="verification-note">Manuscript verification: Clayton's 'planet' clearly legible — distinct from Bullock/Woodruff's 'earth'. Clayton's 'in the flesh' also clear. Three different phrasings confirmed.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-15">S10. Christ's Power from the Father</h3>
+<h3 id="S10">S10. Christ's Power from the Father</h3>
 <p class="section-summary">As the Father hath power in himself so hath the Son; to lay down his body and take it up again. Cites John 5:26.</p>
 <p class="base-text">Jesus: said. as the Father. hath power in himself to do even so hath the Son power to do what the Far. did that ansr. is obvious in a manner to lay down his body & take it up— J— did as my Far. laid down his body & take it up agn. if you dont believe it you dont believe the Bible the Scripture says & I defy all hell all learning. wisdom & records of hell</p>
 <hr class="section-divider">
-<h3 id="sec-16">S11. Becoming Gods: Exaltation by Degrees</h3>
+<h3 id="S11">S11. Becoming Gods: Exaltation by Degrees</h3>
 <p class="section-summary">You have got to learn how to be Gods, kings, and priests; going from a small capacity to a great capacity; dwelling in everlasting burnings.</p>
 <p class="base-text">you have got to learn how to be a God yourself & be a King & God Priest to God same as all have done by going from a small capacity to another. from grace to grace until the resurrection. of & sit in everlasting power as they who have gone before & God in the L D.</p>
 <div class="apparatus flag-medium">
@@ -524,7 +496,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Clayton uniquely adds 'in order to save yourself' as the motivation for deification. Woodruff/Richards use 'make yourselves' (active self-creation) vs. Bullock/Clayton 'be' (state of being). Richards has 'Gods' (plural) while others have 'God' (singular).</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-17">S12. Consolation for Mourners: Heirs of God</h3>
+<h3 id="S12">S12. Consolation for Mourners: Heirs of God</h3>
 <p class="section-summary">How consoling to mourners to know that the dead shall rise as heirs of God and joint heirs of Jesus Christ.</p>
 <p class="base-text">how consoling to the mourner when they are called. to part with a wife mother father dear. relative to know that all Earthly tabernacles shall be dissolved that they shall be heirs of God & joint. heirs of J. C. to inherit the same powers exaltation. until you ascend. the throne of Etl. power same as those who are gone before what J.</p>
 <div class="apparatus flag-medium">
@@ -533,7 +505,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Woodruff uniquely adds 'untill you arive at the station of a God'—the most explicit statement of theosis/deification as the endpoint. Clayton phrases it as inheriting 'with those who are gone before.' Richards abbreviates to just 'heirs of God.'</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-18">S13. Christ Followed the Father's Pattern</h3>
+<h3 id="S13">S13. Christ Followed the Father's Pattern</h3>
 <p class="section-summary">What did Jesus do? The same thing as the Father: worked out a kingdom with fear and trembling. Kingdoms rolling upon kingdoms.</p>
 <p class="base-text">what J. did I do the things I saw my Far. do before worlds came rolled nto existence I saw my Far. work out his Kingdom with fear & trembling & I must do the same when I shall give my K to the Far. so that he obtains K rolling. upon K. so that J treads in his tracks as he had gone before it is plain beyond comprehension.</p>
 <div class="apparatus flag-medium">
@@ -548,7 +520,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="verification-note">Manuscript verification: Bullock's 'K rolling upon K' visible in shorthand. Four distinct succession models verified.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-19">S14. First Principles / Not All Comprehended in This World</h3>
+<h3 id="S14">S14. First Principles / Not All Comprehended in This World</h3>
 <p class="section-summary">These are the first principles of the gospel; it will take a long time to learn them all; transition to biblical commentary.</p>
 <p class="base-text">& you thus learn the first principles of the Gospel when you climb a ladder you must begin at the bottom rung until you learn the last principle of the Gospel for it is a great thing to learn Salvation. beyond the grave & it is not all to be comprehended in this world I suppose I am not allowed. to go into investign. but what is contained. in the Bible & I think there is so many wise men who wod. put me to death for treason I shall turn commentator to day— I shall go to the first Hebrew word in the Bible the 1st.</p>
 <div class="apparatus flag-medium">
@@ -557,7 +529,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">The famous ladder metaphor appears only in Bullock. Clayton has a flat restatement without the ladder image. Woodruff and Richards omit entirely. This became one of the most quoted images from the discourse.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-20">S15. Hebrew Exegesis: Bereshit / Genesis 1:1</h3>
+<h3 id="S15">S15. Hebrew Exegesis: Bereshit / Genesis 1:1</h3>
 <p class="section-summary">Analysis of Bereshit (Genesis 1:1): removing the prefix to reveal 'rosh' (head). 'The head one of the Gods brought forth the Gods.'</p>
 <p class="base-text">I shall go to the first Hebrew word in the Bible the 1st. sentence: In the beginning— Berosheet— In by through & every thing else Roshed the head when the Inspd. man wrote it he did not put the 1st. pt. to it a man a Jew without. any authy. thought. it too bad to begin to talk about the head of any man— “The Head one of the Gods brought forth the Gods” is the true meaning.</p>
 <div class="apparatus flag-high">
@@ -567,7 +539,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="verification-note">Manuscript verification: Bullock's theological motive ('thought it too bad') and Woodruff's factual description ('added the word Bath') both verified.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-21">S16. Grand Council of the Gods</h3>
+<h3 id="S16">S16. Grand Council of the Gods</h3>
 <p class="section-summary">The head God called the Gods together in grand council and contemplated the creation of the world.</p>
 <p class="base-text">the Head God called togr. the Gods & set in Grand Council</p>
 <div class="apparatus flag-medium">
@@ -576,7 +548,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Clayton has 'worlds' (plural) vs. others 'world' (singular)—implying the council planned multiple creations. Woodruff inverts the agency: 'The grand council set at the head' (the council is the subject) vs. Bullock/Richards where 'the Head God' is the agent who calls the council.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-22">S17. The Polyglot Bible: Jacob vs. James</h3>
+<h3 id="S17">S17. The Polyglot Bible: Jacob vs. James</h3>
 <p class="section-summary">Reference to a multilingual Bible; demonstrates that 'James' should be 'Jacob' using Hebrew, Greek, Latin, and German texts (Matthew 4:21).</p>
 <p class="base-text">some learned Doctor. might. take a notion. to say thus & so— & are not to be altered. & I am going to shew you an error I have an old book in the Latin Greek Hebrew & German & I have been reading. the German: I find it to be the most corect that I have found & it corespends the nearest to the revelations. that I have given the last 1 years it tells about Iachaboa means Jacob— in the English James— & you may talk about James thro all Eternity in the 2 verse of 4th. Matthew: where it gives the test. that it is to Jacob— & how can we escape the damnation. of hell witht. God reveal to us. one Latin says that Iachobus. means Jacob— Hebrew says means Jacob— Greek says Jachem Jacob German says Jacob thank God I have got this book & I thank him more for the gift of the H G. I have all the 4 Testaments come here ye learned men & read if you can I shod.</p>
 <div class="apparatus flag-medium">
@@ -585,7 +557,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Clayton's rendering is strikingly different: 'the oldest book in his heart' as a metaphor for inner revelation, vs. Bullock/Woodruff who explicitly name the Holy Ghost. Clayton's version reframes the comparison as external book vs. internal knowledge.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-23">S18. Creation Ex Nihilo Refuted</h3>
+<h3 id="S18">S18. Creation Ex Nihilo Refuted</h3>
 <p class="section-summary">The learned say God created out of nothing; 'bara' means to organize, not create from nothing. Elements are eternal and cannot be destroyed.</p>
 <p class="base-text">the learned men who are preaching. Saln. say that God created the Heavens & the Earth out of nothing & the reason is that they are unlearned & I know more than all the world put togr. & if the H. G. in me comprehends: more than all the world I will associate with it— what does Boro mean it means to organize same as you wod. organize a Ship— God himself had materials to organize the world out of chaos which is Element & in which dwells all the glory— that nothing can destroy they never can have an ending they exist eternally— I have anor.</p>
 <div class="apparatus flag-high">
@@ -595,7 +567,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="verification-note">Manuscript verification: Bullock's 'dwells all the glory' plausible. Clayton's 'from the time he had' (implying God had a beginning) is legible but FLAGGED — theologically explosive claim deserves highest-resolution verification.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-24">S19. The Soul / Mind of Man: Pre-existence</h3>
+<h3 id="S19">S19. The Soul / Mind of Man: Pre-existence</h3>
 <p class="section-summary">The soul/mind of man was not created in the beginning; God is self-existent and man exists on the same principle. God put spirit into Adam's tabernacle.</p>
 <p class="base-text">the soul the imm. [immortal] Spirit oh man says God created in the beging. the very idea lestens man in my idea— I dont believe the doctrine: hear it all ye Ends of the World for God has told me so I am going to tell of things more noble— we say that God himself is a self existing God, who told you so, how did it get it into your head who told you that man did not exist in like manner— how does it read in the Hebrew that God made man & put into it Adams Spirit & so became a living Spirit—</p>
 <div class="apparatus flag-medium">
@@ -604,7 +576,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Bullock: 'became a living Spirit.' Woodruff: 'became a Human soul.' Different anthropological terms. Clayton adds 'out of the earth' (material origin of body). Bullock uses 'Spirit' as the result; Woodruff uses 'soul'—these have distinct theological meanings in the tradition.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-25">S20. Mind of Man Coequal with God / Mourners' Comfort</h3>
+<h3 id="S20">S20. Mind of Man Coequal with God / Mourners' Comfort</h3>
 <p class="section-summary">The mind of man is coequal with God; the departed are only separated for a short time and now converse with each other as we do.</p>
 <p class="base-text">the mind of man— the mind of man is as immortal as God himself— hence while I talk to these mourners— they are only separated from their bodies for a short period— their Spirits coexisted with God & now converse one another same as we do—</p>
 <div class="apparatus flag-high">
@@ -614,7 +586,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="verification-note">Manuscript verification: MOST IMPORTANT VARIANT. Bullock's 'immortal' vs. three witnesses' 'coequal'. Word length consistent with 'immortal'; letter forms appear to begin 'im-'. JSP reading likely correct but cannot definitively confirm at this scan resolution. Deserves physical manuscript examination.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-26">S21. Intelligence Is Self-Existent: The Ring Analogy</h3>
+<h3 id="S21">S21. Intelligence Is Self-Existent: The Ring Analogy</h3>
 <p class="section-summary">The spirit of man has no beginning or end (ring analogy). If it had a beginning it would have an end. God never had power to create the spirit of man.</p>
 <p class="base-text">I take my ring from my finger & liken it unto the mind of man the immortal. Spirit because it has no beging. suppose you cut it into but as the Lord lives there wod. be an end all the fools & wise men from the beging of creation who say that man had begin— they must have an end & then the doctrine of annihilitn. [annihilation] wod. be true— but if I am right I mit. with boldness proclaim from the house top that God never had power to create the Sp of Man at all— it is no God himself cod. not create himself intelligence is self existent</p>
 <div class="apparatus flag-medium">
@@ -623,7 +595,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Bullock has 'from age to end'—possibly a scribal error for 'age to age' which appears in Clayton. Woodruff simply says 'Eternal.' Richards and Clayton both add 'no creation about it.' If Bullock's 'end' is accurate rather than an error, it would imply intelligence has a terminus, contradicting the self-existent teaching.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-27">S22. God Instituted Laws for Lesser Intelligences</h3>
+<h3 id="S22">S22. God Instituted Laws for Lesser Intelligences</h3>
 <p class="section-summary">Intelligence is self-existent; all minds are susceptible of enlargement. God instituted laws so that lesser intelligences could be exalted.</p>
 <p class="base-text">the first principles of Man are self exist with God— that God himself finds himself in the midst of Spirits & bec he saw proper to institute laws for those who were in less intelligence that they mit. have one glory upon another in all that knowledge power & glory & so took in hand to save the world of Sp: you say honey is Sweet & so do I. I can also taste the Sp of Eternal life I know it is good & when I tell you— of these things that were given me by Inspiration of the H S. you are bound to receive it as sweet & I rejoice more & more—</p>
 <div class="apparatus flag-high">
@@ -633,11 +605,11 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="verification-note">Manuscript verification: Three different end-states verified: 'one glory upon another' (B), 'exalted with himself' (W), 'advance like himself' (C).</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-28">S23. Revelations Save Spirit and Body</h3>
+<h3 id="S23">S23. Revelations Save Spirit and Body</h3>
 <p class="section-summary">All things revealed are revealed as if we had no bodies; revelations that save our spirits will save our bodies.</p>
 <p class="base-text">Mans relation to God & s I will open your eyes in rel to your dead all things which God of his infinite reason has seen fit to reveal to us in our mortal state in regard to our mortal bodies are revealed. to us as if we had no bodies & those revns. which will save our dead will save our bodies— & God reveals them to us in the view of no Eternal dissolution. of the body—</p>
 <hr class="section-divider">
-<h3 id="sec-29">S24. Awful Responsibility for Our Dead</h3>
+<h3 id="S24">S24. Awful Responsibility for Our Dead</h3>
 <p class="section-summary">The greatest responsibility is to seek after our dead; all spirits who have not obeyed the gospel must be damned; they without us cannot be made perfect.</p>
 <p class="base-text">hence the awful responsibility that rests upon our us for our dead— for all the Spirits must either obey the Gospel or be d—d [damned] solemn thot. dreadful thot. is there nothing to be done for those who have gone before us witht. obeying the decrees of God wod. to God that I had 4 days & nights— to tell you all to let you know I am not a fallen prophet— what kind of characters are those who can be saved altho their bodies are decaying in the grave— the greatest responsibility that God has laid upon us to seek after our dead— the apostle says they without us cant be perfect— now I am speaking of them I say to you Paul, you cant be perfect witht. us.— those that are gone before & those who came after must be made perfect— & God has made it obligatory to man— God said he shall send Elijah &c I have a declaration to make as to the provision.</p>
 <div class="apparatus flag-medium">
@@ -646,7 +618,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Woodruff preserves substantially more content: the sealing power, 'seals in our hands,' sealing children and dead, 'fulness of the dispensation of times,' and promises made 'before the foundation of the world.' Bullock, Richards, and Clayton record only the bare Elijah reference. This is major unique content in Woodruff.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-30">S25. All Sins Forgiven Except One</h3>
+<h3 id="S25">S25. All Sins Forgiven Except One</h3>
 <p class="section-summary">All sins and blasphemies can be forgiven except the sin against the Holy Ghost. God has made provision for every spirit.</p>
 <p class="base-text">what has J. sd. all sins & all blasphemies every transgression: that man may be guilty of there is a Saln. for him or in the world to come— every Sp in the Eternal: world can be ferreted out & saved unless he has committed. that Sin which cant be remitted. to him— that God has wrought. out saln. for all men unless they have comd. a certn. sin a friend who has got a friend in the world can save him unless he has comd. the unpardonable sin & so you can see how far you can be Savior</p>
 <div class="apparatus flag-medium">
@@ -655,7 +627,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Bullock alone uses the word 'Savior' as a title applied to humans acting vicariously for the dead. Other witnesses use the verb 'save' without the titular form. Calling humans 'Savior' is a stronger theological claim than saying they can 'save.'</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-31">S26. Cannot Commit Unpardonable Sin After Death / Knowledge Saves</h3>
+<h3 id="S26">S26. Cannot Commit Unpardonable Sin After Death / Knowledge Saves</h3>
 <p class="section-summary">A man cannot commit the unpardonable sin after the dissolution of the body; knowledge saves a man; a man's own mind is his condemner.</p>
 <p class="base-text">there is no thing that a man can commit the unpardonable sin after the dissn of the body & there is a way possible for escape not partarly d—d— those that are witht. wisdom until they get exalted to wisdom so long as man will not give acct. of his sins a sinner has his own mind & is in his own condemner for the G.</p>
 <div class="apparatus flag-high">
@@ -670,7 +642,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Bullock uses 'wisdom' where all three other witnesses use 'knowledge.' These are theologically distinct concepts. Clayton adds the unique detail that exaltation is impossible in the spirit world without knowledge.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-32">S27. The Devil's Plan vs. Christ's Plan</h3>
+<h3 id="S27">S27. The Devil's Plan vs. Christ's Plan</h3>
 <p class="section-summary">The devil said he could save them all; Jesus contended that some souls would not be saved; the devil rebelled and was cast down.</p>
 <p class="base-text">J. contended. that there wod. be certn. souls that wod. be condemnd & the devil sd. he cod. save them all— as the grand council gave in for J. C. so the d l fell & all who put up their heads for him all sin shall be forgiven except the sin agt.</p>
 <div class="apparatus flag-high">
@@ -680,7 +652,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="verification-note">Manuscript verification: Woodruff's first-person devil speech ('I am a savior') verified. Richards' 'Lot/lot fell on Jesus' present but capitalization AMBIGUOUS — context favors 'lot' (vote/choice). Only witness recording mode of council decision.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-33">S28. The Unpardonable Sin Defined</h3>
+<h3 id="S28">S28. The Unpardonable Sin Defined</h3>
 <p class="section-summary">To commit the unpardonable sin one must receive the Holy Ghost, have the heavens opened, know God, and then sin against him.</p>
 <p class="base-text">all sin shall be forgiven except the sin agt. the H. G. he has got to say that the Sun does not shine while he sees it he has got to deny J. C. when the heavens are open to him—</p>
 <div class="apparatus flag-high">
@@ -690,7 +662,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="verification-note">Manuscript verification: Bullock's 'Sun does not shine' metaphor verified. Woodruff's doctrinal sequence and Richards' 'plan of Salvation' both verified. Three genuine renderings.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-34">S29. Apostates of the Church</h3>
+<h3 id="S29">S29. Apostates of the Church</h3>
 <p class="section-summary">Like many apostates of the Church who never cease to persecute; they have the same spirit that crucified Jesus.</p>
 <p class="base-text">like many of the apostates of The Church of J. C of L. D. S. Jesus Christ of Latter-day Saints— when a man begins to be an enemy he hunts him— for he has the same Sp. that they had who crucified. the Lord of life— the same Sp. that Sin agt. the H. G.</p>
 <div class="apparatus flag-medium">
@@ -699,7 +671,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Bullock/Clayton attribute the spirit to those who crucified Christ (human agents). Woodruff attributes it directly to 'the devil.' Different sources of the apostate spirit: human historical actors vs. Satan himself.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-35">S30. Warning: Be Careful</h3>
+<h3 id="S30">S30. Warning: Be Careful</h3>
 <p class="section-summary">Advises all to be careful, not to make hasty moves; there may be a snare laid. Words of life from the man of God.</p>
 <p class="base-text">I advise all to be careful what you do— stay— do not give way— you may find that some one has laid a snare for you be cautious— await— when you find a Sp. wants bloodshed murder same is not of God but is of the devil out of the abundance of the heart man speaks— the man that tells you words of life is the man that can save you— I warn you agt all evil characters who sin agt. H. G. for there is no redemption. for them in this world nor in the world to come</p>
 <div class="apparatus flag-medium">
@@ -708,7 +680,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Bullock specifically names 'bloodshed murder' as the markers of a false spirit. Woodruff uses 'Bitterness'—a much milder characterization. Richards and Clayton focus on 'deception' rather than violence. Different diagnostic criteria for identifying false spirits.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-36">S31. Many Mansions / Degrees of Glory</h3>
+<h3 id="S31">S31. Many Mansions / Degrees of Glory</h3>
 <p class="section-summary">In my Father's house are many mansions; glory of sun, moon, and stars. Greatest hope and consolation for our dead.</p>
 <p class="base-text">I can enter into the mysteries— I can enter largely into the eternal worlds— for J. sd. where my In my Fars. mansion there are many mansions &c there is one glory of the moon Sun & Stars &c we have the reason to have the greatest hope & consoln. for our dead— for we have aided them in the 1st. principles for we have seen them walk in the midst— & sink asleep in the arms of J. & hence is the glory of the Sun— you mourners have occasion. to rejoice for your husband has gone to wait until the resn. & your expectation. & hope are far above what man can conceive— for why God has revd. to us— & I am authd. to say by the authy. of the H. G. that you have no occasn. to fear for he is gone to the home of the just— dont mourn dont weep— I know it by the testimony of the H. G. that is within me— rejoice O Israel— your friends shall triumph gloriously— while their murderers shall welter for years— I say for the benefit of strangers I have a Far.</p>
 <div class="apparatus flag-medium">
@@ -717,11 +689,11 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Woodruff adds 'until they pay the utmost farthing' (Matthew 5:26)—implying even murderers' punishment has an end and redemption is possible. Bullock's 'welter for years' is less definitive. Richards has a completely different referent: 'worlds' (not murderers) waiting 'myriads of years.'</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-37">S32. Friends Gone for a Moment / Eternity</h3>
+<h3 id="S32">S32. Friends Gone for a Moment / Eternity</h3>
 <p class="section-summary">I have fathers, brothers, children gone to eternity, soon to meet them. They are absent only for a moment.</p>
 <p class="base-text">I have a Far. Bror. Friends who are gone to a world of Sp— they are absent for a moment.— they are in the Sp. then shall we hail our Mother. Fars. Friends & all no fear of mobs— &c but all an Eternity of felicity—</p>
 <hr class="section-divider">
-<h3 id="sec-38">S33. Mothers Shall Have Their Children</h3>
+<h3 id="S33">S33. Mothers Shall Have Their Children</h3>
 <p class="section-summary">Mothers will have their children in eternity; children will rise in the same form as when they died; thrones of glory.</p>
 <p class="base-text">Mothers you shall have your Children for they shall have it— for their debt is paid there is no damnation awaits them for they are in the Spirits— as the Child dies so shall it rise from the dead & be living in the burng. of God— it shall be the child as it was bef it died out of your arms children dwell & exercise power in the same form as they laid them down the Baptism of Water witht.</p>
 <div class="apparatus flag-high">
@@ -736,7 +708,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="note">Woodruff uniquely preserves the vivid image: 'Eternity is full of thrones upon which dwell thousands of Children reigning on thrones of glory.' Richards has 'Dominion upon dominions' (echoing Daniel 7:27). Bullock is more restrained. Woodruff's version is the most elaborate depiction of children's exalted state.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-39">S34. Baptism: Water, Fire, and Holy Ghost</h3>
+<h3 id="S34">S34. Baptism: Water, Fire, and Holy Ghost</h3>
 <p class="section-summary">Reading from the German Bible on baptism; John's baptism of water is nothing without Christ's baptism of fire and the Holy Ghost.</p>
 <p class="base-text">the Baptism of Water witht. the Baptism of Fire & the H G. attending it are necy he must be born of Water & Sp in order to get into the K of God— in the German text bears me out same as the revn. which I have given for the 1 years— I have the test to put in their teeth that my test has been true all the time you will find it in the declaration of John the Baptist (reads from the German) John says I baptize you with Water but when J comes who has the power he shall administer the bap of F & the H. G. Great. God now where is all the Sect. [sectarian] world— & if this est [testimony] is true they are all d—d as clearly as any Anathama ever was— I know the text is true— I call upon all to say I— (shouts of I) Alexander Campbell— how are you going to save them with water— for John sd. his bapm. was nothing witht the test bap of J. C. One God, Far., Jesus, hope of, our Calling, one baptism— all three bap make one I have the truth & I am at the defiance of the world to contradict I have preached Latin Hebrew Greek German & I have fulfilled all I am not so big a fool as many have taken me for— the Germans know that I read the German corect— hear it all ye Ends of the Earth— all ye Sinners Repent Repent turn to God for your religion. wont save you & ye will be dd but I do not say how along— but those who Sin agt. the H. G. cannot be forgiven in this world or in the world to come but they shall die the 2nd. death— but as they concoct scenes of bloodshed in this world so they shall rise to that resurn. which is as the lake of fire & brimstone— some shall rise to the everlasting burning of God & some shall rise to the dn. of their own filthiness—</p>
 <div class="apparatus flag-medium">
@@ -756,7 +728,7 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 <p class="verification-note">Manuscript verification: Bullock's dual 'burning' theology verified — positive (divine glory) and negative (punishment) uses both present. Richards' 'God dwells in everlasting burnings' also verified.</p>
 </div>
 <hr class="section-divider">
-<h3 id="sec-40">S35. Closing: Personal Testimony / 'You Don't Know Me'</h3>
+<h3 id="S35">S35. Closing: Personal Testimony / 'You Don't Know Me'</h3>
 <p class="section-summary">Personal remarks: I love all men; you never knew my heart; no man knows my history; my voice is always for peace.</p>
 <p class="base-text">I have intended. my remarks to all— to all rich & poor bond & free great & small I have no enmity agst any man— I love you all— I am their best friend & if persons miss their mark it is their own fault— if I reprove a man & he hate me he is a fool— for I love all men especially these my brethren & sisters— I rejoice in hearing the test of my aged friend— you never knew my heart no man knows my history— I can not do it I shall never undertake— if I had not experienced what I have I should not have known it myself— I never did harm any man since I have been born in the world— my voice is always for peace— I cannot lie down until my work is finished— I never think evil nor think any thing to the harm of my fellow man— & when I am called at the trump & weighed in the balance you will know me then— I add no more God bless you amen</p>
 <div class="apparatus flag-high">
@@ -767,7 +739,9 @@ Medium-priority variant: significant difference in emphasis or detail.</li>
 </div>
 <hr class="section-divider">
 
-<h2 id="sec-41">VI. Manuscript Verification Notes</h2>
+</details>
+
+<h2 id="verification">VI. Manuscript Verification Notes</h2>
 
 <p>All 15 high-priority variants were examined against JPG scans of the original
 manuscripts from the Joseph Smith Papers. No transcription errors were identified.
@@ -810,6 +784,573 @@ other witness and deserves careful verification of Richards' abbreviated hand.</
 
 <hr class="section-divider">
 
+
+<h2 id="apparatus-criticus">VII. Apparatus Criticus</h2>
+
+<p>The following consolidated apparatus lists all 34 critical variants identified across
+the four witnesses in sequential order. Each entry gives the variant number, the section
+in which it occurs, the lemma (base-text reading from Bullock), and the readings of all
+witnesses that diverge. Sigla: <b>B</b> = Bullock, <b>W</b> = Woodruff,
+<b>R</b> = Richards, <b>C</b> = Clayton. <i>om.</i> = witness omits the passage.
+Priority is marked as <b>H</b> (high) or <b>M</b> (medium).</p>
+
+<table style="font-size:0.82em;line-height:1.5;">
+<tr>
+  <th style="width:35px;">V#</th>
+  <th style="width:35px;">Sec.</th>
+  <th style="width:15px;">P</th>
+  <th>Lemma (B)</th>
+  <th>W</th>
+  <th>R</th>
+  <th>C</th>
+</tr>
+<tr>
+  <td>V001</td><td>S01</td><td>M</td>
+  <td>who was crushed to death in a well</td>
+  <td>who was crushed to death in a well</td>
+  <td>crushed in a well by the falling of a tub of rock on him</td>
+  <td>who was crushed to death</td>
+</tr>
+<tr>
+  <td>V002</td><td>S08</td><td>H</td>
+  <td>who holds this world in its orbit &amp; upholds all things by his power</td>
+  <td>that holds the worlds</td>
+  <td><i>om.</i></td>
+  <td>who holds this world in its sphere in its orbit&mdash; the planets</td>
+</tr>
+<tr>
+  <td>V003</td><td>S09</td><td>H</td>
+  <td>for he was God from the begin of all Eternity &amp; if I do not refute it</td>
+  <td>We suppose that God was God from eternity, I will refute that Idea</td>
+  <td>refute the Idea that God was God from all eternity</td>
+  <td>We have imagined that God was God from all eternity</td>
+</tr>
+<tr>
+  <td>V004</td><td>S09</td><td>H</td>
+  <td>God himself the father of us all dwelt on a Earth same as J C himself did</td>
+  <td>the Father was once on an earth like us</td>
+  <td><i>om.</i></td>
+  <td>was on a planet as Jesus was in the flesh</td>
+</tr>
+<tr>
+  <td>V005</td><td>S11</td><td>M</td>
+  <td>from grace to grace until the resurrection</td>
+  <td>from a small capacity to a great capacity to the resurrection of the dead</td>
+  <td>from a small to great capacity</td>
+  <td>from a small degree to another from exaltation to exaltation</td>
+</tr>
+<tr>
+  <td>V006</td><td>S11</td><td>H</td>
+  <td>sit in everlasting power as they who have gone before</td>
+  <td>to dwelling in everlasting burnings</td>
+  <td>dwell in evelastig burning &amp; everlasting power</td>
+  <td>sit in glory as doth those who sit enthroned</td>
+</tr>
+<tr>
+  <td>V007</td><td>S11</td><td>M</td>
+  <td>you have got to learn how to be a God yourself</td>
+  <td>you have got to learn how to make yourselves God, king and priest</td>
+  <td>you have got to learn how to make yourselves Gods Kings. Priests.</td>
+  <td>You have got to learn how to be a god yourself in order to save yourself&mdash; to be priests &amp; Kings</td>
+</tr>
+<tr>
+  <td>V008</td><td>S12</td><td>M</td>
+  <td>they shall be heirs of God &amp; joint heirs of J. C. to inherit the same powers exaltation</td>
+  <td>to be an heir of God &amp; joint heir of Jesus Christ &hellip; untill you arive at the station of a God</td>
+  <td>heirs of God.</td>
+  <td>they shall be heirs of God &amp;c&mdash; to inherit the same glory power &amp; exaltation with those who are gone</td>
+</tr>
+<tr>
+  <td>V009</td><td>S13</td><td>M</td>
+  <td>before worlds came rolled into existence I saw my Father work out his Kingdom with fear &amp; trembling</td>
+  <td>What did Jesus Christ do &hellip; work out a kingdom</td>
+  <td>I saw the father work out his kingdom with fear &amp; trembling</td>
+  <td>I saw the father work out a kingdom with fear &amp; trembling</td>
+</tr>
+<tr>
+  <td>V010</td><td>S13</td><td>H</td>
+  <td>so that he obtains Kingdom rolling upon Kingdom</td>
+  <td>He will take a Higher exhaltation &amp; I will take his place and am also exhalted</td>
+  <td>god is gratified in Exaltation of his creations</td>
+  <td>when I get my kingdom work I will present to the father &amp; it will exalt his glory and Jesus steps into his tracts</td>
+</tr>
+<tr>
+  <td>V011</td><td>S14</td><td>M</td>
+  <td>when you climb a ladder you must begin at the bottom rung</td>
+  <td><i>om.</i></td>
+  <td><i>om.</i></td>
+  <td>You have got to find the beginning of the history &amp; go on till you have learned the last</td>
+</tr>
+<tr>
+  <td>V012</td><td>S15</td><td>H</td>
+  <td>he did not put the 1st part to it a man a Jew without any authority thought it too bad to begin to talk about the head</td>
+  <td>he did not put the Baith there. an old Jew added the word Bath</td>
+  <td><i>om.</i></td>
+  <td>when they inspired man wrote it he did not put the Ba there&mdash; But a jew put it there</td>
+</tr>
+<tr>
+  <td>V013</td><td>S16</td><td>M</td>
+  <td>the Head God called together the Gods &amp; set in Grand Council</td>
+  <td>The grand council set at the head and contemplated the creation of the world</td>
+  <td>The head one called the Gods together in grand council&mdash; to bring forth the world</td>
+  <td>The grand councilers set in yonder heavens and contemplated the creation of the worlds</td>
+</tr>
+<tr>
+  <td>V014</td><td>S17</td><td>M</td>
+  <td>I thank him more for the gift of the H G</td>
+  <td>I thank God for the old Book but more for the Holy Ghost</td>
+  <td><i>om.</i></td>
+  <td>he has got the oldest book in the world&mdash; but he has got the oldest book in his heart</td>
+</tr>
+<tr>
+  <td>V015</td><td>S18</td><td>H</td>
+  <td>Element &amp; in which dwells all the glory&mdash; that nothing can destroy they never can have an ending they exist eternally</td>
+  <td>element they are principles that cannot be disolved they may be reorganized</td>
+  <td>nothing can destroy. no beginning no end.</td>
+  <td>element had an existence from the time he had. The pure principles of element are principles that never can be destroyed&mdash; they may be organized&hellip;</td>
+</tr>
+<tr>
+  <td>V016</td><td>S19</td><td>M</td>
+  <td>God made man &amp; put into Adams Spirit &amp; so became a living Spirit</td>
+  <td>God made a tabernacle &amp; put a spirit in it and it became a Human soul</td>
+  <td>in hebrew put into him his spirit</td>
+  <td>God made man out of the earth and put into him his spirit</td>
+</tr>
+<tr>
+  <td>V017</td><td>S20</td><td>H</td>
+  <td>the mind of man is as immortal as God himself</td>
+  <td>man exhisted in spirit &amp; mind coequal with God himself</td>
+  <td>Mind of man co-equal with God himself</td>
+  <td>The mind of man&mdash; the intelligent part is coequal with God himself</td>
+</tr>
+<tr>
+  <td>V018</td><td>S21</td><td>M</td>
+  <td>intelligence is self existent it is a Spirit from age to end</td>
+  <td>Intelligence is Eternal &amp; it is self exhisting</td>
+  <td>Intelligence exist upon a self existent principle no creation about it</td>
+  <td>Intelligence exists upon a selfexistent principle&mdash; is a spirit from age to age &amp; no creation about it</td>
+</tr>
+<tr>
+  <td>V019</td><td>S22</td><td>H</td>
+  <td>he saw proper to institute laws for those who were in less intelligence that they might have one glory upon another</td>
+  <td>God has power to institute laws to instruct the weaker intelligences that they may be exhalted with himself</td>
+  <td>all minds &amp; spirits God ever sent into the world are susceptible of enlargement</td>
+  <td>saw proper to institute laws whereby the rest could have a privilege to advance like himself</td>
+</tr>
+<tr>
+  <td>V020</td><td>S24</td><td>M</td>
+  <td>God said he shall send Elijah</td>
+  <td>it is necessary that the seals are in our hands to seal our children &amp; our dead for the folness of the dispensation of times&hellip;</td>
+  <td>Hence the saying of Elijah.</td>
+  <td>hence the saying of Elijah</td>
+</tr>
+<tr>
+  <td>V021</td><td>S25</td><td>M</td>
+  <td>so you can see how far you can be Savior</td>
+  <td>Any man that has a friend in eternity can save him</td>
+  <td>can save every man who has not committed the unpardonable sin</td>
+  <td>Every man who has a friend in the eternal world&hellip; you can save him</td>
+</tr>
+<tr>
+  <td>V022</td><td>S26</td><td>H</td>
+  <td>a sinner has his own mind &amp; is in his own condemner</td>
+  <td>his own mind damns him I have no fear of hell fire that dont exhist</td>
+  <td>as exquisite the disappointment of the mind of man</td>
+  <td>A man is his own torment</td>
+</tr>
+<tr>
+  <td>V023</td><td>S26</td><td>M</td>
+  <td>those that are without wisdom until they get exalted to wisdom</td>
+  <td>If a man has knowledge he can be saved</td>
+  <td>Knowledge saves a man</td>
+  <td>knowledge saves a man and in the world of spirits a man cant be exalted but by his knowledge</td>
+</tr>
+<tr>
+  <td>V024</td><td>S27</td><td>H</td>
+  <td>J. contended that there would be certain souls that would be condemned &amp; the devil said he could save them all</td>
+  <td>even the devil said I am a savior and can save all rose up in rebelion against God and was cast down</td>
+  <td>Devil said he could save them all&mdash; Lot fell on Jesus</td>
+  <td>Jesus said there were certain men would not be saved the devil said he could save them. he rebelled against God and was thrust down</td>
+</tr>
+<tr>
+  <td>V025</td><td>S28</td><td>H</td>
+  <td>he has got to say that the Sun does not shine while he sees it he has got to deny J. C. when the heavens are open to him</td>
+  <td>they must receive the Holy Ghost have the heavens opened unto them, &amp; know God, &amp; then sin against him</td>
+  <td>Got to deny the plan of Salvation &amp;c&mdash; with his eyes open</td>
+  <td>After a man has sinned the sin against the H G. there is no repentance for him</td>
+</tr>
+<tr>
+  <td>V026</td><td>S29</td><td>M</td>
+  <td>he has the same Spirit that they had who crucified the Lord of life</td>
+  <td>they have got the same spirit the devil had</td>
+  <td><i>om.</i></td>
+  <td>he has got the same spirit that crucified Jesus</td>
+</tr>
+<tr>
+  <td>V027</td><td>S30</td><td>M</td>
+  <td>when you find a Spirit wants bloodshed murder same is not of God but is of the devil</td>
+  <td>if a spirit of Bitterness is in you, dont be in haste</td>
+  <td>lest you be deceived. best men brings forth best works.</td>
+  <td>you may by and by find out that you have been deceived</td>
+</tr>
+<tr>
+  <td>V028</td><td>S31</td><td>M</td>
+  <td>while their murderers shall welter for years</td>
+  <td>while their murderers shall dwell in torment untill they pay the utmost farthing</td>
+  <td>worlds must wait myriads of years before they can receive the like blessings</td>
+  <td><i>om.</i></td>
+</tr>
+<tr>
+  <td>V029</td><td>S33</td><td>H</td>
+  <td>for their debt is paid there is no damnation awaits them for they are in the Spirits</td>
+  <td>as is it falls so it will rise, It will never grow</td>
+  <td>they shall have it without price. redemption is paid possessing all the intelligence of a god</td>
+  <td>He continued his discourse&mdash; &amp; told of parents receiving their children.</td>
+</tr>
+<tr>
+  <td>V030</td><td>S33</td><td>M</td>
+  <td>children dwell &amp; exercise power in the same form as they laid them down</td>
+  <td>Eternity is full of thrones upon which dwell thousands of Children reigning on thrones of glory not one cubit added to their stature</td>
+  <td>throne upon thrones. Dominion upon dominions just as you</td>
+  <td><i>om.</i></td>
+</tr>
+<tr>
+  <td>V031</td><td>S34</td><td>M</td>
+  <td>Alexander Campbell&mdash; how are you going to save them with water</td>
+  <td><i>om.</i></td>
+  <td><i>om.</i></td>
+  <td><i>om.</i></td>
+</tr>
+<tr>
+  <td>V032</td><td>S34</td><td>M</td>
+  <td>they shall die the 2nd death</td>
+  <td>any man who commits the unpardonable sin must dwell in hell worlds without end</td>
+  <td>those who commit the unpardonable sin are doomed to Gnolom without end</td>
+  <td><i>om.</i></td>
+</tr>
+<tr>
+  <td>V033</td><td>S34</td><td>H</td>
+  <td>some shall rise to the everlasting burning of God &amp; some shall rise to the damnation of their own filthiness&mdash; same as the lake of fire &amp; brimstone</td>
+  <td><i>om.</i></td>
+  <td>God dwells in everlasting burnings.</td>
+  <td><i>om.</i></td>
+</tr>
+<tr>
+  <td>V034</td><td>S35</td><td>H</td>
+  <td>you never knew my heart no man knows my history&mdash; I cannot do it I shall never undertake it</td>
+  <td><i>om.</i></td>
+  <td>You dont know me&mdash; you never will. I dont blame you for not believing my history had I not experienced it could not believe it myself</td>
+  <td><i>om.</i></td>
+</tr>
+</table>
+
+<p style="font-size:0.85em;color:#555;margin-top:8px;"><b>Summary:</b>
+34 critical variants: 15 high-priority (H), 19 medium-priority (M).
+Distribution by witness: B attests all 34 lemmata; W diverges in 28, omits 6;
+R diverges in 25, omits 9; C diverges in 26, omits 8. Four-way splits (each witness
+recording a distinct reading): V006, V010, V017, V022, V024. These represent
+passages where either Joseph Smith used multiple formulations or each scribe's
+individual comprehension most strongly shaped the record.</p>
+
+
+<hr class="section-divider">
+<h2 id="analysis">VIII. Analysis and Commentary</h2>
+
+<h3>A. Character and Reliability of the Witnesses</h3>
+
+<p>The four accounts differ not only in content but in kind. <b>Thomas Bullock [B]</b>,
+serving as the official conference clerk, wrote in dense shorthand prose with heavy
+abbreviation. His 4,103-word account is the longest by a wide margin and the only one
+to cover all 35 thematic sections. His is the most detailed record at nearly every point
+in the discourse, preserving vivid images (the ladder metaphor, the sun-denial metaphor,
+the dual meaning of &ldquo;burning&rdquo;) and specific references (Alexander Campbell by
+name) found nowhere else. His weaknesses are occasional ambiguity in construction
+(notably V003, where his declarative phrasing obscures the rhetorical intent) and the
+possible scribal error &ldquo;age to end&rdquo; for &ldquo;age to age&rdquo; (V018).</p>
+
+<p><b>Wilford Woodruff [W]</b> wrote in flowing, readable prose with few abbreviations.
+His 2,409-word account is the most literary of the four and captures uniquely vivid
+phrasings: &ldquo;That GOD if you were to see him to day that holds the worlds&rdquo; (S08);
+the devil speaking in first person, &ldquo;I am a savior and can save all&rdquo; (V024);
+the explicit denial of literal hell fire, &ldquo;I have no fear of hell fire that dont
+exhist&rdquo; (V022); and the visionary image of &ldquo;thousands of Children reigning on
+thrones of glory&rdquo; (V030). Woodruff also preserves substantially more detail on sealing
+theology (V020). His account omits only the closing personal testimony (S35).</p>
+
+<p><b>Willard Richards [R]</b> is the most telegraphic witness at 1,091 words, writing
+in clipped sentence fragments separated by dashes. Despite its brevity, Richards&rsquo;
+account preserves several details found nowhere else: the manner of Follett&rsquo;s death
+(&ldquo;by the falling of a tub of rock on him,&rdquo; V001); the Hebrew term <i>Gnolom</i>
+(<i>&lsquo;olam</i> = eternity, V032); the phrase &ldquo;Lot fell on Jesus&rdquo; recording
+the mode of the pre-mortal council&rsquo;s decision (V024); and the extraordinary claim
+that resurrected children possess &ldquo;all the intelligence of a god&rdquo; (V029).
+Richards&rsquo; habit of combining elements others record separately&mdash;as in
+&ldquo;everlasting burning &amp; everlasting power&rdquo; (V006)&mdash;may preserve the
+fullest version of certain phrases, suggesting that where other scribes caught one word,
+Richards caught two.</p>
+
+<p><b>William Clayton [C]</b> falls between Bullock and Woodruff in style and length
+(2,927 words). Clayton is the strongest second witness for most sections and records
+several unique theological formulations: &ldquo;in order to save yourself&rdquo; as the
+motive for deification (V007); &ldquo;on a planet as Jesus was in the flesh&rdquo;&mdash;the
+most explicit assertion of God&rsquo;s prior corporeality (V004); the aside &ldquo;mark it
+Br Rigdon&rdquo; (S10); &ldquo;the oldest book in his heart&rdquo; as a metaphor for inner
+revelation (V014); and the theologically charged claim that element &ldquo;had an existence
+from the time he had,&rdquo; implying God himself had a temporal beginning (V015). Clayton
+omits the closing sections (S31&ndash;S32, S35).</p>
+
+<h3>B. The Nature of God: Anthropomorphism and Divine History</h3>
+
+<p>The discourse&rsquo;s most radical theological claims cluster around the nature of God,
+and it is precisely here that the witnesses diverge most sharply. Three variants form a
+connected argument:</p>
+
+<p><b>V003</b> (the framing of &ldquo;God was God from all eternity&rdquo;) reveals how the
+conventional belief is being introduced before its refutation. Bullock&rsquo;s declarative
+construction is ambiguous: &ldquo;for he was God from the begin of all Eternity &amp; if
+I do not refute it.&rdquo; Woodruff (&ldquo;We suppose&rdquo;) and Clayton (&ldquo;We have
+imagined&rdquo;) frame it unmistakably as a belief to be overturned. The framing verb
+matters: <i>suppose</i> implies uncertainty; <i>imagined</i> implies error. The three
+witnesses may reflect three moments in a single rhetorical sequence&mdash;Joseph Smith
+may have used several verbs in building his argument, and each scribe caught a different
+one.</p>
+
+<p><b>V004</b> (God dwelling on an earth) is attested by three witnesses in three distinct
+phrasings. Bullock: &ldquo;dwelt on a Earth same as J C himself did&rdquo; (parallel with
+Christ). Woodruff: &ldquo;the Father was once on an earth like us&rdquo; (parallel with
+humanity&mdash;ambiguous as to whether &ldquo;like us&rdquo; modifies the earth or God).
+Clayton: &ldquo;on a planet as Jesus was in the flesh&rdquo;&mdash;the strongest assertion,
+using the cosmological term &ldquo;planet&rdquo; rather than &ldquo;earth&rdquo; and adding
+&ldquo;in the flesh&rdquo; as an explicit claim about embodiment. Richards omits the passage
+entirely. Clayton&rsquo;s &ldquo;planet&rdquo; has been confirmed in the manuscript as a
+deliberate word choice, not a misreading of &ldquo;earth.&rdquo;</p>
+
+<p><b>V002</b> (the scope of God&rsquo;s dominion) offers a further divergence: Woodruff&rsquo;s
+&ldquo;worlds&rdquo; (plural) versus Bullock&rsquo;s and Clayton&rsquo;s &ldquo;this world&rdquo;
+(singular). This seemingly minor difference carries theological weight: a God who &ldquo;holds
+the worlds&rdquo; implies dominion over multiple creations, while &ldquo;this world in its
+orbit&rdquo; is more limited.</p>
+
+<h3>C. Theosis: The Doctrine of Human Deification</h3>
+
+<p>The discourse&rsquo;s teaching on human deification is among the most fully documented
+doctrines in the text, yet the witnesses characterize the process and its endpoint
+differently at every stage.</p>
+
+<p>On <b>the process</b> (V005): Bullock uses the scriptural phrase &ldquo;grace to grace&rdquo;
+(cf. John 1:16); Woodruff and Richards use &ldquo;capacity&rdquo; (implying growth in
+ability); Clayton uses &ldquo;exaltation to exaltation&rdquo; (implying progressive
+glorification). Each frames deification through a different metaphor: gift (grace), growth
+(capacity), or status (exaltation).</p>
+
+<p>On <b>the divine state</b> (V006): This four-way split is one of the most significant
+in the entire corpus. Bullock: &ldquo;everlasting power.&rdquo; Woodruff: &ldquo;everlasting
+burnings&rdquo; (echoing Isaiah 33:14, recasting fire as the medium of God&rsquo;s dwelling
+rather than punishment). Clayton: &ldquo;glory&hellip;enthroned.&rdquo; Richards uniquely
+combines both: &ldquo;burning &amp; everlasting power.&rdquo; Richards&rsquo; combination
+may preserve the most complete version of what was actually said, with other scribes
+each capturing only part of the phrase.</p>
+
+<p>On <b>the endpoint</b> (V019): Bullock describes graduated degrees of glory (&ldquo;one
+glory upon another&rdquo;). Woodruff posits full equality with God (&ldquo;exalted with
+himself&rdquo;). Clayton describes God-like advancement (&ldquo;advance like himself&rdquo;).
+These imply genuinely different models: a tiered hierarchy, a flat equality, and an
+ongoing trajectory.</p>
+
+<h3>D. The Pre-Mortal Council and Divine Succession</h3>
+
+<p>The four renderings of the succession doctrine in <b>V010</b> constitute one of the
+most theologically complex variant clusters in the edition. Bullock describes cosmic
+expansion: &ldquo;Kingdom rolling upon Kingdom.&rdquo; Woodruff describes explicit succession:
+Christ takes the Father&rsquo;s place and &ldquo;is also exalted.&rdquo; Clayton describes
+an additive model: presenting the kingdom to the Father &ldquo;will exalt his glory.&rdquo;
+Richards records God&rsquo;s motive: &ldquo;gratified in Exaltation of his creations.&rdquo;
+Each implies a different cosmological model, and together they suggest Joseph Smith was
+articulating a complex, multi-faceted idea that no single scribe fully captured.</p>
+
+<p>The pre-mortal council scene (<b>V024</b>) is similarly rich. Woodruff&rsquo;s first-person
+devil speech (&ldquo;I am a savior and can save all&rdquo;) is far more dramatic than the
+third-person reports in the other witnesses. Richards alone records &ldquo;Lot fell on
+Jesus&rdquo;&mdash;if &ldquo;lot&rdquo; (lowercase) is correct, this is the only witness to
+document the <i>mode</i> of the council&rsquo;s decision: a vote or casting of lots. The
+capitalization remains ambiguous in the manuscript.</p>
+
+<h3>E. Creation, Element, and the Eternity of Matter</h3>
+
+<p>Joseph Smith&rsquo;s refutation of <i>creatio ex nihilo</i> is consistently attested
+across all four witnesses, but the theological implications diverge at <b>V015</b>.
+Bullock alone claims that &ldquo;glory&rdquo; dwells <i>in</i> element&mdash;a statement
+about the inherent divinity of matter. Clayton alone records that element &ldquo;had an
+existence from the time he had,&rdquo; where &ldquo;he&rdquo; refers to God&mdash;implying
+that God and matter are co-temporal and that God himself had a beginning. Neither claim
+appears in any other witness. If Clayton&rsquo;s reading is accurate, it is among the most
+theologically radical statements in the entire discourse.</p>
+
+<h3>F. The Single Most Important Variant: &ldquo;Immortal&rdquo; vs. &ldquo;Coequal&rdquo;</h3>
+
+<p><b>V017</b> stands apart as the variant with the greatest theological consequence.
+Bullock reads &ldquo;the mind of man is as <i>immortal</i> as God himself.&rdquo; Woodruff,
+Richards, and Clayton all read &ldquo;<i>coequal</i> with God himself.&rdquo; These are
+genuinely different claims. <i>Immortality</i> asserts equal duration: the mind of man,
+like God, has no end. <i>Coequality</i> asserts equal nature or standing: the mind of
+man shares God&rsquo;s ontological status. The 3-to-1 split could mean Bullock misheard
+or paraphrased, or it could mean Joseph Smith used both words and Bullock caught one that
+the others missed. The JSP transcription reads &ldquo;immortal,&rdquo; and the letter forms
+in the manuscript are consistent with this reading, but at available scan resolution
+the word cannot be definitively confirmed. This variant deserves examination of the
+physical manuscript.</p>
+
+<h3>G. Soteriology: Salvation, the Unpardonable Sin, and the Nature of Punishment</h3>
+
+<p>The discourse&rsquo;s treatment of salvation and damnation produces some of the most
+striking divergences. At <b>V022</b>, four different terms describe self-inflicted
+suffering: &ldquo;condemner&rdquo; (B), &ldquo;damns&rdquo; (W), &ldquo;disappointment&rdquo;
+(R), &ldquo;torment&rdquo; (C). Woodruff alone preserves the explicit denial of literal
+hell fire: &ldquo;I have no fear of hell fire that dont exhist.&rdquo; Richards&rsquo;
+use of &ldquo;disappointment&rdquo; is notably milder than any other witness&rsquo;s
+characterization.</p>
+
+<p>At <b>V033</b>, Bullock alone preserves a sophisticated dual use of &ldquo;burning&rdquo;:
+the righteous rise to &ldquo;the everlasting burning of God&rdquo; (fire as divine glory),
+while the wicked rise to &ldquo;the damnation of their own filthiness&rdquo; (fire as
+punishment). This reinterpretation of &ldquo;everlasting burning&rdquo; as a positive divine
+attribute rather than a threat of punishment is a major theological move, and it appears
+only in the fullest witness.</p>
+
+<h3>H. Methodological Observations</h3>
+
+<p>Several patterns emerge from the collation that bear on how the discourse should be read:</p>
+
+<ol>
+<li><b>No single witness is consistently superior.</b> Bullock is the most complete but
+not always the most clear (V003). Woodruff captures the most vivid phrasings but
+occasionally omits key details. Richards is the most abbreviated but preserves unique
+specifics. Clayton records theological formulations found nowhere else.</li>
+
+<li><b>Four-way splits likely indicate conceptual density.</b> When all four witnesses
+record substantially different versions of the same passage (V006, V010, V017, V022,
+V024), this likely indicates that Joseph Smith was articulating a complex or novel idea
+that each scribe processed through his own theological vocabulary.</li>
+
+<li><b>Richards&rsquo;s combinations may preserve the fullest text.</b> In at least two
+cases (V006, V018), Richards records a phrase that appears to combine elements found
+separately in other witnesses, suggesting that where other scribes simplified, Richards
+captured more of the original utterance.</li>
+
+<li><b>Unique content in a single witness is not necessarily suspect.</b> Many unique
+readings (Woodruff&rsquo;s hell-fire denial, Richards&rsquo;s &ldquo;Lot fell on Jesus,&rdquo;
+Clayton&rsquo;s &ldquo;planet,&rdquo; Bullock&rsquo;s Campbell reference) have been verified
+against the manuscripts. Absence from other witnesses more likely reflects the limits
+of real-time transcription than the presence of interpolation.</li>
+
+<li><b>Theological vocabulary varies more than theological substance.</b> In most cases
+the four witnesses agree on the <i>doctrine</i> being taught while diverging on the
+<i>language</i> used to express it. The exceptions&mdash;V015 (element co-temporal with
+God), V017 (immortal vs. coequal), V029 (children possessing divine intelligence)&mdash;are
+the genuinely contested readings where the choice of word changes the meaning.</li>
+</ol>
+
+
+<hr class="section-divider">
+<h2 id="bibliography">IX. Sources and Bibliography</h2>
+
+<h3>Primary Sources</h3>
+
+<p>The four eyewitness transcripts used in this edition are published in the Joseph Smith
+Papers and are available online at <b>josephsmithpapers.org</b>:</p>
+
+<ul>
+<li><b>[B]</b> &ldquo;Discourse, 7 April 1844, as Reported by Thomas Bullock.&rdquo;
+<i>The Joseph Smith Papers.</i></li>
+<li><b>[W]</b> &ldquo;Discourse, 7 April 1844, as Reported by Wilford Woodruff.&rdquo;
+<i>The Joseph Smith Papers.</i></li>
+<li><b>[R]</b> &ldquo;Discourse, 7 April 1844, as Reported by Willard Richards.&rdquo;
+<i>The Joseph Smith Papers.</i></li>
+<li><b>[C]</b> &ldquo;Discourse, 7 April 1844, as Reported by William Clayton.&rdquo;
+<i>The Joseph Smith Papers.</i></li>
+</ul>
+
+<p>The composite <i>Times and Seasons</i> version (August 1844) and the <i>History of the
+Church</i> version (based primarily on Bullock) are secondary reconstructions and were
+not used as witnesses in this edition, though they are occasionally referenced in the
+JSP footnote apparatus for comparison.</p>
+
+<h3>Critical Editions and Compilations</h3>
+
+<ul>
+<li>Larson, Stan. &ldquo;The King Follett Discourse: A Newly Amalgamated Text.&rdquo;
+<i>BYU Studies</i> 18, no. 2 (1978): 193&ndash;208. [The first modern critical
+reconstruction from multiple witnesses.]</li>
+<li>Van Hale. &ldquo;The Doctrinal Impact of the King Follett Discourse.&rdquo; <i>BYU
+Studies</i> 18, no. 2 (1978): 209&ndash;225.</li>
+<li>Cannon, Donald Q., and Larry E. Dahl. <i>The Prophet Joseph Smith&rsquo;s King Follett
+Discourse: A Six-Column Comparison of Original Notes and Amalgamations.</i> Provo, UT:
+Religious Studies Center, Brigham Young University, 1983. [Six-column parallel comparison;
+the most comprehensive print collation prior to this edition.]</li>
+<li>Ehat, Andrew F., and Lyndon W. Cook, eds. <i>The Words of Joseph Smith: The
+Contemporary Accounts of the Nauvoo Discourses of the Prophet Joseph.</i> Provo, UT:
+Religious Studies Center, Brigham Young University, 1980. [Standard scholarly compilation
+of all known JS discourse reports.]</li>
+</ul>
+
+<h3>Theological and Historical Studies</h3>
+
+<ul>
+<li>Givens, Terryl L. <i>Wrestling the Angel: The Foundations of Mormon Thought: Cosmos,
+God, Humanity.</i> New York: Oxford University Press, 2015. [On creation ex nihilo, the
+eternality of matter, and the King Follett cosmology.]</li>
+<li>Paulsen, David L. &ldquo;The Doctrine of Divine Embodiment: Restoration, Judeo-Christian,
+and Philosophical Perspectives.&rdquo; <i>BYU Studies</i> 35, no. 4 (1995&ndash;96):
+7&ndash;94.</li>
+<li>Ostler, Blake T. &ldquo;The Idea of Pre-existence in the Development of Mormon Thought.&rdquo;
+<i>Dialogue: A Journal of Mormon Thought</i> 15, no. 1 (1982): 59&ndash;78.</li>
+<li>Hale, Van. &ldquo;The Origin of the Human Spirit in Early Mormon Thought.&rdquo;
+<i>Sunstone</i> 13 (June 1989): 31&ndash;34.</li>
+</ul>
+
+<h3>Hebrew and Linguistic Background</h3>
+
+<ul>
+<li>Grey, Matthew J. &ldquo;&lsquo;The Word of the Lord in the Original&rsquo;: Joseph
+Smith&rsquo;s Study of Hebrew in Kirtland.&rdquo; In <i>Approaching Antiquity: Joseph Smith
+and the Ancient World</i>, edited by Lincoln H. Blumell, Matthew J. Grey, and Andrew H.
+Hedges, 249&ndash;302. Provo, UT: Religious Studies Center, Brigham Young University;
+Salt Lake City: Deseret Book, 2015. [Essential for understanding JS&rsquo;s Hebrew
+exegesis in S15&ndash;S16.]</li>
+<li>Seixas, Joshua. <i>Manual Hebrew Grammar for the Use of Beginners.</i> 2nd ed.
+Andover, MA: Gould and Newman, 1834. [The grammar JS studied under Seixas in Kirtland,
+1836.]</li>
+<li>Gibbs, Josiah W. <i>A Manual Hebrew and English Lexicon.</i> 2nd ed. New Haven, CT:
+Hezekiah Howe, 1832. [Referenced in the JSP footnotes for <i>bara</i> and
+<i>&rsquo;olam</i>.]</li>
+</ul>
+
+<h3>Biographical and Contextual</h3>
+
+<ul>
+<li>Benson, RoseAnn. <i>Alexander Campbell and Joseph Smith: Nineteenth-Century
+Restorationists.</i> Provo, UT: Brigham Young University Press; Abilene, TX: Abilene
+Christian University Press, 2017. [For the Campbell reference in S34.]</li>
+<li>Hayden, Amos Sutton. <i>Early History of the Disciples in the Western Reserve.</i>
+Cincinnati: Chase and Hall, 1875.</li>
+<li>Pinnock, Clark H. &ldquo;Annihilationism.&rdquo; In <i>The Oxford Handbook of
+Eschatology</i>, edited by Jerry L. Walls, 462&ndash;475. New York: Oxford University
+Press, 2008. [For the annihilationism reference in S21.]</li>
+</ul>
+
+<h3>Reference Bibles</h3>
+
+<ul>
+<li>Hahn, August. <i>Biblia Hebraica.</i> New York: Carl Tauchnitz, 1834.</li>
+<li>Hutter, Elias, ed. <i>Novum Testamentum, Harmonicum, Ebraice, Graece, Latine, &amp;
+Germanice.</i> Nuremberg, 1602. [The polyglot Bible JS likely referenced in S17.]</li>
+<li>Stuart, Moses. <i>Grammar of the Hebrew Language.</i> 4th ed. Andover, MA: Flagg and
+Gould, 1831.</li>
+</ul>
+
+
+<hr class="section-divider">
+
 <p style="text-align:center;color:#888;font-size:0.85em;margin-top:40px;">
 King Follett Discourse: Digital Critical Edition<br>
 Base text: Thomas Bullock [B] &middot; Witnesses: Woodruff [W], Richards [R], Clayton [C]<br>
@@ -817,52 +1358,39 @@ Transcripts from the Joseph Smith Papers &middot; 34 critical variants identifie
 Generated with the assistance of Claude (Anthropic)
 </p>
 
-</div>
 
 <script>
-(function() {
-  const links = document.querySelectorAll('#sidebar a');
-  const sections = [];
-  links.forEach(function(link) {
-    const id = link.getAttribute('href').substring(1);
-    const el = document.getElementById(id);
-    if (el) sections.push({ el: el, link: link });
-  });
-
-  function updateActive() {
-    let current = null;
-    const scrollY = window.scrollY + 100;
-    for (let i = sections.length - 1; i >= 0; i--) {
-      if (sections[i].el.offsetTop <= scrollY) {
-        current = sections[i];
-        break;
-      }
-    }
-    links.forEach(function(l) { l.classList.remove('active'); });
-    if (current) {
-      current.link.classList.add('active');
-      // Scroll sidebar to keep active link visible
-      const sidebar = document.getElementById('sidebar');
-      const linkTop = current.link.offsetTop;
-      const sidebarH = sidebar.clientHeight;
-      if (linkTop < sidebar.scrollTop || linkTop > sidebar.scrollTop + sidebarH - 40) {
-        sidebar.scrollTop = linkTop - sidebarH / 3;
-      }
-    }
+// Auto-open collapsed details when navigating to a hash target inside
+function openDetailsForHash() {
+  var hash = window.location.hash;
+  if (!hash) return;
+  var target = document.querySelector(hash);
+  if (!target) return;
+  var details = target.closest('details');
+  while (details) {
+    details.open = true;
+    details = details.parentElement ? details.parentElement.closest('details') : null;
   }
+  setTimeout(function() { target.scrollIntoView({behavior: 'smooth'}); }, 100);
+}
+document.addEventListener('DOMContentLoaded', openDetailsForHash);
+window.addEventListener('hashchange', openDetailsForHash);
 
-  window.addEventListener('scroll', updateActive);
-  updateActive();
-
-  // Close sidebar on mobile when a link is clicked
-  links.forEach(function(link) {
-    link.addEventListener('click', function() {
-      if (window.innerWidth <= 1000) {
-        document.getElementById('sidebar').classList.remove('open');
+// Also handle clicks on TOC links that target inside collapsed details
+document.querySelectorAll('.toc a[href^="#"]').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    var hash = this.getAttribute('href');
+    var target = document.querySelector(hash);
+    if (target) {
+      var details = target.closest('details');
+      while (details) {
+        details.open = true;
+        details = details.parentElement ? details.parentElement.closest('details') : null;
       }
-    });
+      setTimeout(function() { target.scrollIntoView({behavior: 'smooth'}); }, 50);
+    }
   });
-})();
+});
 </script>
 </body>
 </html>
