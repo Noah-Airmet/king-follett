@@ -1,0 +1,892 @@
+{
+  "metadata": {
+    "project": "King Follett Discourse - Digital Critical Edition",
+    "phase": "Phase 1: Text Normalization & Alignment",
+    "description": "Fuzzy paragraph-level alignment of four eyewitness accounts",
+    "base_text": "B",
+    "witnesses": {
+      "W": { "name": "Wilford Woodruff", "file": "woodruff.md", "word_count": 2409 },
+      "B": { "name": "Thomas Bullock", "file": "bullock.md", "word_count": 4103 },
+      "R": { "name": "Willard Richards", "file": "richards.md", "word_count": 1091 },
+      "C": { "name": "William Clayton", "file": "clayton.md", "word_count": 2927 }
+    },
+    "alignment_method": "Manual thematic segmentation based on content analysis",
+    "notes": "Each section represents a thematic unit of the discourse. Page references use the original manuscript pagination. 'om.' indicates the witness omits this section entirely."
+  },
+  "sections": [
+    {
+      "id": "S01",
+      "label": "Introduction: Occasion and Subject",
+      "summary": "Opening remarks identifying the occasion (King Follett's death) and the subject (the dead).",
+      "W": {
+        "text_start": "I now call the attention of this congregation",
+        "text_end": "your prayers will be herd.",
+        "pages": ["[133]"]
+      },
+      "B": {
+        "text_start": "The Prophet while I address you on the subject",
+        "text_end": "the prayers of the righteous avail much",
+        "pages": ["14"]
+      },
+      "R": {
+        "text_start": "Joseph commenced speaking on the subject of the Dead",
+        "text_end": "by the falling of a tub of rock on him.",
+        "pages": ["[67]"]
+      },
+      "C": {
+        "text_start": "Prest J. Smith called the intention of the con[ference]",
+        "text_end": "the fervent effectual prayer of righteo[u]s man availet[h] mach",
+        "pages": ["11"]
+      }
+    },
+    {
+      "id": "S02",
+      "label": "Preliminary: Paving the Way",
+      "summary": "Transition announcing he will build up to the main subject, not please with oratory but edify with truths.",
+      "W": {
+        "text_start": "Before I enter upon an investigation of this subject",
+        "text_end": "Edify you.",
+        "pages": ["[133]"]
+      },
+      "B": {
+        "text_start": "before I enter in the investig[atio]n. fully",
+        "text_end": "simple truths from Heaven",
+        "pages": ["14"]
+      },
+      "R": {
+        "present": false,
+        "note": "om. Richards jumps directly to the character of God."
+      },
+      "C": {
+        "text_start": "Before ente[ring] fully into the investigati[o]n",
+        "text_end": "simple truths of heaven",
+        "pages": ["11"]
+      }
+    },
+    {
+      "id": "S03",
+      "label": "Need to Understand God from the Beginning",
+      "summary": "Going back to the beginning of creation; necessary to understand God and the Elohim; starting right vs. starting wrong.",
+      "W": {
+        "text_start": "Go to the morn of creation to understand of the decrees of the Eloheem",
+        "text_end": "if you start wrong you may go wrong.",
+        "pages": ["[133]"]
+      },
+      "B": {
+        "text_start": "I wish to go back to the begin[ning]: of creation",
+        "text_end": "it is hard to get right",
+        "pages": ["14"]
+      },
+      "R": {
+        "text_start": "If men do not compreh[e]nd the character of God",
+        "text_end": "they do not comprehe[n]d themselves.",
+        "pages": ["[67]"],
+        "note": "Richards condenses S03 and S04 into a single brief statement."
+      },
+      "C": {
+        "text_start": "first place wish to go back to the beginning of creation",
+        "text_end": "start wrong hard matter to get right.",
+        "pages": ["11"]
+      }
+    },
+    {
+      "id": "S04",
+      "label": "The World Knows Little of God",
+      "summary": "Few understand God's character; mankind knows no more than the brute beast without inspiration.",
+      "W": {
+        "text_start": "But few understand the character of God.",
+        "text_end": "except what is given by the inspiration of the Almighty.",
+        "pages": ["[133]"]
+      },
+      "B": {
+        "text_start": "there are very few who understand rightly the char[acter] of God",
+        "text_end": "the Insp[iratio]n of A[lmighty] God",
+        "pages": ["14"]
+      },
+      "R": {
+        "present": false,
+        "note": "om. Implied in S03 reference."
+      },
+      "C": {
+        "text_start": "few beings in the world who understand the character of God",
+        "text_end": "unless we are able to com by the inspirati[o]n of A[lmighty] God.",
+        "pages": ["11-12"]
+      }
+    },
+    {
+      "id": "S05",
+      "label": "What Kind of Being Is God?",
+      "summary": "Asks the congregation what kind of being God is; cites John 17:3 on eternal life being to know God.",
+      "W": {
+        "text_start": "I ask this congregation what kind of a being is God?",
+        "text_end": "go back & find out what kind of a being God is.",
+        "pages": ["[133]"]
+      },
+      "B": {
+        "text_start": "I want to ask this cong[regation]: every man wom[an]:",
+        "text_end": "he has no eternal life",
+        "pages": ["14"]
+      },
+      "R": {
+        "text_start": "what kind of a being is God?",
+        "text_end": "has not Eternal life.",
+        "pages": ["[67]"]
+      },
+      "C": {
+        "text_start": "what kind of a being is God",
+        "text_end": "he has not eternal life.",
+        "pages": ["12"]
+      }
+    },
+    {
+      "id": "S06",
+      "label": "Challenge: If I Show God's Character",
+      "summary": "If I am the man to comprehend and explain God, let every person be silent; if I fail, I have no right to revelation.",
+      "W": {
+        "text_start": "If I am the man that shows you what kind of a being God is",
+        "text_end": "I would be like the rest of the world",
+        "pages": ["[133]"]
+      },
+      "B": {
+        "text_start": "my first object is to find out the character of the true God",
+        "text_end": "they will all say I ought to be d[amne]d",
+        "pages": ["14-15"]
+      },
+      "R": {
+        "text_start": "if I am so fortunate as to comprehe[n]d and explain",
+        "text_end": "never lift your voice again[s]t the servants of God again.",
+        "pages": ["[67]"]
+      },
+      "C": {
+        "text_start": "If I comprehend so that the spirit seal it upon you[r] hearts",
+        "text_end": "not a man would not breath[e] anathema",
+        "pages": ["12"]
+      }
+    },
+    {
+      "id": "S07",
+      "label": "Right of Conscience / False Prophets",
+      "summary": "Every man has a right to be a false prophet as well as a true one; no government should interfere with religion.",
+      "W": {
+        "text_start": "But meddle not with any man for his religion",
+        "text_end": "evry goverment ought to permit evry man to enjoy his religion",
+        "pages": ["[133]"]
+      },
+      "B": {
+        "text_start": "if any man is authd. to take away my life",
+        "text_end": "it wod. deluge the whole world with blood",
+        "pages": ["15"]
+      },
+      "R": {
+        "text_start": "Every man has a right to be a false prophet.",
+        "text_end": "as well as a true prophet.",
+        "pages": ["[67]"]
+      },
+      "C": {
+        "text_start": "If any man is authorised to take my life",
+        "text_end": "would it not deluge the wo[r]ld in blood.",
+        "pages": ["12"]
+      }
+    },
+    {
+      "id": "S08",
+      "label": "God Is a Man in Form",
+      "summary": "God who sits enthroned in yonder heavens is a man like yourselves; Adam was made in his image and walked and talked with him.",
+      "W": {
+        "text_start": "God who sits in yonder heavens is a man like yourselves",
+        "text_end": "walk[ed] with him.",
+        "pages": ["[133]-[134]"]
+      },
+      "B": {
+        "text_start": "God himself who sits enthroned in yonder Heavens is a man like unto one of yourselves",
+        "text_end": "Adam walkd talked & com[mune]d. with him",
+        "pages": ["15"]
+      },
+      "R": {
+        "text_start": "in the beginning. befor the world was.",
+        "text_end": "Adam was formd in his likeness.",
+        "pages": ["[67]"]
+      },
+      "C": {
+        "text_start": "God that sets enthroned is a man like one of yourselves",
+        "text_end": "Adam received instruction walked talked as one man with anothe[r].",
+        "pages": ["13"]
+      }
+    },
+    {
+      "id": "S09",
+      "label": "God Was Once a Man / Refuting Eternal Godhood",
+      "summary": "We suppose God was God from all eternity; I will refute that. God the Father once dwelt on an earth as Jesus did.",
+      "W": {
+        "text_start": "In order to understand the dead for the consolation of those that mourn",
+        "text_end": "the Father was once on an earth like us",
+        "pages": ["[134]"]
+      },
+      "B": {
+        "text_start": "in order to speak for the consol[atio]n. of those who mourn",
+        "text_end": "I will shew it from the Bible",
+        "pages": ["15"]
+      },
+      "R": {
+        "text_start": "refute the Idea that God was God from all eternity",
+        "text_end": "refute the Idea that God was God from all eternity",
+        "pages": ["[67]"],
+        "note": "Single sentence summary only."
+      },
+      "C": {
+        "text_start": "In order to understand the subject of the ded",
+        "text_end": "was on a planet as Jesus was in the flesh",
+        "pages": ["13"]
+      }
+    },
+    {
+      "id": "S10",
+      "label": "Christ's Power from the Father",
+      "summary": "As the Father hath power in himself so hath the Son; to lay down his body and take it up again. Cites John 5:26.",
+      "W": {
+        "text_start": "The scriptures inform us mark it that Jesus Christ said",
+        "text_end": "I defy all Hell and earth to refute it.",
+        "pages": ["[134]"]
+      },
+      "B": {
+        "text_start": "J[esus]: s[ai]d. as the Fa[the]r. hath power in himself",
+        "text_end": "I defy all hell all learn[in]g. wisdom & records of hell",
+        "pages": ["15"]
+      },
+      "R": {
+        "text_start": "Jesus said as the father Had power in himself",
+        "text_end": "Lay down his body. & take it up again.",
+        "pages": ["[67]"]
+      },
+      "C": {
+        "text_start": "as the father hath had power in himself even so hath the son power.",
+        "text_end": "I defy the records and wisdom & all the combined powers of earth and hell to refute it.",
+        "pages": ["14"]
+      }
+    },
+    {
+      "id": "S11",
+      "label": "Becoming Gods: Exaltation by Degrees",
+      "summary": "You have got to learn how to be Gods, kings, and priests; going from a small capacity to a great capacity; dwelling in everlasting burnings.",
+      "W": {
+        "text_start": "And you have got to learn how to make yourselves God, king and priest",
+        "text_end": "to dwelling in everlasting burnings",
+        "pages": ["[134]"]
+      },
+      "B": {
+        "text_start": "you have got to learn how to be a God yourself",
+        "text_end": "sit in everlasting power as they who have gone before",
+        "pages": ["15-16"]
+      },
+      "R": {
+        "text_start": "you have got to learn how to make you[r]selves Gods Kings. Prie[s]ts.",
+        "text_end": "dwell in evelastig burni[n]g & everlasti[n]g power.",
+        "pages": ["[67]"]
+      },
+      "C": {
+        "text_start": "You have got to learn how to be a god yourself",
+        "text_end": "sit in glory as doth those who sit enthroned.",
+        "pages": ["14"]
+      }
+    },
+    {
+      "id": "S12",
+      "label": "Consolation for Mourners: Heirs of God",
+      "summary": "How consoling to mourners to know that the dead shall rise as heirs of God and joint heirs of Jesus Christ.",
+      "W": {
+        "text_start": "I want you to know the first principle of this law, how consoling to the mourner",
+        "text_end": "untill you arive at the station of a God.",
+        "pages": ["[134]"]
+      },
+      "B": {
+        "text_start": "how consoling to the mourner when they are cal[le]d. to part",
+        "text_end": "until you asc[en]d. the throne of Etl. power same as those who are gone bef[ore]",
+        "pages": ["16"]
+      },
+      "R": {
+        "text_start": "how consoling when calld to part with a dear frie[n]ds.",
+        "text_end": "heirs of God.",
+        "pages": ["[67]"]
+      },
+      "C": {
+        "text_start": "how consoling to the mourner when calld to part with husband father wife child",
+        "text_end": "inherit the same glory power & exal[ta]tion with those who are gone",
+        "pages": ["14"]
+      }
+    },
+    {
+      "id": "S13",
+      "label": "Christ Followed the Father's Pattern",
+      "summary": "What did Jesus do? The same thing as the Father: worked out a kingdom with fear and trembling. Kingdoms rolling upon kingdoms.",
+      "W": {
+        "text_start": "What did Jesus Christ do the same thing as I se[e] the Father do",
+        "text_end": "I will take his place and am also exhalted.",
+        "pages": ["[134]"]
+      },
+      "B": {
+        "text_start": "what J. did I do the things I saw my Far. do",
+        "text_end": "it is plain beyond comprehens[io]n.",
+        "pages": ["16"]
+      },
+      "R": {
+        "text_start": "and ascend a throne as those who have gone before.",
+        "text_end": "god is gra[ti]fied in Exaltation of his creati[o]ns",
+        "pages": ["[67]-[68]"]
+      },
+      "C": {
+        "text_start": "What did Jesus do— why I do the things that I saw the father do",
+        "text_end": "Jesus steps into his tracts to inherit what God did before",
+        "pages": ["14"]
+      }
+    },
+    {
+      "id": "S14",
+      "label": "First Principles / Not All Comprehended in This World",
+      "summary": "These are the first principles of the gospel; it will take a long time to learn them all; transition to biblical commentary.",
+      "W": {
+        "text_start": "These are the first principles of the gospel.",
+        "text_end": "I will then go to the bible",
+        "pages": ["[134]-[135]"]
+      },
+      "B": {
+        "text_start": "and you thus learn the first prin[ciples] of th[e] Gospel",
+        "text_end": "I shall turn commentator to day",
+        "pages": ["16"]
+      },
+      "R": {
+        "text_start": "not all to be comprehedd in this world",
+        "text_end": "not all to be comprehedd in this world",
+        "pages": ["[68]"],
+        "note": "Single phrase only."
+      },
+      "C": {
+        "text_start": "This is some of the first principles of the gospel",
+        "text_end": "so many learned and wise men here",
+        "pages": ["14"]
+      }
+    },
+    {
+      "id": "S15",
+      "label": "Hebrew Exegesis: Bereshit / Genesis 1:1",
+      "summary": "Analysis of Bereshit (Genesis 1:1): removing the prefix to reveal 'rosh' (head). 'The head one of the Gods brought forth the Gods.'",
+      "W": {
+        "text_start": "Barasheet in the beginning, Analize the word in and through the head",
+        "text_end": "The head one of the gods, broat forth the gods",
+        "pages": ["[135]"]
+      },
+      "B": {
+        "text_start": "I shall go to the first Hebrew word in the Bible",
+        "text_end": "The Head one of the Gods brought forth the Gods",
+        "pages": ["16"]
+      },
+      "R": {
+        "text_start": "the head.— the head one— The head one of the God[s], brought fo[r]th the Gods.",
+        "text_end": "brought fo[r]th the Gods.",
+        "pages": ["[68]"]
+      },
+      "C": {
+        "text_start": "the very Berosheit. make a comme[n]t on the first sentence",
+        "text_end": "the head God brought forth the head God in the grand Council",
+        "pages": ["14-15"]
+      }
+    },
+    {
+      "id": "S16",
+      "label": "Grand Council of the Gods",
+      "summary": "The head God called the Gods together in grand council and contemplated the creation of the world.",
+      "W": {
+        "text_start": "The grand council set at the head and contemplated the creation of the world",
+        "text_end": "contemplated the creation of the world",
+        "pages": ["[135]"]
+      },
+      "B": {
+        "text_start": "the Head God called togr. the Gods & set in Grand Council",
+        "text_end": "set in Grand Council",
+        "pages": ["16"]
+      },
+      "R": {
+        "text_start": "The head one called the Gods together in grand coun[c]il",
+        "text_end": "concoctd a scheme to create this world.",
+        "pages": ["[68]"]
+      },
+      "C": {
+        "text_start": "The grand councilers set in yonder heavens and contemplated the creation of the worlds",
+        "text_end": "contemplated the creation of the worlds",
+        "pages": ["15"]
+      }
+    },
+    {
+      "id": "S17",
+      "label": "The Polyglot Bible: Jacob vs. James",
+      "summary": "Reference to a multilingual Bible; demonstrates that 'James' should be 'Jacob' using Hebrew, Greek, Latin, and German texts (Matthew 4:21).",
+      "W": {
+        "text_start": "some will say the scriptures say so & so",
+        "text_end": "I thank God for the old Book but more for the Holy Ghost.",
+        "pages": ["[135]"]
+      },
+      "B": {
+        "text_start": "some learned D[octo]r. mi[gh]t. take a not[io]n.",
+        "text_end": "I have all the 4 Test[aments] come here ye learned men & read if you can",
+        "pages": ["16-17"]
+      },
+      "R": {
+        "text_start": "Dr & Lawyer that have persecuted.",
+        "text_end": "2 4. mat. 21. Greek Hebrew. German. & Latin.",
+        "pages": ["[68]"]
+      },
+      "C": {
+        "text_start": "some learned docter might say the scriptures say thus & so",
+        "text_end": "Should not have introduced this testimony were it not to back up the word rosh",
+        "pages": ["15"]
+      }
+    },
+    {
+      "id": "S18",
+      "label": "Creation Ex Nihilo Refuted",
+      "summary": "The learned say God created out of nothing; 'bara' means to organize, not create from nothing. Elements are eternal and cannot be destroyed.",
+      "W": {
+        "text_start": "the Learned Dr says the Lord made the world out of nothing",
+        "text_end": "they are principles that cannot be disolved they may be reorganized.",
+        "pages": ["[135]-[136]"]
+      },
+      "B": {
+        "text_start": "the learned me[n] who are preach[in]g. Saln. say that God created the Heavens & the Earth out of nothing",
+        "text_end": "they never can have an ending they exist eternally",
+        "pages": ["17"]
+      },
+      "R": {
+        "text_start": "Doctors say.— created the earth out of nothing.",
+        "text_end": "nothing. can destroy. no beginni[n]g no end.",
+        "pages": ["[68]"]
+      },
+      "C": {
+        "text_start": "Learned Docters tell us God created the heavens & earth out of nothing",
+        "text_end": "they may be organized— and reorganized— but not destroyed.",
+        "pages": ["15"]
+      }
+    },
+    {
+      "id": "S19",
+      "label": "The Soul / Mind of Man: Pre-existence",
+      "summary": "The soul/mind of man was not created in the beginning; God is self-existent and man exists on the same principle. God put spirit into Adam's tabernacle.",
+      "W": {
+        "text_start": "The soul the mind of man, whare did it come from.",
+        "text_end": "God made a tabernacle & put a spirit in it and it became a Human soul",
+        "pages": ["[136]"]
+      },
+      "B": {
+        "text_start": "the soul the imm. Spirit oh man says God created in the beging.",
+        "text_end": "Adams Spirit & so became a living Spirit",
+        "pages": ["17"]
+      },
+      "R": {
+        "text_start": "The soul. Doctor of Divin[i]ty. God created in the beginn[in]g",
+        "text_end": "in hebrew put into him his spirit.",
+        "pages": ["[68]"]
+      },
+      "C": {
+        "text_start": "the soul— the mind of man— they say God created it in the beginning",
+        "text_end": "God made man out of the earth and put into him his spirit",
+        "pages": ["15-16"]
+      }
+    },
+    {
+      "id": "S20",
+      "label": "Mind of Man Coequal with God / Mourners' Comfort",
+      "summary": "The mind of man is coequal with God; the departed are only separated for a short time and now converse with each other as we do.",
+      "W": {
+        "text_start": "man exhisted in spirit & mind coequal with God himself",
+        "text_end": "they are now conversant with each other as we are on the earth.",
+        "pages": ["[136]"]
+      },
+      "B": {
+        "text_start": "the mind of man— the mind of man is as immortal as God himself",
+        "text_end": "their Spirits coexisted with God & now converse one another same as we do",
+        "pages": ["17"]
+      },
+      "R": {
+        "text_start": "Mind of man co-equal with God him[s]elf",
+        "text_end": "frie[n]ds separated. for a small mom[en]t.",
+        "pages": ["[68]"]
+      },
+      "C": {
+        "text_start": "The mind of man— the intelligent part is coequal with God himself",
+        "text_end": "they now exist in a place where he they converse together as much as we do on the earth.",
+        "pages": ["16"]
+      }
+    },
+    {
+      "id": "S21",
+      "label": "Intelligence Is Self-Existent: The Ring Analogy",
+      "summary": "The spirit of man has no beginning or end (ring analogy). If it had a beginning it would have an end. God never had power to create the spirit of man.",
+      "W": {
+        "text_start": "I am dwelling on the immutibility of the spirit of man",
+        "text_end": "God himself could not create himself.",
+        "pages": ["[136]"]
+      },
+      "B": {
+        "text_start": "I take my ring from my finger & liken it unto the mind of man",
+        "text_end": "it is no God himself cod. not create himself intelligence is self existent",
+        "pages": ["17-18"]
+      },
+      "R": {
+        "text_start": "If man had a beginig he must have an end.",
+        "text_end": "God never had power to create the spir[i]t of man at at all.",
+        "pages": ["[68]"]
+      },
+      "C": {
+        "text_start": "Is it logic to say that a spirit is immortal and yet have a beginning",
+        "text_end": "God never did have power to create the spirit of man at all.",
+        "pages": ["16"]
+      }
+    },
+    {
+      "id": "S22",
+      "label": "God Instituted Laws for Lesser Intelligences",
+      "summary": "Intelligence is self-existent; all minds are susceptible of enlargement. God instituted laws so that lesser intelligences could be exalted.",
+      "W": {
+        "text_start": "Intelligence is Eternal & it is self exhisting",
+        "text_end": "I know you believe it.",
+        "pages": ["[136]-[137]"]
+      },
+      "B": {
+        "text_start": "the first principles of Man are self exist with God",
+        "text_end": "I rej[oice] more & more",
+        "pages": ["18"]
+      },
+      "R": {
+        "text_start": "Intiignc exist upon a self existe[n]t principle",
+        "text_end": "all mi[n]ds & spir[i]ts God ever sent into the wo[r]ld are susceptible of enlargeme[n]t.",
+        "pages": ["[68]"]
+      },
+      "C": {
+        "text_start": "Intelligence exists upon a selfexistent principle",
+        "text_end": "I know you taste it and I know you believe it.",
+        "pages": ["16"]
+      }
+    },
+    {
+      "id": "S23",
+      "label": "Revelations Save Spirit and Body",
+      "summary": "All things revealed are revealed as if we had no bodies; revelations that save our spirits will save our bodies.",
+      "W": {
+        "text_start": "All things that God sees fit to reveal to us",
+        "text_end": "in saving our spirits we save the body",
+        "pages": ["[137]"]
+      },
+      "B": {
+        "text_start": "Mans rel[ation] to God & s I will open your eyes in rel to your dead",
+        "text_end": "God reveals them to us in the view of no Eternal diss[olutio]n. of the body",
+        "pages": ["18"]
+      },
+      "R": {
+        "text_start": "all things God has seen fit proper to r[e]veal",
+        "text_end": "what will save our spi[r]its will save our bodies.",
+        "pages": ["[68]-[69]"]
+      },
+      "C": {
+        "text_start": "All things whatsoever God has seen proper to reveal to us",
+        "text_end": "those revelations must of necessity save our spirits with them.",
+        "pages": ["16-17"]
+      }
+    },
+    {
+      "id": "S24",
+      "label": "Awful Responsibility for Our Dead",
+      "summary": "The greatest responsibility is to seek after our dead; all spirits who have not obeyed the gospel must be damned; they without us cannot be made perfect.",
+      "W": {
+        "text_start": "How comes the awful responsibility",
+        "text_end": "for the salvation of man.",
+        "pages": ["[137]"]
+      },
+      "B": {
+        "text_start": "hence the awful responsibility tha[t] rests upon our us for our dead",
+        "text_end": "God said he shall send Elijah",
+        "pages": ["18"]
+      },
+      "R": {
+        "text_start": "All spirits— who have not obedye th[e] Gospel must be damnd.",
+        "text_end": "Hence the saying of Elijah.",
+        "pages": ["[69]"]
+      },
+      "C": {
+        "text_start": "Hence the responsibility— the awful res. that rest upon us",
+        "text_end": "hence the saying of Elijah",
+        "pages": ["17"]
+      }
+    },
+    {
+      "id": "S25",
+      "label": "All Sins Forgiven Except One",
+      "summary": "All sins and blasphemies can be forgiven except the sin against the Holy Ghost. God has made provision for every spirit.",
+      "W": {
+        "text_start": "All sins and blasphemy, were to be forgiven except the sin against the Holy Ghost.",
+        "text_end": "Any man that has a friend in eternity can save him",
+        "pages": ["[137]"]
+      },
+      "B": {
+        "text_start": "what has J. sd. all sins & all blas[phemies]",
+        "text_end": "& so you can see how far you can be Savior",
+        "pages": ["18"]
+      },
+      "R": {
+        "text_start": "all sin shall be forgivn in this world or world to com",
+        "text_end": "can save ev[er]y man who has not committd the unpardonable sin.",
+        "pages": ["[69]"]
+      },
+      "C": {
+        "text_start": "All sins & all blasphemis every tran[s]gression except one",
+        "text_end": "Every man who has a friend in the eternal world",
+        "pages": ["17"]
+      }
+    },
+    {
+      "id": "S26",
+      "label": "Cannot Commit Unpardonable Sin After Death / Knowledge Saves",
+      "summary": "A man cannot commit the unpardonable sin after the dissolution of the body; knowledge saves a man; a man's own mind is his condemner.",
+      "W": {
+        "text_start": "He cannot be damned through all eternity",
+        "text_end": "I have no fear of hell fire that dont exhist",
+        "pages": ["[137]-[138]"]
+      },
+      "B": {
+        "text_start": "there is no thing that a man can commit the unpardonable sin after the dissn of the body",
+        "text_end": "a sinner has his own mind & is in his own condemner",
+        "pages": ["18-19"]
+      },
+      "R": {
+        "text_start": "cannot commit the unpdonbl sin after th[e] decay dissolution of the body",
+        "text_end": "as exquisite th[e] disappointme[n]t of the mind of man",
+        "pages": ["[69]"]
+      },
+      "C": {
+        "text_start": "A man cannot commit the unpardonable sin after the dissoluti[o]n of the body",
+        "text_end": "so is the torment of a man",
+        "pages": ["17"]
+      }
+    },
+    {
+      "id": "S27",
+      "label": "The Devil's Plan vs. Christ's Plan",
+      "summary": "The devil said he could save them all; Jesus contended that some souls would not be saved; the devil rebelled and was cast down.",
+      "W": {
+        "text_start": "even the devil said I am a savior and can save all",
+        "text_end": "was cast down.",
+        "pages": ["[138]"]
+      },
+      "B": {
+        "text_start": "J. cont[ende]d. that there wod. be certn. souls that wod. be condemnd",
+        "text_end": "all who put up their heads for him",
+        "pages": ["19"]
+      },
+      "R": {
+        "text_start": "works of th[e] devil. the pl[a]ns th[e] devil laid",
+        "text_end": "Lot fell on Jesus.",
+        "pages": ["[69]-[70]"]
+      },
+      "C": {
+        "text_start": "The contenti[o]n in heaven was Jesus said there were certain men would not be saved",
+        "text_end": "he rebelled against God and was thrust down.",
+        "pages": ["17"]
+      }
+    },
+    {
+      "id": "S28",
+      "label": "The Unpardonable Sin Defined",
+      "summary": "To commit the unpardonable sin one must receive the Holy Ghost, have the heavens opened, know God, and then sin against him.",
+      "W": {
+        "text_start": "No man can commit the unpardonable sin",
+        "text_end": "they have got the same spirit the devil had",
+        "pages": ["[138]"]
+      },
+      "B": {
+        "text_start": "all sin shall be forgiven except the sin agt. the H. G.",
+        "text_end": "he has got to deny J. C. when the heavens are open to him",
+        "pages": ["19"]
+      },
+      "R": {
+        "text_start": "all sin &c fogen except the sin agai[n]st th[e] Holy Gh[o]st.",
+        "text_end": "Got to de[n]y th[e] plan of Salvati[o]n.",
+        "pages": ["[70]"]
+      },
+      "C": {
+        "text_start": "After a man has sinned the sin against the H G.",
+        "text_end": "there is no repentance for him.",
+        "pages": ["17"]
+      }
+    },
+    {
+      "id": "S29",
+      "label": "Apostates of the Church",
+      "summary": "Like many apostates of the Church who never cease to persecute; they have the same spirit that crucified Jesus.",
+      "W": {
+        "text_start": "apostates in this Church they never seease to try to hurt me",
+        "text_end": "they make open war like the devil",
+        "pages": ["[138]"]
+      },
+      "B": {
+        "text_start": "like many of the apostates of The Church of J. C of L. D. S.",
+        "text_end": "the same Sp. that Sin agt. the H. G.",
+        "pages": ["19"]
+      },
+      "R": {
+        "text_start": "Like ma[n]y of the apostates of chu[r]ch of the chu[r]ch of Jesus Christ.",
+        "text_end": "Let All be careful.",
+        "pages": ["[70]"]
+      },
+      "C": {
+        "text_start": "like many of the apostates of the C of J. C. L. D. S.",
+        "text_end": "they thirst for my blood they never cease",
+        "pages": ["17"]
+      }
+    },
+    {
+      "id": "S30",
+      "label": "Warning: Be Careful",
+      "summary": "Advises all to be careful, not to make hasty moves; there may be a snare laid. Words of life from the man of God.",
+      "W": {
+        "text_start": "stay all that hear, dont make any hasty mooves you may be saved",
+        "text_end": "dont be in haste",
+        "pages": ["[138]"]
+      },
+      "B": {
+        "text_start": "I advise all to be careful what you do",
+        "text_end": "for there is no redemp[tio]n. for them in this world nor in the world to come",
+        "pages": ["19"]
+      },
+      "R": {
+        "text_start": "Let All be careful.— lest you be dec[e]ived.",
+        "text_end": "best men brings forth best works.",
+        "pages": ["[70]"]
+      },
+      "C": {
+        "text_start": "Advise all to be careful what they do",
+        "text_end": "you may by and by find out that you have been deceived",
+        "pages": ["17"]
+      }
+    },
+    {
+      "id": "S31",
+      "label": "Many Mansions / Degrees of Glory",
+      "summary": "In my Father's house are many mansions; glory of sun, moon, and stars. Greatest hope and consolation for our dead.",
+      "W": {
+        "text_start": "their is many mansions in my fathers Kingdom",
+        "text_end": "while their murderers shall dwell in torment untill they pay the utmost farthing.",
+        "pages": ["[138]"]
+      },
+      "B": {
+        "text_start": "I can enter into the mysteries",
+        "text_end": "while their murderers shall welter for years",
+        "pages": ["19-20"]
+      },
+      "R": {
+        "text_start": "to the mourne[r]s your f[r]iend has gone to wait",
+        "text_end": "worlds mu[s]t wait myr[i]ads of years",
+        "pages": ["[70]"]
+      },
+      "C": {
+        "present": false,
+        "note": "om. Clayton does not record this section."
+      }
+    },
+    {
+      "id": "S32",
+      "label": "Friends Gone for a Moment / Eternity",
+      "summary": "I have fathers, brothers, children gone to eternity, soon to meet them. They are absent only for a moment.",
+      "W": {
+        "text_start": "I have Fathers, Brothers, Children, that are gone to eternity",
+        "text_end": "the trump will soon be blown.",
+        "pages": ["[139]"]
+      },
+      "B": {
+        "text_start": "I have a Far. Bror. Friends who are gone to a world of Sp",
+        "text_end": "all an Eternity of felicity",
+        "pages": ["20"]
+      },
+      "R": {
+        "text_start": "leave th[e] subject— bless thoes who have lost frie[n]ds.",
+        "text_end": "only gon for a few mome[n]ts.",
+        "pages": ["[70]"]
+      },
+      "C": {
+        "present": false,
+        "note": "om. Clayton does not record this section."
+      }
+    },
+    {
+      "id": "S33",
+      "label": "Mothers Shall Have Their Children",
+      "summary": "Mothers will have their children in eternity; children will rise in the same form as when they died; thrones of glory.",
+      "W": {
+        "text_start": "A question will Mothers have their Children in Eternity yes, yes",
+        "text_end": "not one cubit added to their stature",
+        "pages": ["[139]"]
+      },
+      "B": {
+        "text_start": "Mothers you shall have your Children",
+        "text_end": "children dwell & exercise power in the same form as they laid them down",
+        "pages": ["20"]
+      },
+      "R": {
+        "text_start": "Shall mothrs have their Child[re]n? Yes.",
+        "text_end": "the child as it was before it died out of your arm[s]",
+        "pages": ["[70]"]
+      },
+      "C": {
+        "text_start": "He continued his discourse— & told of parents receiving their children.",
+        "text_end": "told of parents receiving their children.",
+        "pages": ["18"],
+        "note": "Clayton summarizes rather than recording the content."
+      }
+    },
+    {
+      "id": "S34",
+      "label": "Baptism: Water, Fire, and Holy Ghost",
+      "summary": "Reading from the German Bible on baptism; John's baptism of water is nothing without Christ's baptism of fire and the Holy Ghost.",
+      "W": {
+        "text_start": "I will leave this subject here and make a few remarks upon Baptism",
+        "text_end": "any man who commits the unpardonable sin must dwell in hell worlds without end",
+        "pages": ["[140]"]
+      },
+      "B": {
+        "text_start": "the Bap[tism] of Water witht. the B[aptism] of Fire & the H G.",
+        "text_end": "some shall rise to the dn. of their own filthiness",
+        "pages": ["20-21"]
+      },
+      "R": {
+        "text_start": "Baptism of water fire & Holy Ghost. are insepa[r]ably— connected.",
+        "text_end": "one god. one bapti[s]m— & one bapti[s]m— I.E. all three",
+        "pages": ["[70]-[71]"]
+      },
+      "C": {
+        "text_start": "Concluded his remarks by Baptism",
+        "text_end": "Concluded his remarks by Baptism",
+        "pages": ["18"],
+        "note": "Single sentence summary only."
+      }
+    },
+    {
+      "id": "S35",
+      "label": "Closing: Personal Testimony / 'You Don't Know Me'",
+      "summary": "Personal remarks: I love all men; you never knew my heart; no man knows my history; my voice is always for peace.",
+      "W": {
+        "present": false,
+        "note": "om. Woodruff does not record this closing."
+      },
+      "B": {
+        "text_start": "I have int[ende]d. my remarks to all",
+        "text_end": "God bless you amen",
+        "pages": ["21-22"]
+      },
+      "R": {
+        "text_start": "Love all men but hate your deeds.",
+        "text_end": "I dont blame you for not believi[n]g my histo[r]y",
+        "pages": ["[71]"]
+      },
+      "C": {
+        "present": false,
+        "note": "om. Clayton does not record this closing."
+      }
+    }
+  ]
+}

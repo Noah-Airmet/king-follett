@@ -1,0 +1,84 @@
+{
+  "W": {
+    "name": "Wilford Woodruff",
+    "filename": "woodruff.md",
+    "word_count": 2409,
+    "paragraph_count": 4,
+    "page_count": 8,
+    "page_markers": [
+      "[p. [133]]",
+      "[p. [134]]",
+      "[p. [135]]",
+      "[p. [136]]",
+      "[p. [137]]",
+      "[p. [138]]",
+      "[p. [139]]",
+      "[p. [140]]"
+    ],
+    "editorial_expansions": 6,
+    "interlinear_insertions": 2,
+    "footnote_lines": 4,
+    "body_text_length": 12173
+  },
+  "B": {
+    "name": "Thomas Bullock",
+    "filename": "bullock.md",
+    "word_count": 4103,
+    "paragraph_count": 2,
+    "page_count": 9,
+    "page_markers": [
+      "[p. 14]",
+      "[p. 15]",
+      "[p. 16]",
+      "[p. 17]",
+      "[p. 18]",
+      "[p. 19]",
+      "[p. 20]",
+      "[p. 21]",
+      "[p. 22]"
+    ],
+    "editorial_expansions": 184,
+    "interlinear_insertions": 8,
+    "footnote_lines": 136,
+    "body_text_length": 20238
+  },
+  "R": {
+    "name": "Willard Richards",
+    "filename": "richards.md",
+    "word_count": 1091,
+    "paragraph_count": 37,
+    "page_count": 5,
+    "page_markers": [
+      "[p. [67]]",
+      "[p. [68]]",
+      "[p. [69]]",
+      "[p. [70]]",
+      "[p. [71]]"
+    ],
+    "editorial_expansions": 122,
+    "interlinear_insertions": 2,
+    "footnote_lines": 8,
+    "body_text_length": 6339
+  },
+  "C": {
+    "name": "William Clayton",
+    "filename": "clayton.md",
+    "word_count": 2927,
+    "paragraph_count": 9,
+    "page_count": 8,
+    "page_markers": [
+      "[p. 11]",
+      "[p. 12]",
+      "[p. 13]",
+      "[p. 14]",
+      "[p. 15]",
+      "[p. 16]",
+      "[p. 17]",
+      "[p. 18]"
+    ],
+    "editorial_expansions": 71,
+    "interlinear_insertions": 1,
+    "footnote_lines": 12,
+    "body_text_length": 15186
+  }
+}
