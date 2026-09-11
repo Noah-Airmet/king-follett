@@ -2,6 +2,9 @@
 *-jpgs/
 *.jpgs/
 
+# Python bytecode
+__pycache__/
+
 # Temp files
 ~$*
 .DS_Store
