@@ -28,15 +28,18 @@ def cmd_section(args: argparse.Namespace) -> int:
     print(textwrap.fill(section.summary, 78, initial_indent="  ", subsequent_indent="  "))
     for siglum in jsp.SIGLA:
         entry = section.witnesses[siglum]
-        reporter = edition.documents[siglum].reporter
+        document = edition.documents[siglum]
+        label = f"{siglum} ({document.reporter}"
+        label += ", derived)" if document.kind == "derived" else ")"
         print()
         if not entry.present:
-            print(f"{siglum} ({reporter}) — absent")
+            print(f"{label} — absent")
             print(textwrap.fill(entry.note, 78, initial_indent="  ", subsequent_indent="  "))
             continue
         print(
-            f"{siglum} ({reporter}) — chars {entry.char_start}–{entry.char_end}, "
+            f"{label} — chars {entry.char_start}–{entry.char_end}, "
             f"p. {', '.join(entry.pages)}, {entry.word_count} words"
+            + ("  [t_only]" if entry.t_only else "")
         )
         body = (
             edition.diplomatic(section_id, siglum)
@@ -64,8 +67,9 @@ def cmd_section(args: argparse.Namespace) -> int:
 def cmd_stats(args: argparse.Namespace) -> int:
     edition = Edition(args.root)
     print("Reading-text word counts per section (om. = witness omits the section)")
+    print("T is the derived Times and Seasons composite, not a fifth report.")
     print()
-    print(f"{'id':<4} {'B':>6} {'W':>6} {'R':>6} {'C':>6}  label")
+    print("id   " + " ".join(f"{s:>6}" for s in jsp.SIGLA) + "  label")
     print("-" * 78)
     totals = dict.fromkeys(jsp.SIGLA, 0)
     for section in edition.sections:
@@ -86,7 +90,8 @@ def cmd_stats(args: argparse.Namespace) -> int:
     for siglum in jsp.SIGLA:
         document = edition.documents[siglum]
         print(
-            f"  {siglum} {document.reporter:<16} "
+            f"  {siglum} {document.reporter:<18}"
+            f"{'(derived) ' if document.kind == 'derived' else '          '}"
             f"raw {len(document.body.split()):>5}  "
             f"reading {jsp.word_count(document.spans):>5}  "
             f"sections {len([s for s in edition.sections if s.witnesses[siglum].present]):>2}"

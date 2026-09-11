@@ -16,12 +16,44 @@ FOOTNOTE_KINDS = {"textual", "times_and_seasons", "scripture", "other"}
 EXPECTED_SECTION_IDS = [f"S{n:02d}" for n in range(1, 36)]
 EXPECTED_VARIANT_IDS = [f"V{n:03d}" for n in range(1, 35)]
 
+#: Cancellation and underline span counts per witness, from
+#: ``refs/jsp-markup-audit.md``, where they were counted against the live JSP
+#: pages. Checked here because a plain copy-and-paste of a JSP transcript
+#: silently flattens both kinds into ordinary text: once that happens a cancelled
+#: word reads like a word the scribe let stand, and nothing else in the pipeline
+#: would notice. JSP encodes neither kind for the published T text.
+EXPECTED_SPANS = {
+    "B": {"cancellation": 16, "underline": 5},
+    "W": {"cancellation": 3, "underline": 25},
+    "R": {"cancellation": 7, "underline": 0},
+    "C": {"cancellation": 10, "underline": 6},
+    "T": {"cancellation": 0, "underline": 0},
+}
+
+
+def _count_kind(spans: list[jsp.Span], kind: str) -> int:
+    return sum(
+        (span.kind == kind) + _count_kind(span.children, kind) for span in spans
+    )
+
 
 def _check_transcripts(edition: Edition, problems: list[str]) -> None:
     for siglum, document in edition.documents.items():
         rebuilt = "".join(span.raw for span in document.spans)
         if rebuilt != document.body:
             problems.append(f"{siglum}: spans do not reconstruct the body text")
+        if document.kind != jsp.WITNESS_KINDS[siglum]:
+            problems.append(
+                f"{siglum}: kind {document.kind!r} != "
+                f"{jsp.WITNESS_KINDS[siglum]!r}"
+            )
+        for kind, expected in EXPECTED_SPANS[siglum].items():
+            found = _count_kind(document.spans, kind)
+            if found != expected:
+                problems.append(
+                    f"{siglum}: {found} {kind} spans, expected {expected} "
+                    "(has the transcript been re-pasted without markup?)"
+                )
         numbers = [span.number for span in document.anchors]
         if numbers != list(range(1, len(numbers) + 1)):
             problems.append(f"{siglum}: footnote anchors are not sequential: {numbers}")
@@ -150,6 +182,15 @@ def _check_witnesses(edition: Edition, problems: list[str]) -> None:
         path = edition.root / entry["transcript"]
         if not path.exists():
             problems.append(f"witnesses.json/{siglum}: missing {entry['transcript']}")
+        if entry.get("kind") != jsp.WITNESS_KINDS[siglum]:
+            problems.append(
+                f"witnesses.json/{siglum}: kind {entry.get('kind')!r} != "
+                f"{jsp.WITNESS_KINDS[siglum]!r}"
+            )
+        if not entry.get("jsp_citation", "").strip():
+            problems.append(f"witnesses.json/{siglum}: no jsp_citation")
+        if not entry.get("document", "").strip():
+            problems.append(f"witnesses.json/{siglum}: no physical document")
         if entry["reporter"] != document.reporter:
             problems.append(
                 f"witnesses.json/{siglum}: reporter {entry['reporter']!r} != "
@@ -226,7 +267,10 @@ def _check_apparatus(edition: Edition, problems: list[str]) -> None:
                 f"apparatus.json/{variant['id']}: unknown section "
                 f"{variant['section']!r}"
             )
-        if set(variant["witnesses"]) != set(jsp.SIGLA):
+        # The apparatus collates the four eyewitness reports. T is the composite
+        # they were used to build, so it is not a collation witness; adding T
+        # readings is Phase 2 work, not a carry-forward.
+        if set(variant["witnesses"]) != set(jsp.EYEWITNESS_SIGLA):
             problems.append(f"apparatus.json/{variant['id']}: witness keys incomplete")
         if variant.get("status") != "carried_forward":
             problems.append(f"apparatus.json/{variant['id']}: unexpected status")
@@ -270,15 +314,18 @@ def report(root: Path | None = None) -> tuple[bool, str]:
             if section.witnesses[siglum].present
         ]
         lines.append(
-            f"  {siglum} {document.reporter:<16} body {len(document.body):>6} chars  "
+            f"  {siglum} {document.reporter:<18}"
+            f"{'(derived) ' if document.kind == 'derived' else '          '}"
+            f"body {len(document.body):>6} chars  "
             f"{jsp.word_count(document.spans):>5} reading words  "
             f"{len(present):>2}/35 sections  "
             f"{len(document.footnotes):>2} footnotes  "
             f"pages {document.pages[0]}–{document.pages[-1]}"
         )
     lines.append("")
-    lines.append("  checks: span/body round trip, footnote anchor sequence and count,")
-    lines.append("          section slice equality, order, non-overlap, gapless")
+    lines.append("  checks: span/body round trip, cancellation and underline span")
+    lines.append("          counts against the JSP audit, footnote anchor sequence and")
+    lines.append("          count, section slice equality, order, non-overlap, gapless")
     lines.append("          partition of the whole body, boundaries outside markup and")
     lines.append("          between tokens, word counts, page ranges, witnesses.json,")
     lines.append("          footnotes.json anchors and sections, apparatus.json ids")

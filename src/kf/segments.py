@@ -26,6 +26,8 @@ class WitnessSection:
     text: str = ""
     pages: tuple[str, ...] = ()
     word_count: int = 0
+    #: True when T carries material here with no eyewitness counterpart.
+    t_only: bool = False
 
     @property
     def spans(self) -> list[jsp.Span]:
@@ -75,6 +77,7 @@ class Edition:
                     text=entry["text"],
                     pages=tuple(entry.get("pages", ())),
                     word_count=entry.get("word_count", 0),
+                    t_only=bool(entry.get("t_only")),
                 )
             else:
                 witnesses[siglum] = WitnessSection(
