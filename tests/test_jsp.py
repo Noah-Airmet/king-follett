@@ -177,6 +177,63 @@ class TestCancellations(unittest.TestCase):
         )
 
 
+class TestUnderlines(unittest.TestCase):
+    def test_underlined_word_keeps_its_text_in_the_reading(self):
+        parsed = spans("God who sits in __yonder__ __heavens__ is a __man__")
+        self.assertEqual(
+            [s.kind for s in parsed if s.kind != "text"],
+            ["underline", "underline", "underline"],
+        )
+        self.assertEqual(
+            jsp.render_reading(parsed), "God who sits in yonder heavens is a man"
+        )
+
+    def test_underline_inside_a_word(self):
+        # Clayton writes the abbreviation "Prest" with an underlined "t".
+        parsed = spans("Pres__t__ J. Smith called the intention")
+        self.assertEqual([s.kind for s in parsed if s.kind != "text"], ["underline"])
+        self.assertEqual(
+            jsp.render_reading(parsed), "Prest J. Smith called the intention"
+        )
+
+    def test_underline_spanning_several_words(self):
+        self.assertEqual(
+            jsp.render_reading(spans("& know God, & then __sin against__ him")),
+            "& know God, & then sin against him",
+        )
+
+    def test_underline_after_an_expansion(self):
+        # "Et[erna]l life": an expansion followed by an underlined "l".
+        parsed = spans("here then is Et[erna]__l__ life to know")
+        self.assertEqual(
+            [s.kind for s in parsed if s.kind != "text"], ["expansion", "underline"]
+        )
+        self.assertEqual(
+            jsp.render_reading(parsed), "here then is Eternal life to know"
+        )
+
+    def test_diplomatic_keeps_the_underline_marks(self):
+        self.assertEqual(
+            jsp.render_diplomatic(spans("what does __Boro__ mean")),
+            "what does __Boro__ mean",
+        )
+
+    def test_normalized_drops_the_marks(self):
+        self.assertEqual(
+            jsp.render_normalized(spans("is a __man__ __like__ __yourselves__")),
+            "is a man like yourselves",
+        )
+
+    def test_underline_and_cancellation_nest(self):
+        parsed = spans("the character of ~~__the__~~ God")
+        cancellation = [s for s in parsed if s.kind == "cancellation"][0]
+        self.assertEqual([c.kind for c in cancellation.children], ["underline"])
+        self.assertEqual(jsp.render_reading(parsed), "the character of God")
+        self.assertEqual(
+            jsp.render_diplomatic(parsed), "the character of ~~__the__~~ God"
+        )
+
+
 class TestFootnoteAnchors(unittest.TestCase):
     def test_anchor_glued_to_a_word(self):
         parsed = jsp.parse_body("carry the testimony to your hearts1 & pray")
@@ -311,18 +368,83 @@ class TestDocumentSplitting(unittest.TestCase):
 
 
 class TestRealTranscripts(unittest.TestCase):
-    """Checks that must hold for all four transcripts as they stand in the repo."""
+    """Checks that must hold for all five transcripts as they stand in the repo."""
 
     @classmethod
     def setUpClass(cls):
         cls.documents = jsp.load_all(ROOT)
 
-    def test_all_four_are_parsed_with_the_right_siglum(self):
-        self.assertEqual(sorted(self.documents), ["B", "C", "R", "W"])
+    def test_all_five_are_parsed_with_the_right_siglum(self):
+        self.assertEqual(sorted(self.documents), ["B", "C", "R", "T", "W"])
         self.assertEqual(self.documents["B"].reporter, "Thomas Bullock")
         self.assertEqual(self.documents["W"].reporter, "Wilford Woodruff")
         self.assertEqual(self.documents["R"].reporter, "Willard Richards")
         self.assertEqual(self.documents["C"].reporter, "William Clayton")
+        self.assertEqual(self.documents["T"].reporter, "Times and Seasons")
+
+    def test_only_times_and_seasons_is_derived(self):
+        kinds_by_siglum = {s: d.kind for s, d in self.documents.items()}
+        self.assertEqual(
+            kinds_by_siglum,
+            {
+                "B": "eyewitness",
+                "W": "eyewitness",
+                "R": "eyewitness",
+                "C": "eyewitness",
+                "T": "derived",
+            },
+        )
+        self.assertEqual(jsp.EYEWITNESS_SIGLA, ("B", "W", "R", "C"))
+
+    def test_times_and_seasons_has_no_footnotes_or_scribal_markup(self):
+        # JSP encodes no editorial notes, cancellations or underlines for the
+        # printed text, so anchor disambiguation must find nothing in T either.
+        document = self.documents["T"]
+        self.assertEqual(document.footnotes, {})
+        self.assertEqual(document.anchors, [])
+        for kind in ("cancellation", "underline"):
+            with self.subTest(kind=kind):
+                self.assertEqual(
+                    [s for s in document.spans if s.kind == kind], []
+                )
+        self.assertEqual(document.pages, ["612", "613", "614", "615", "616", "617"])
+
+    def test_expected_markup_span_counts(self):
+        # refs/jsp-markup-audit.md, counted against the live JSP pages. A plain
+        # paste of a JSP transcript flattens both kinds into ordinary text, so
+        # these counts are what proves the markup is still here.
+        expected = {
+            "B": (16, 5),
+            "W": (3, 25),
+            "R": (7, 0),
+            "C": (10, 6),
+            "T": (0, 0),
+        }
+        found = {}
+        for siglum, document in self.documents.items():
+            found[siglum] = (
+                sum(1 for s in document.spans if s.kind == "cancellation"),
+                sum(1 for s in document.spans if s.kind == "underline"),
+            )
+        self.assertEqual(found, expected)
+
+    def test_cancelled_readings_stay_out_of_the_reading_text(self):
+        cancelled = {
+            "B": ["pretension to the God", "power in himself to do even so"],
+            "W": ["creation to understand of the decrees"],
+            "R": ["character of the Gods"],
+            "C": ["as the father hath had power", "the eternal sin unpardonable sin"],
+        }
+        for siglum, phrases in cancelled.items():
+            reading = jsp.render_reading(self.documents[siglum].spans)
+            for phrase in phrases:
+                with self.subTest(siglum=siglum, phrase=phrase):
+                    self.assertNotIn(phrase, reading)
+
+    def test_underlined_words_survive_into_the_reading_text(self):
+        woodruff = jsp.render_reading(self.documents["W"].spans)
+        self.assertIn("God who sits in yonder heavens is a man like yourselves", woodruff)
+        self.assertIn("Prest J. Smith", jsp.render_reading(self.documents["C"].spans))
 
     def test_spans_reconstruct_the_body_exactly(self):
         for siglum, document in self.documents.items():
@@ -341,7 +463,7 @@ class TestRealTranscripts(unittest.TestCase):
     def test_expected_footnote_counts(self):
         self.assertEqual(
             {s: len(d.footnotes) for s, d in self.documents.items()},
-            {"B": 87, "W": 3, "R": 5, "C": 11},
+            {"B": 87, "W": 3, "R": 5, "C": 11, "T": 0},
         )
 
     def test_page_sequences(self):

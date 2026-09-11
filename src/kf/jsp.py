@@ -1,8 +1,14 @@
 """Parser for Joseph Smith Papers document-transcript conventions.
 
-The four King Follett transcripts in ``transcripts/`` are verbatim pastes of the
+The five King Follett transcripts in ``transcripts/`` are verbatim pastes of the
 JSP "Document Transcript" view. This module turns one of those files into a
 structured document and provides three renderings of the body.
+
+Four transcripts are eyewitness reports (B, W, R, C). The fifth, T, is the
+*Times and Seasons* composite that Bullock and Clayton assembled from the notes:
+a derived witness, not a fifth independent report. This module records that as
+``Document.kind`` and ``WITNESS_KINDS``; nothing here treats T as evidence
+independent of B and C.
 
 Conventions recognised inside the body
 --------------------------------------
@@ -34,6 +40,15 @@ Conventions recognised inside the body
 ``[blank]``, ``[25 lines blank]``, ``[1/3 page blank]``
     Editorial notation of blank manuscript space. Parsed as a ``blank`` span.
 
+``__text__``
+    Scribal underline (JSP ``underscore`` span), e.g. Woodruff underlining
+    "__yonder__ __heavens__ ... __man__ __like__ __yourselves__ ... __GOD__".
+    Parsed as an ``underline`` span. Shown as-is in the diplomatic rendering and
+    dropped to plain text in the reading rendering: the underlining is a fact
+    about the manuscript, not about the words. Content is parsed recursively, so
+    an underline may contain an expansion (``Et[erna]__l__`` is an expansion
+    followed by an underline; ``Pres__t__`` is text plus an underline).
+
 ``~~text~~``
     Scribal cancellation. JSP renders cancelled text struck through and the paste
     keeps it as a markdown strikethrough. Parsed as a ``cancellation`` span and
@@ -59,8 +74,9 @@ Footnote anchors
     "meet Paul 1/2 way"), so a digit run is only taken as an anchor when it is
     glued to the preceding character *and* equals the next expected footnote
     number. Anchors therefore run 1..N strictly in order of appearance, and the
-    count is checked against the number of footnotes for all four transcripts
-    (see ``tests/test_jsp.py``).
+    count is checked against the number of footnotes for all four eyewitness
+    transcripts (see ``tests/test_jsp.py``). JSP supplies no footnotes for T, so
+    T must yield no anchors at all.
 
 Typography (em and en dashes, curly quotes, U+014D, U+00AD, U+25CA) is preserved
 everywhere. Nothing is ASCII-folded and no transcript character is corrected.
@@ -83,23 +99,30 @@ SPAN_KINDS = (
     "gloss",
     "insertion",
     "cancellation",
+    "underline",
     "page_break",
     "footnote_anchor",
     "blank",
 )
 
+#: Span kinds delimited by a paired marker whose content is parsed recursively.
+_PAIRED = {"~~": "cancellation", "__": "underline"}
+
 #: Span kinds that are markup rather than scribal reading text. A section
 #: boundary may never fall inside one of these.
 MARKUP_KINDS = tuple(k for k in SPAN_KINDS if k != "text")
 
-_SIGLA_BY_SURNAME = {
-    "Bullock": "B",
-    "Woodruff": "W",
-    "Richards": "R",
-    "Clayton": "C",
+#: JSP titles read "as Reported by <reporter>" for the eyewitness accounts and
+#: "as Published in Times and Seasons" for the composite.
+_SIGLA_BY_SOURCE = {
+    "Thomas Bullock": "B",
+    "Wilford Woodruff": "W",
+    "Willard Richards": "R",
+    "William Clayton": "C",
+    "Times and Seasons": "T",
 }
 
-_TITLE_RE = re.compile(r"as Reported by\s+(.+?)\s*$")
+_TITLE_RE = re.compile(r"as (?:Reported by|Published in)\s+(.+?)\s*$")
 _FOOTNOTE_RE = re.compile(r"^\[(\d+)\](.*)$")
 _PAGE_RE = re.compile(r"^p\.\s*(.+)$")
 _BLANK_RE = re.compile(r"^(?:blank|\S.*\bblank)$")
@@ -143,7 +166,10 @@ class Span:
 class Document:
     siglum: str
     title: str
+    #: Reporter's name; for T, the name of the publication.
     reporter: str
+    #: ``"eyewitness"`` or ``"derived"``.
+    kind: str
     path: str
     #: Raw body text; every span offset is an index into this string.
     body: str
@@ -319,23 +345,26 @@ def parse_body(body: str, *, offset: int = 0, count_anchors: bool = True) -> lis
             i = close
             pending_start = i
             continue
-        if body.startswith("~~", i):
-            close = body.find("~~", i + 2)
+        marker = next((m for m in _PAIRED if body.startswith(m, i)), None)
+        if marker:
+            close = body.find(marker, i + len(marker))
             if close == -1:
-                raise ValueError(f"unbalanced '~~' at offset {i}")
-            close += 2
+                raise ValueError(f"unbalanced {marker!r} at offset {i}")
+            close += len(marker)
             raw = body[i:close]
-            inner = raw[2:-2]
+            inner = raw[len(marker) : -len(marker)]
             flush(i)
             spans.append(
                 Span(
-                    "cancellation",
+                    _PAIRED[marker],
                     raw,
                     offset + i,
                     offset + close,
                     content=inner,
                     children=parse_body(
-                        inner, offset=offset + i + 2, count_anchors=False
+                        inner,
+                        offset=offset + i + len(marker),
+                        count_anchors=False,
                     ),
                 )
             )
@@ -384,14 +413,15 @@ def parse_file(path: str | Path) -> Document:
     if not reporter_match:
         raise ValueError(f"cannot read reporter from title: {title!r}")
     reporter = reporter_match.group(1)
-    surname = reporter.split()[-1]
-    if surname not in _SIGLA_BY_SURNAME:
-        raise ValueError(f"unknown reporter surname: {surname!r}")
+    if reporter not in _SIGLA_BY_SOURCE:
+        raise ValueError(f"unknown transcript source: {reporter!r}")
+    siglum = _SIGLA_BY_SOURCE[reporter]
     notes, cited = parse_footnotes(footnote_block)
     return Document(
-        siglum=_SIGLA_BY_SURNAME[surname],
+        siglum=siglum,
         title=title,
         reporter=reporter,
+        kind=WITNESS_KINDS[siglum],
         path=str(path),
         body=body,
         spans=parse_body(body),
@@ -412,18 +442,21 @@ def _collapse(text: str) -> str:
 def render_diplomatic(spans: list[Span]) -> str:
     """Reproduce the JSP presentation.
 
-    Expansions, glosses, blank notations, cancellations and page markers keep
-    their source form; insertions are shown as ``<text>`` with the zero-width
-    spaces removed; footnote anchors are shown as ``[n]`` so they cannot be
-    confused with scribal digits. Line breaks and internal whitespace are
-    preserved.
+    Expansions, glosses, blank notations and page markers keep their source
+    form; cancellations stay wrapped in ``~~`` and underlines in ``__``;
+    insertions are shown as ``<text>`` with the zero-width spaces removed;
+    footnote anchors are shown as ``[n]`` so they cannot be confused with
+    scribal digits. Line breaks and internal whitespace are preserved.
     """
     out: list[str] = []
     for span in spans:
         if span.kind == "footnote_anchor":
             out.append(f"[{span.number}]")
         elif span.kind == "insertion":
-            out.append(f"<{span.content}>")
+            out.append(f"<{render_diplomatic(span.children)}>")
+        elif span.kind in ("cancellation", "underline"):
+            marker = "~~" if span.kind == "cancellation" else "__"
+            out.append(f"{marker}{render_diplomatic(span.children)}{marker}")
         else:
             out.append(span.raw)
     return "".join(out)
@@ -433,9 +466,10 @@ def render_reading(spans: list[Span]) -> str:
     """Clean reading text.
 
     Expansions are applied silently, glosses are dropped rather than merged,
-    insertions are applied inline, cancellations, page breaks, blank notations
-    and footnote anchors are removed, and whitespace is normalised to single
-    spaces. Capitalisation, spelling and punctuation are otherwise untouched.
+    insertions are applied inline, underline marks are dropped but the words
+    they mark are kept, cancellations, page breaks, blank notations and footnote
+    anchors are removed, and whitespace is normalised to single spaces.
+    Capitalisation, spelling and punctuation are otherwise untouched.
     """
     out: list[str] = []
     for span in spans:
@@ -447,7 +481,7 @@ def render_reading(spans: list[Span]) -> str:
                 out = [_WORD_TAIL_RE.sub("", "".join(out).rstrip()), " ", span.content]
             else:
                 out.append(span.content)
-        elif span.kind == "insertion":
+        elif span.kind in ("insertion", "underline"):
             out.append(render_reading(span.children))
         # gloss, cancellation, page_break, footnote_anchor, blank: dropped
     return _collapse("".join(out))
@@ -549,9 +583,25 @@ TRANSCRIPTS = {
     "W": "transcripts/woodruff.md",
     "R": "transcripts/richards.md",
     "C": "transcripts/clayton.md",
+    "T": "transcripts/times-and-seasons.md",
 }
 
-SIGLA = ("B", "W", "R", "C")
+#: All five witnesses, in edition order.
+SIGLA = ("B", "W", "R", "C", "T")
+
+#: The four independent reports taken down on 7 April 1844.
+EYEWITNESS_SIGLA = ("B", "W", "R", "C")
+
+#: T is the published composite Bullock and Clayton assembled from the notes.
+#: It is included so readers can see how the received text was built, and must
+#: be labelled derived wherever it is shown.
+WITNESS_KINDS = {
+    "B": "eyewitness",
+    "W": "eyewitness",
+    "R": "eyewitness",
+    "C": "eyewitness",
+    "T": "derived",
+}
 
 
 def repo_root() -> Path:
