@@ -8,30 +8,38 @@ from one another at points that carry real doctrinal weight.
 
 This repository reconstructs the discourse from those four reports. The data
 layer is the edition: the transcripts as the Joseph Smith Papers publishes them,
-an explicit thematic alignment of all four witnesses, the editorial footnotes
-with their anchor positions, and a critical apparatus of the variants. The
-website under `docs/` is a first pass over an earlier and much weaker version of
-that data and is being superseded (see *Status*).
+an explicit thematic alignment of every witness, the editorial footnotes with
+their anchor positions, and a critical apparatus of the variants. The website
+under `docs/` is a first pass over an earlier and much weaker version of that
+data and is being superseded (see *Status*).
 
 ## Sigla
 
-| Siglum | Reporter | Role on 7 April 1844 | Reading words |
-| --- | --- | --- | --- |
-| **B** | Thomas Bullock | Conference reporter and clerk; took the discourse down as Joseph Smith spoke. Base text. | 4,074 |
-| **W** | Wilford Woodruff | Personal journal; not assigned to report, wrote up his account from notes taken during the sermon. | 2,406 |
-| **R** | Willard Richards | Joseph Smith's private secretary and historian; recorded as Smith spoke, very telegraphically. | 1,072 |
-| **C** | William Clayton | Joseph Smith's private clerk; recorded as Smith spoke, breaking off before the close. | 2,907 |
+| Siglum | Witness | Kind | Role on 7 April 1844 | Reading words |
+| --- | --- | --- | --- | --- |
+| **B** | Thomas Bullock | eyewitness | Conference reporter and clerk; took the discourse down as Joseph Smith spoke. Base text. | 4,036 |
+| **W** | Wilford Woodruff | eyewitness | Personal journal; not assigned to report, wrote up his account from notes taken during the sermon. | 2,403 |
+| **R** | Willard Richards | eyewitness | Joseph Smith's private secretary and historian; recorded as Smith spoke, very telegraphically. | 1,066 |
+| **C** | William Clayton | eyewitness | Joseph Smith's private clerk; recorded as Smith spoke, breaking off before the close. | 2,896 |
+| **T** | *Times and Seasons* 5:15 | **derived** | Not a report. The composite Bullock and Clayton assembled from their own notes, printed 15 August 1844, pp. 612–617. | 4,949 |
 
-Bullock is the base text because it is the fullest witness and the only one that
-covers all thirty-five sections. A fifth text, the *Times and Seasons* account of
-15 August 1844, is a later amalgamation of Bullock's and Clayton's notes rather
-than an independent witness; it is not collated here, though JSP's footnotes cite
-it constantly.
+Bullock is the base text because he is the fullest witness and one of only two
+that cover all thirty-five sections.
+
+**T is a derived witness and is labelled so everywhere** — in
+`data/witnesses.json`, in `data/sections.json`, and in every line the CLI
+prints. It is included because it is the text almost every published quotation
+of the discourse actually descends from, so readers can see how the received
+text was built: where it smooths a rough report, where it fuses two witnesses
+into one sentence, and where it supplies wording no witness has. What T must
+never be treated as is a fifth independent report. Its agreement with B or C is
+not corroboration; it *is* B and C, edited. The apparatus in
+`data/apparatus.json` therefore collates the four eyewitnesses only.
 
 ## Data model
 
-**`transcripts/*.md`** — the four reports, pasted verbatim from the Joseph Smith
-Papers website and never edited. Line 1 is the JSP title, line 2 is
+**`transcripts/*.md`** — the five transcripts, pasted verbatim from the Joseph
+Smith Papers website and never edited. Line 1 is the JSP title, line 2 is
 `Document Transcript`, then the body, then a line `Footnotes` followed by
 `[N]text` lines. This content is authoritative: everything else in the
 repository is derived from it and must be rebuilt rather than hand-corrected.
@@ -47,10 +55,19 @@ makes the file safe to build on, and `validate` proves it on every run. Where a
 passage did not obviously belong to one section, the decision and its reasoning
 are recorded in the section's `boundary_notes`.
 
-**`data/witnesses.json`** — one record per witness: reporter, role that day with
-the JSP source it was verified against, transcript path, JSP URL, raw and
-reading word counts, footnote count, manuscript page range, and which sections
-the witness omits.
+T is aligned on the same terms, with two additions. T reorders and merges
+material, so where one T passage carries two sections' material it is assigned
+to the section carrying most of it and the merge is described in
+`boundary_notes`. Where T has material with no eyewitness counterpart — the
+conference-minutes framing that opens it, the editorial parenthesis identifying
+King Follett — the section is flagged `"t_only": true`.
+
+**`data/witnesses.json`** — one record per witness: siglum, name, `kind`
+(`eyewitness` or `derived`), the physical document, the reporter's role that day
+with the JSP source it was verified against, the JSP citation string, JSP URL,
+transcript path, raw and reading word counts, cancellation and underline span
+counts, footnote count, manuscript page range, and which sections the witness
+omits. T additionally records its compilers and its publication data.
 
 **`data/footnotes.json`** — JSP's editorial footnotes, keyed by witness and
 number. Each carries the note text, the character offset of its anchor in the
@@ -63,9 +80,10 @@ so a `TEXT:` note that also mentions the *Times and Seasons* is `textual`.
 **`data/apparatus.json`** — the critical apparatus: thirty-four variants
 `V001`–`V034` where the witnesses differ in doctrinal claim, historical detail or
 rhetorical force. Each names its section and keeps its lemma, per-witness
-readings, type, flag and note. The verification notes an earlier pass made
-against manuscript scans now sit in `legacy_verification`, marked superseded;
-they are history, not evidence. Every variant carries `status:
+readings, type, flag and note. Readings are given for the four eyewitnesses
+only, for the reason given under *Sigla*. The verification notes an earlier pass
+made against manuscript scans now sit in `legacy_verification`, marked
+superseded; they are history, not evidence. Every variant carries `status:
 "carried_forward"` and an empty `sources` list, both to be filled in when the
 apparatus is revised.
 
@@ -75,10 +93,14 @@ apparatus is revised.
 `validate.py` checks every invariant the data claims. `history/` holds the
 January 2026 artifacts these files replace.
 
+**`tools/restore_jsp_markup.py`** — restores the two scribal markers onto the
+transcripts from the saved JSP page JSON in `refs/`. See *Cancellations and
+underlines* below for why this exists.
+
 ## Editorial conventions as parsed
 
 `src/kf/jsp.py` types every piece of a transcript body as one of `text`,
-`expansion`, `gloss`, `insertion`, `cancellation`, `page_break`,
+`expansion`, `gloss`, `insertion`, `cancellation`, `underline`, `page_break`,
 `footnote_anchor` or `blank`. Concatenating the spans reproduces the source
 character for character.
 
@@ -90,7 +112,8 @@ character for character.
 | `Follit [King Follett]`, `Eloe [Elōheem or Elohim]`, `[illegible]` | `gloss` — editorial identification | **dropped**; the scribe's word is kept |
 | `[blank]`, `[25 lines blank]` | `blank` — notation of blank manuscript space | removed |
 | `<​text​>` (with U+200B inside the angle brackets) | `insertion` — scribal interlinear insertion | applied inline |
-| `~~text~~` | `cancellation` — scribal cancellation | dropped |
+| `~~text~~` | `cancellation` — scribal cancellation | **dropped**; cancelled words are not part of the reading text |
+| `__text__` | `underline` — scribal underline | marks dropped, words kept |
 | `hearts2`, `Spirit—46` | `footnote_anchor` | removed |
 
 Distinguishing an expansion from a gloss is the point of the exercise. The
@@ -103,19 +126,21 @@ punctuation, and some digits in these texts are genuine content: "ninety nine of
 100", "the last 14 y[ea]rs", "99/100", "meet Paul 1/2 way". A digit run counts as
 an anchor only when it is glued to what precedes it *and* equals the next
 expected footnote number, so anchors run 1..N in order of appearance. The anchor
-count equals the footnote count in all four transcripts: 87 for Bullock, 3 for
-Woodruff, 5 for Richards, 11 for Clayton.
+count equals the footnote count in all four eyewitness transcripts: 87 for
+Bullock, 3 for Woodruff, 5 for Richards, 11 for Clayton. JSP supplies no
+footnotes for the printed T text, so T must yield no anchors at all.
 
 The three renderings:
 
 - `render_diplomatic` reproduces the JSP presentation — brackets, page markers,
-  strikethroughs and line breaks as they stand, insertions as `<text>` with the
-  zero-width spaces removed, and footnote anchors as `[n]` so they cannot be
-  mistaken for scribal digits.
+  `~~` strikethroughs, `__` underlines and line breaks as they stand, insertions
+  as `<text>` with the zero-width spaces removed, and footnote anchors as `[n]`
+  so they cannot be mistaken for scribal digits.
 - `render_reading` gives clean reading text: expansions applied, glosses
-  dropped, insertions inline, cancellations, page markers, blank notations and
-  anchors removed, whitespace collapsed. Spelling, capitalisation and
-  punctuation are left exactly as the scribe has them.
+  dropped, insertions inline, underline marks dropped but their words kept,
+  cancellations, page markers, blank notations and anchors removed, whitespace
+  collapsed. Spelling, capitalisation and punctuation are left exactly as the
+  scribe has them.
 - `render_normalized` lowercases the reading text, strips punctuation and
   collapses whitespace, for machine comparison only.
 
@@ -123,11 +148,34 @@ Source typography is preserved throughout: em and en dashes, curly quotes, the
 `ō` of "Elōheem", the soft hyphen in a footnote, the lozenge Bullock uses for an
 illegible character. Nothing is ASCII-folded.
 
-One gap is worth naming. JSP renders scribal cancellations struck through, but
-the pastes in `transcripts/` did not preserve that formatting, so cancelled words
-stand in them as ordinary text and are read as such. The parser handles `~~text~~`
-so that a future re-paste keeping the strikethrough will be read correctly; until
-then a handful of cancelled readings are silently part of the reading text.
+### Cancellations and underlines
+
+JSP renders scribal cancellations struck through and scribal underlines
+underlined, but a plain copy-and-paste of a JSP transcript page keeps neither.
+That failure is quiet and costly: once the formatting is gone, a word the scribe
+struck out is indistinguishable from a word he let stand, so cancelled readings
+become part of the reading text and the manuscript's record of the scribe
+changing his mind is lost. Bullock's "as the father ~~hath~~ had power" would
+read as "hath had power"; Clayton's cancelled "~~eternal sin~~" would read as
+though he wrote both "eternal sin" and "unpardonable sin".
+
+The transcripts here carry both markers. The counts are fixed, and come from
+`refs/jsp-markup-audit.md`, where they were taken from the `deleted` and
+`underscore` spans of the live JSP pages:
+
+| | B | W | R | C | T |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| cancellations | 16 | 3 | 7 | 10 | 0 |
+| underlines | 5 | 25 | 0 | 6 | 0 |
+
+Both `validate` and the test suite assert these numbers, so a re-paste that
+flattens the markup fails loudly instead of silently degrading the edition.
+`tools/restore_jsp_markup.py` puts the markers back from the saved JSP page
+JSON: it maps them onto the existing transcript rather than regenerating it, so
+every original character and whitespace choice survives, and it refuses to write
+unless removing the markers again reproduces its input byte for byte and the
+counts above come out exactly. It needs `refs/jsp-json/`, which is local
+reference material and gitignored.
 
 ## Running it
 
@@ -136,7 +184,7 @@ From the repository root, no installation and no dependencies:
 ```
 python3 -m kf validate                # check every data invariant
 python3 -m kf stats                   # per-witness, per-section word counts
-python3 -m kf section S08             # one section across all four witnesses
+python3 -m kf section S08             # one section across all five witnesses
 python3 -m kf section S08 --render reading
 python3 -m unittest discover tests    # parser tests
 ```
@@ -147,7 +195,8 @@ into `data/segments/`, which is generated and gitignored.
 The package lives in `src/kf/`; the root `kf` symlink is what lets `python3 -m kf`
 work from the repository root without installing anything.
 
-`validate` checks that the spans reconstruct each body exactly; that footnote
+`validate` checks that the spans reconstruct each body exactly; that the
+cancellation and underline span counts match the JSP audit; that footnote
 anchors are sequential and match the footnote count; that every section's `text`
 equals its own slice of the body; that the sections are ordered, non-overlapping
 and partition the whole body with no gaps; that no boundary falls inside markup
