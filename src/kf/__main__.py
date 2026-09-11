@@ -64,6 +64,79 @@ def cmd_section(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_apparatus(args: argparse.Namespace) -> int:
+    edition = Edition(args.root)
+    section_id = args.id.upper()
+    if section_id not in edition.by_id:
+        print(f"no such section: {args.id}", file=sys.stderr)
+        return 2
+    section = edition.by_id[section_id]
+    variants = [
+        v for v in edition.apparatus_data["variants"] if v["section"] == section_id
+    ]
+    print(f"{section.id}  {section.label}")
+    print(f"  {len(variants)} variant(s).  B is the base text; T is derived, not a report.")
+    print("  lemma ] B ; W ; R ; C ‖ T")
+    if not variants:
+        print()
+        print("  no variants recorded in this section")
+        return 0
+    for variant in variants:
+        print()
+        heading = f"{variant['id']}  {variant['type']}  [{variant['status']}]"
+        lemma_witness = variant.get("lemma_witness", "B")
+        if lemma_witness != "B":
+            heading += f"  (lemma from {lemma_witness}; B has no counterpart)"
+        print(heading)
+        print(
+            textwrap.fill(
+                _apparatus_line(variant),
+                78,
+                initial_indent="  ",
+                subsequent_indent="      ",
+            )
+        )
+        if not args.brief:
+            print(
+                textwrap.fill(
+                    variant["significance"],
+                    78,
+                    initial_indent="    ",
+                    subsequent_indent="    ",
+                )
+            )
+            trailer = []
+            for note in variant["jsp_footnotes"]:
+                trailer.append(f"JSP {note['witness']} n. {note['n']}")
+            trailer.extend(variant["sources"])
+            if trailer:
+                print(
+                    textwrap.fill(
+                        "sources: " + "; ".join(trailer),
+                        78,
+                        initial_indent="    ",
+                        subsequent_indent="      ",
+                    )
+                )
+            if variant.get("legacy_verification"):
+                print("    legacy_verification present (January 2026; superseded)")
+    return 0
+
+
+def _apparatus_line(variant: dict) -> str:
+    """One variant in the classical form: lemma ] B ; W ; R ; C ‖ T."""
+    sections = variant.get("reading_sections", {})
+
+    def cell(siglum: str) -> str:
+        text = variant["readings"][siglum]
+        if siglum in sections:
+            text += f" [{sections[siglum]}]"
+        return f"{siglum} {text}"
+
+    eyewitnesses = " ; ".join(cell(s) for s in jsp.EYEWITNESS_SIGLA)
+    return f"{variant['lemma']} ] {eyewitnesses} \u2016 {cell('T')}"
+
+
 def cmd_stats(args: argparse.Namespace) -> int:
     edition = Edition(args.root)
     print("Reading-text word counts per section (om. = witness omits the section)")
@@ -144,6 +217,17 @@ def main(argv: list[str] | None = None) -> int:
         default="diplomatic",
     )
     sub.set_defaults(func=cmd_section)
+
+    sub = subparsers.add_parser(
+        "apparatus", help="print the critical apparatus for one section"
+    )
+    sub.add_argument("id", help="section id, e.g. S20")
+    sub.add_argument(
+        "--brief",
+        action="store_true",
+        help="apparatus lines only, without significance and sources",
+    )
+    sub.set_defaults(func=cmd_apparatus)
 
     sub = subparsers.add_parser("stats", help="per-witness per-section word counts")
     sub.set_defaults(func=cmd_stats)
