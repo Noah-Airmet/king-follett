@@ -7,6 +7,7 @@ section and the witness at fault.
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 from . import jsp
@@ -14,7 +15,29 @@ from .segments import Edition
 
 FOOTNOTE_KINDS = {"textual", "times_and_seasons", "scripture", "other"}
 EXPECTED_SECTION_IDS = [f"S{n:02d}" for n in range(1, 36)]
-EXPECTED_VARIANT_IDS = [f"V{n:03d}" for n in range(1, 35)]
+#: Every id the apparatus has ever issued. V001-V034 are the January 2026
+#: entries, kept under their original ids; V035 onward were added in Phase 2b.
+#: Ids are never reused and never deleted: an entry that fails the criteria is
+#: kept with ``status: "withdrawn"`` and a reason.
+EXPECTED_VARIANT_IDS = [f"V{n:03d}" for n in range(1, 107)]
+
+VARIANT_TYPES = {
+    "theological",
+    "historical",
+    "rhetorical",
+    "unique",
+    "omission",
+    "reception",
+    "scribal",
+}
+VARIANT_STATUSES = {"revised", "new", "withdrawn"}
+
+#: A reading may quote a cancelled word alongside the word that stands, in the
+#: form ``kept text (canc. cancelled text)``; two struck spans at one point are
+#: separated by ``"; "``. Each cancelled piece must be a real cancellation span
+#: in that witness's diplomatic text for the section.
+_CANCELLATION = re.compile(r"\s*\(canc\. (.+)\)$")
+_CANCELLATION_SPAN = re.compile(r"~~(.+?)~~")
 
 #: Cancellation and underline span counts per witness, from
 #: ``refs/jsp-markup-audit.md``, where they were counted against the live JSP
@@ -259,34 +282,109 @@ def _check_footnotes(edition: Edition, problems: list[str]) -> None:
 def _check_apparatus(edition: Edition, problems: list[str]) -> None:
     data = edition.apparatus_data
     ids = [v["id"] for v in data["variants"]]
-    if ids != EXPECTED_VARIANT_IDS:
-        problems.append(f"apparatus.json: expected V001..V034 in order, got {ids}")
+    if sorted(ids) != EXPECTED_VARIANT_IDS:
+        problems.append(
+            f"apparatus.json: expected V001..V{len(EXPECTED_VARIANT_IDS):03d} "
+            f"exactly once each, got {len(ids)} ids"
+        )
+    order_key = [(v["section"], v["order"]) for v in data["variants"]]
+    if order_key != sorted(order_key):
+        problems.append("apparatus.json: entries are not ordered by section then order")
+    seen: set[tuple[str, int]] = set()
     for variant in data["variants"]:
-        if variant["section"] not in edition.by_id:
-            problems.append(
-                f"apparatus.json/{variant['id']}: unknown section "
-                f"{variant['section']!r}"
-            )
-        # The apparatus collates the four eyewitness reports. T is the composite
-        # they were used to build, so it is not a collation witness; adding T
-        # readings is Phase 2 work, not a carry-forward.
-        if set(variant["witnesses"]) != set(jsp.EYEWITNESS_SIGLA):
-            problems.append(f"apparatus.json/{variant['id']}: witness keys incomplete")
-        if variant.get("status") != "carried_forward":
-            problems.append(f"apparatus.json/{variant['id']}: unexpected status")
+        vid = variant["id"]
+        section_id = variant["section"]
+        if section_id not in edition.by_id:
+            problems.append(f"apparatus.json/{vid}: unknown section {section_id!r}")
+            continue
+        key = (section_id, variant["order"])
+        if key in seen:
+            problems.append(f"apparatus.json/{vid}: duplicate order {key}")
+        seen.add(key)
+        if variant["type"] not in VARIANT_TYPES:
+            problems.append(f"apparatus.json/{vid}: bad type {variant['type']!r}")
+        if variant.get("status") not in VARIANT_STATUSES:
+            problems.append(f"apparatus.json/{vid}: bad status {variant.get('status')!r}")
+        if variant["type"] == "reception" and variant["readings"].get("T") == "om.":
+            problems.append(f"apparatus.json/{vid}: reception entry with no T reading")
         if not isinstance(variant.get("sources"), list):
-            problems.append(f"apparatus.json/{variant['id']}: sources is not a list")
+            problems.append(f"apparatus.json/{vid}: sources is not a list")
+        if not isinstance(variant.get("jsp_footnotes"), list):
+            problems.append(f"apparatus.json/{vid}: jsp_footnotes is not a list")
+        for note in variant.get("jsp_footnotes", []):
+            witness, number = note["witness"], note["n"]
+            if number not in edition.documents[witness].footnotes:
+                problems.append(
+                    f"apparatus.json/{vid}: no footnote {witness} n. {number}"
+                )
         legacy = variant.get("legacy_verification")
         if legacy is not None and not isinstance(legacy, dict):
             problems.append(
-                f"apparatus.json/{variant['id']}: legacy_verification is not an object"
+                f"apparatus.json/{vid}: legacy_verification is not an object"
             )
-        for stale in ("verification", "verification_note"):
+        for stale in ("verification", "verification_note", "witnesses", "flag", "note"):
             if stale in variant:
-                problems.append(
-                    f"apparatus.json/{variant['id']}: {stale} was not moved into "
-                    "legacy_verification"
-                )
+                problems.append(f"apparatus.json/{vid}: stale field {stale!r}")
+        if set(variant["readings"]) != set(jsp.SIGLA):
+            problems.append(f"apparatus.json/{vid}: readings must cover B W R C T")
+            continue
+        _check_variant_quotations(edition, variant, problems)
+
+
+def _quoted_section(variant: dict, siglum: str) -> str:
+    """The section a reading is quoted from, which is the entry's own unless the
+    witness takes the material out of the base text's order."""
+    return variant.get("reading_sections", {}).get(siglum, variant["section"])
+
+
+def _check_variant_quotations(
+    edition: Edition, variant: dict, problems: list[str]
+) -> None:
+    """Every reading must be verbatim in the witness's reading text.
+
+    This is the check that keeps the apparatus honest. The January 2026 entries
+    it replaces held paraphrases — normalised spelling, silently joined clauses,
+    ellipses — which read as quotations and were not. Thirty-five of their 119
+    eyewitness readings could not be found in the transcripts at all.
+    """
+    vid = variant["id"]
+    lemma_witness = variant.get("lemma_witness", "B")
+    lemma_section = _quoted_section(variant, lemma_witness)
+    lemma_text = edition.reading(lemma_section, lemma_witness)
+    if variant["lemma"] not in lemma_text:
+        problems.append(
+            f"apparatus.json/{vid}: lemma is not verbatim in "
+            f"{lemma_section}/{lemma_witness}"
+        )
+    for siglum in jsp.SIGLA:
+        reading = variant["readings"][siglum]
+        if reading == "om.":
+            continue
+        section_id = _quoted_section(variant, siglum)
+        if not edition.by_id[section_id].witnesses[siglum].present:
+            problems.append(
+                f"apparatus.json/{vid}/{siglum}: witness is absent from "
+                f"{section_id} but a reading is given"
+            )
+            continue
+        match = _CANCELLATION.search(reading)
+        kept = reading
+        if match:
+            kept = reading[: match.start()]
+            struck = set(
+                _CANCELLATION_SPAN.findall(edition.diplomatic(section_id, siglum))
+            )
+            for piece in match.group(1).split("; "):
+                if piece not in struck:
+                    problems.append(
+                        f"apparatus.json/{vid}/{siglum}: {piece!r} is not a "
+                        f"cancellation in {section_id}"
+                    )
+        if kept and kept not in edition.reading(section_id, siglum):
+            problems.append(
+                f"apparatus.json/{vid}/{siglum}: reading is not verbatim in "
+                f"{section_id}"
+            )
 
 
 def run(root: Path | None = None) -> list[str]:
@@ -328,7 +426,8 @@ def report(root: Path | None = None) -> tuple[bool, str]:
     lines.append("          count, section slice equality, order, non-overlap, gapless")
     lines.append("          partition of the whole body, boundaries outside markup and")
     lines.append("          between tokens, word counts, page ranges, witnesses.json,")
-    lines.append("          footnotes.json anchors and sections, apparatus.json ids")
+    lines.append("          footnotes.json anchors and sections, apparatus.json ids,")
+    lines.append("          types, statuses, order and verbatim readings")
     lines.append("")
     if problems:
         lines.append(f"FAIL — {len(problems)} problem(s):")

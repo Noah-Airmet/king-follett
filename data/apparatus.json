@@ -2,66 +2,378 @@
   "metadata": {
     "project": "King Follett Discourse — digital critical edition",
     "file": "data/apparatus.json",
-    "description": "Critical apparatus: meaning-bearing variants among the four witnesses. These 34 entries are the January 2026 collation carried forward unchanged in id, lemma, readings, type, flag and note, and restructured so that each variant names its section, carries an empty sources list for the sources to be cited in Phase 2, and keeps the earlier scan-based verification notes in legacy_verification, clearly marked as superseded. No variant was added or removed.",
+    "description": "A systematic critical apparatus of the King Follett Discourse, built section by section in Phase 2b (September 2026) against the reading rendering of every witness. It replaces the thirty-four hand-picked variants of January 2026, which were collected without stated criteria and whose readings were paraphrases rather than quotations. All thirty-four ids are kept and revised; new entries run from V035 and are numbered in the order they were added, not in discourse order. Entries are ordered by section, then by order within the section.",
+    "phase": "2b",
+    "supersedes": "the January 2026 collation carried forward in Phase 1",
     "base_text": "B",
     "base_text_name": "Thomas Bullock",
-    "apparatus_format": "lemma ] B reading ; W reading ; R reading ; C reading. 'om.' = omitted by that witness.",
-    "variant_types": {
-      "theological": "Variant changes a doctrinal claim or theological emphasis",
-      "historical": "Variant adds or alters a historical detail or narrative element",
-      "rhetorical": "Variant changes the rhetorical framing or imagery in a significant way",
-      "unique_content": "Material present in only one witness with no parallel in others"
+    "sigla": {
+      "B": {
+        "name": "Thomas Bullock",
+        "kind": "eyewitness",
+        "role": "base text"
+      },
+      "W": {
+        "name": "Wilford Woodruff",
+        "kind": "eyewitness",
+        "role": "collated"
+      },
+      "R": {
+        "name": "Willard Richards",
+        "kind": "eyewitness",
+        "role": "collated"
+      },
+      "C": {
+        "name": "William Clayton",
+        "kind": "eyewitness",
+        "role": "collated"
+      },
+      "T": {
+        "name": "Times and Seasons 5:15 (15 Aug. 1844)",
+        "kind": "derived",
+        "role": "Not a report. The composite Thomas Bullock assembled from his own notes and William Clayton's between 23 and 26 April 1844. Recorded in every entry so that the received text can be seen being made, but its agreement with B or C is not corroboration: it is B and C, edited. T is never evidence for what was spoken."
+      }
     },
-    "flag_levels": {
-      "high": "Major theological or historical divergence requiring manuscript verification",
-      "medium": "Significant difference in emphasis or detail",
-      "low": "Notable variant but same basic teaching"
+    "apparatus_format": "lemma ] B reading ; W reading ; R reading ; C reading ‖ T reading. 'om.' = the witness has no counterpart at that point. Printed by `python3 -m kf apparatus Sxx`.",
+    "criteria": {
+      "record_when": "Record a variant when, at the same point of the discourse, the witnesses differ in a way that changes the doctrinal claim, the historical detail, the rhetorical framing, or the evidence of what was heard.",
+      "types": {
+        "theological": "The variant changes the doctrinal claim, its scope, or its modal force (e.g. 'immortal' vs 'coequal'; 'world' vs 'worlds'; 'God' vs 'Gods'; 'suppose' vs a declarative).",
+        "historical": "The variant changes a factual detail, a name, a number, a scripture cited, or an event.",
+        "rhetorical": "An image, metaphor or framing device is present in some witnesses and absent or different in others (the ladder, the ring, the sun).",
+        "unique": "Substantive content stands in exactly one eyewitness; the others are recorded as om.",
+        "omission": "A passage present in two or more eyewitnesses is lacking in another witness that is present at that point, and the omission is more than a scribe's compression. The entry must say why.",
+        "reception": "T only. T's reading differs from all four eyewitnesses, or picks one eyewitness against the others, in a way that shaped the received text. Typed separately so it is never confused with eyewitness variation. Where T's behaviour at a locus is only one facet of an eyewitness variant, it is recorded in that entry's T reading instead of getting an entry of its own; a reception entry is made only where T's own reading is the thing to be recorded.",
+        "scribal": "A cancellation or an insertion in one report bears on the sense. The cancelled reading is quoted in that witness's reading as 'kept text (canc. cancelled text)'; where a scribe struck more than one span at the point, they are separated by '; '."
+      },
+      "do_not_record": [
+        "spelling, abbreviation, punctuation and capitalisation, except where JSP itself flags them or where they carry sense, in which case the entry says why",
+        "synonym-level substitution or word order with no change of sense",
+        "a witness merely being shorter, unless the omission criterion is met"
+      ]
     },
-    "legacy_verification_scale": {
-      "confirmed": "Reading clearly visible and verified in manuscript",
-      "plausible": "Manuscript consistent with transcript; no reason to doubt",
-      "uncertain": "Handwriting ambiguous at scan resolution; reading possible but not definitive",
-      "flagged": "Reading requires higher-resolution verification due to theological significance"
+    "fields": {
+      "id": "Stable identifier. V001–V034 are the January 2026 entries, kept under their original ids.",
+      "section": "The data/sections.json id the variant falls in.",
+      "order": "Position of the entry within its section, counting from 1 in the order of the base text.",
+      "type": "One of the criteria types above.",
+      "status": {
+        "revised": "One of the original thirty-four, re-examined against the Phase 1 reading text; lemma, readings and significance rewritten where the old entry was imprecise.",
+        "new": "Added in Phase 2b.",
+        "withdrawn": "An original entry judged not to meet the criteria. The id and a reason are kept; nothing is deleted. No entry carries this status at present."
+      },
+      "lemma": "The base text's words at the point of variation, verbatim from the reading rendering.",
+      "lemma_witness": "Present only where the base text has no counterpart, and naming the witness the lemma is quoted from instead. Absent means B.",
+      "readings": "One reading per witness B W R C T, verbatim from that witness's reading rendering, or 'om.' where the witness has no counterpart at that point. For T, 'om.' means T has no counterpart at all, not merely a different one.",
+      "reading_sections": "Present only where a witness's counterpart falls in a different section from the entry's, because that witness takes the material out of the base text's order. Maps siglum to the section its reading is quoted from.",
+      "significance": "One to three sentences on what the difference could mean. Hedged by policy: the apparatus says what a reading could show, not what it proves.",
+      "jsp_footnotes": "The JSP editorial footnotes bearing on the entry, as {witness, n}.",
+      "sources": "Citations supporting the entry. 'Smith, p. NN' is William V. Smith, The King Follett Sermon: A Biography (BCC Press, 2023), verified page by page against the full text. 'JSP X n. N' is a Joseph Smith Papers editorial footnote.",
+      "legacy_verification": "Carried forward unchanged where the January 2026 pass left one. It records an examination of JSP manuscript scans no longer held in this repository and is history, not evidence."
     },
-    "status_values": {
-      "carried_forward": "Entry as inherited from history/collation_map.legacy.json; not re-examined in this pass."
+    "counts": {
+      "entries": 106,
+      "by_status": {
+        "new": 72,
+        "revised": 34
+      },
+      "by_type": {
+        "historical": 7,
+        "omission": 2,
+        "reception": 12,
+        "rhetorical": 12,
+        "scribal": 7,
+        "theological": 40,
+        "unique": 26
+      }
     },
-    "supersedes": "history/collation_map.legacy.json",
-    "phase_note": "Revising, adding and removing variants, and citing sources for them, is Phase 2 work and was deliberately not attempted here."
+    "note_on_T": "Unlike the Phase 1 file, every entry carries a T reading. T is labelled derived everywhere and is not counted as a collation witness: it is included so a reader can see which eyewitness the received text followed at each point, and where it followed none."
   },
   "variants": [
     {
       "id": "V001",
       "section": "S01",
+      "order": 1,
       "type": "historical",
-      "flag": "medium",
+      "status": "revised",
       "lemma": "who was crushed to death in a well",
-      "witnesses": {
+      "readings": {
         "B": "who was crushed to death in a well",
         "W": "who was crushed to death in a well",
-        "R": "crushed in a well by the falling of a tub of rock on him",
-        "C": "who was crushed to death"
+        "R": "who was crushed in a well. by the falling of a tub of rock on him",
+        "C": "who was crushed to death &c—",
+        "T": "who was crushed to death in a well"
       },
-      "note": "Richards alone preserves the detail of HOW Follett died (a tub of rock falling on him). Clayton omits 'in a well' entirely.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Richards alone records the physical cause of death, a falling tub of rock; Clayton breaks off at '&c—' and does not name the well. The difference is one of reportorial fullness rather than doctrine, but it is the only place in the discourse where the occasion's factual detail varies, and T, drawn from Bullock and Clayton, preserves neither Richards's detail nor Clayton's ellipsis.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 74",
+        "Smith, p. 287 n. 3"
+      ]
+    },
+    {
+      "id": "V035",
+      "section": "S01",
+      "order": 2,
+      "type": "unique",
+      "status": "new",
+      "lemma": "I have ben requested to speak by his friends & relatives",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "I have ben requested to speak by his friends & relatives",
+        "T": "I have been requested to speak by his friends and relatives"
+      },
+      "significance": "Clayton alone records that Joseph Smith was speaking at the family's request rather than on his own initiative. If accurate it locates the discourse as a commissioned funeral sermon; Bullock's opening presents it instead as a subject the speaker has chosen. T takes Clayton's clause into the received text.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V036",
+      "section": "S01",
+      "order": 3,
+      "type": "theological",
+      "status": "new",
+      "lemma": "faith the instruction. of Almighty God",
+      "readings": {
+        "B": "faith the instruction. of Almighty God",
+        "W": "I want the Prayers & faith of the Saints that I may have the Holy Ghost",
+        "R": "om.",
+        "C": "want your prayers faith, the inspiration of Almighty God, the Gift of H. G.",
+        "T": "I want your prayers and faith, the instruction of Almighty God and the gift of the Holy Ghost"
+      },
+      "significance": "JSP flags Bullock's word as possibly 'inspr.', and Clayton reads 'inspiration'. What is asked for differs: instruction is content delivered, inspiration is a condition of the speaker. Woodruff and Clayton both name the Holy Ghost here, which Bullock does not; T prints both Bullock's 'instruction' and Clayton's gift of the Holy Ghost, so the received text carries a reading no single report supports.",
+      "jsp_footnotes": [
+        {
+          "witness": "B",
+          "n": 1
+        }
+      ],
+      "sources": [
+        "JSP B n. 1"
+      ]
+    },
+    {
+      "id": "V037",
+      "section": "S01",
+      "order": 4,
+      "type": "unique",
+      "status": "new",
+      "lemma": "that it may enter into the ear of the Ld of Sabaoth",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "that it may enter into the ear of the Ld of Sabaoth",
+        "T": "that it may enter into the ear of the Lord of Sabaoth"
+      },
+      "significance": "Clayton alone records the allusion to James 5:4. It is a scriptural warrant for the petition Bullock reports in plain terms ('let the prayers of the Saints to heaven appear'), and its presence only in Clayton suggests either that Bullock compressed it or that Clayton supplied a familiar phrase; T keeps it.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V038",
+      "section": "S03",
+      "order": 1,
+      "type": "historical",
+      "status": "new",
+      "lemma": "the great Eloe",
+      "readings": {
+        "B": "the great Eloe",
+        "W": "the Eloheem",
+        "R": "om.",
+        "C": "the great Elohem that sits in the h.",
+        "T": "the great Eloheim, that sits in yonder heavens"
+      },
+      "significance": "The three reports transliterate the divine name differently, and Smith reads Bullock's form as 'Eloi' or 'Eloe'. Transliteration alone would fall below the threshold of this apparatus, but the name is the subject of the sermon's central argument and 'Eloi' would carry an accidental echo of Mark 15:34. Clayton alone locates the Eloheim in the heavens, a clause T adopts and expands to 'yonder heavens'.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 59",
+        "Smith, p. 61",
+        "Smith, p. 288 n. 9"
+      ]
+    },
+    {
+      "id": "V039",
+      "section": "S03",
+      "order": 2,
+      "type": "theological",
+      "status": "new",
+      "lemma": "but if we start wrong it is hard to get right",
+      "readings": {
+        "B": "but if we start wrong it is hard to get right",
+        "W": "but if you start wrong you may go wrong.",
+        "R": "om.",
+        "C": "start wrong hard matter to get right.",
+        "T": "but if we start wrong, it is a hard matter to get right."
+      },
+      "significance": "Bullock and Clayton report a claim about the difficulty of recovery; Woodruff reports a claim about the risk of error. The modal force differs: 'hard to get right' concedes that a wrong start can be corrected with effort, 'you may go wrong' makes going wrong a contingency rather than a condition to be repaired. Smith identifies the saying as an adaptation of a Lorenzo Dow proverb and notes that Woodruff reports its parts out of the order the other audits give.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 59",
+        "Smith, p. 102 n. 83",
+        "Smith, p. 102 n. 85"
+      ]
+    },
+    {
+      "id": "V040",
+      "section": "S04",
+      "order": 1,
+      "type": "theological",
+      "status": "new",
+      "lemma": "they do not comprehend any thing that is past or that which is to come",
+      "readings": {
+        "B": "they do not comprehend any thing that is past or that which is to come",
+        "W": "they do not know they do not understand their relationship to God",
+        "R": "If men do not comprehend the character of God they do not comprehend themselves.",
+        "C": "They cannot comprehend from the beginning no the end not their own relation",
+        "T": "They do not comprehend any thing, that which is past, or that which is to come"
+      },
+      "significance": "The four reports name four different objects of human ignorance: past and future (B), relationship to God (W), the self (R), and all three together (C). Richards's contrapositive is the strongest form, tying knowledge of God directly to self-knowledge, and Smith observes that it is not equivalent to Clayton's conjunction. JSP flags Clayton's 'no' as possibly 'nor', which would not change the sense. T follows Bullock and drops the self-knowledge claim entirely.",
+      "jsp_footnotes": [
+        {
+          "witness": "C",
+          "n": 2
+        }
+      ],
+      "sources": [
+        "JSP C n. 2",
+        "Smith, p. 93 n. 6",
+        "Smith, p. 288 n. 11",
+        "Smith, p. 288 n. 12"
+      ]
+    },
+    {
+      "id": "V041",
+      "section": "S05",
+      "order": 1,
+      "type": "unique",
+      "status": "new",
+      "lemma": "There can be eternal life on no other prinicple—",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "There can be eternal life on no other prinicple—",
+        "T": "there can be eternal life on no other principle."
+      },
+      "significance": "Clayton alone closes the argument with an exclusivity claim. Bullock, Woodruff and Richards all report the positive form (knowing God is eternal life) and its negative (not knowing God is to lack it) but none reports the further claim that there is no other route. T prints Clayton's sentence, so the received text makes the strongest available version of the claim.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V042",
+      "section": "S06",
+      "order": 1,
+      "type": "theological",
+      "status": "new",
+      "lemma": "never say anything against. the man of God",
+      "readings": {
+        "B": "never say anything against. the man of God",
+        "W": "never lift up his hand against me again",
+        "R": "never lift your voice against the servants of God again.",
+        "C": "never say any thing against the man of God again",
+        "T": "never say any thing against the man of God again"
+      },
+      "significance": "Bullock and Clayton report a demand made on behalf of 'the man of God' in the singular, Woodruff a demand made on Joseph Smith's own behalf ('against me'), and Richards a demand extended to 'the servants of God' in the plural. Smith notes that Richards alters the sense. The scope matters in April 1844: the plural would make the claim cover the whole leadership against whom the Nauvoo dissenters were then agitating.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 288 n. 15"
+      ]
+    },
+    {
+      "id": "V043",
+      "section": "S07",
+      "order": 1,
+      "type": "theological",
+      "status": "new",
+      "lemma": "every man has a right to be a false as well as a true prophet—",
+      "readings": {
+        "B": "every man has a right to be a false as well as a true prophet—",
+        "W": "meddle not with any man for his religion, evry goverment ought to permit evry man to enjoy his religion,",
+        "R": "Every man has a right to be a false prophet. as well as a true prophet.—",
+        "C": "no man is authorised to take away life in consequence of their religion all laws and government ought to tolerate whether right or wrong",
+        "T": "But no man is authorized to take away life in consequence of their religion; which all laws and governments ought to tolerate, right or wrong."
+      },
+      "significance": "Bullock and Richards report the claim as a right held by the individual, including a right to be wrong; Woodruff and Clayton report it as a duty of government to tolerate. The two are not the same argument, and only the first grants a positive right to false prophecy. Bullock and Richards agreeing on the more striking formulation is some evidence that it was spoken. T carries only the toleration form, so the sharper claim did not enter the received text.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 288 n. 17"
+      ]
+    },
+    {
+      "id": "V044",
+      "section": "S07",
+      "order": 2,
+      "type": "theological",
+      "status": "new",
+      "lemma": "ninety nine of 100 are false prophets",
+      "readings": {
+        "B": "ninety nine of 100 are false prophets",
+        "W": "om.",
+        "R": "om.",
+        "C": "99/100 are false teachers",
+        "T": "ninety-nine out of a hundred are false teachers"
+      },
+      "significance": "Bullock has 'false prophets', Clayton 'false teachers'. The claim's target differs: prophets would indict claimants to revelation, teachers the general ministry. T follows Clayton. Smith records that the later Manuscript History expanded the phrase further, to 'ninety-nine out of every hundred professing religious ministers', without manuscript warrant, so the drift from Bullock's wording continued past T.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 289 n. 20",
+        "Smith, p. 289 n. 21"
+      ]
+    },
+    {
+      "id": "V045",
+      "section": "S07",
+      "order": 3,
+      "type": "historical",
+      "status": "new",
+      "lemma": "for I speak as one having. authority. & not as a senr.",
+      "readings": {
+        "B": "for I speak as one having. authority. & not as a senr.",
+        "W": "om.",
+        "R": "om.",
+        "C": "I speak in authority—",
+        "T": "for I speak as one having authority."
+      },
+      "significance": "Bullock alone carries the second half of the Matthew 7:29 allusion, and JSP flags the last word as possibly 'servt.' while noting the allusion requires 'scribe'. Smith adds that 'senr' might be an abbreviation of senator, which would make the clause a political jab rather than a scriptural one. Bullock himself dropped the phrase when he compiled T, so the received text preserves only the half that Clayton also has.",
+      "jsp_footnotes": [
+        {
+          "witness": "B",
+          "n": 11
+        }
+      ],
+      "sources": [
+        "JSP B n. 11",
+        "Smith, p. 289 n. 24"
+      ]
     },
     {
       "id": "V002",
       "section": "S08",
+      "order": 1,
       "type": "theological",
-      "flag": "high",
-      "lemma": "who holds this world in its orbit",
-      "witnesses": {
+      "status": "revised",
+      "lemma": "who holds this world in its orbit & upholds all things by his power",
+      "readings": {
         "B": "who holds this world in its orbit & upholds all things by his power",
         "W": "that holds the worlds",
         "R": "om.",
-        "C": "who holds this world in its sphere in its orbit— the planets"
+        "C": "who holds this world in its sphere in its orbit— the planets",
+        "T": "who holds this world in its orbit, and upholds all things by his power"
       },
-      "note": "Woodruff has 'worlds' (plural), implying God's dominion over multiple worlds. Bullock and Clayton have 'this world' (singular). Clayton adds 'the planets.' This variant affects the scope of God's dominion as taught in this passage.",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Woodruff's plural 'worlds' extends the claim from this earth to a plurality of worlds, which is the cosmology the sermon goes on to teach; Bullock and Clayton keep the singular. Clayton's 'the planets' and 'in its sphere' are, as Smith observes, premodern images of cosmic maintenance. T follows Bullock, so the received text makes the narrower claim.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 62",
+        "Smith, p. 249",
+        "Smith, p. 290 n. 27",
+        "Smith, p. 290 n. 28"
+      ],
       "legacy_verification": {
         "scale": "plausible",
         "note": "Woodruff's 'worlds' (plural) visible with terminal 's'. Bullock/Clayton singular 'world' consistent. Variant genuine.",
@@ -72,20 +384,92 @@
       }
     },
     {
+      "id": "V046",
+      "section": "S08",
+      "order": 2,
+      "type": "unique",
+      "status": "new",
+      "lemma": "If the vail was rent to day",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "If the vail was rent to day",
+        "T": "If the vail was rent to-day"
+      },
+      "significance": "Clayton alone frames the vision of God as a rending of the veil, and alone adds 'that is the great secret' just before it. Bullock, Woodruff and Richards all put the seeing in a plain conditional ('if you were to see him to day'). The image makes the claim an unveiling of something hidden rather than a hypothetical, and T adopts both of Clayton's phrases.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V047",
+      "section": "S08",
+      "order": 3,
+      "type": "theological",
+      "status": "new",
+      "lemma": "Adam walkd talked & communed. with him as one man talks & communes: with another.",
+      "readings": {
+        "B": "Adam walkd talked & communed. with him as one man talks & communes: with another.",
+        "W": "Adam was made in his image and talked with him, walked with him.",
+        "R": "Adam was formd in his likeness.——",
+        "C": "Adam received instruction walked talked as one man with another.",
+        "T": "Adam received instruction, walked, talked and conversed with him, as one man talkes and communes with another."
+      },
+      "significance": "Clayton alone has Adam 'received instruction', which makes the exchange didactic; Bullock's 'communed' makes it companionable, and JSP flags his word as possibly 'Comd.' Richards reports only the likeness and no conversation at all. T fuses Clayton's instruction with Bullock's communing.",
+      "jsp_footnotes": [
+        {
+          "witness": "B",
+          "n": 14
+        }
+      ],
+      "sources": [
+        "JSP B n. 14",
+        "Smith, p. 289 n. 29",
+        "Smith, p. 289 n. 30"
+      ]
+    },
+    {
+      "id": "V048",
+      "section": "S09",
+      "order": 1,
+      "type": "theological",
+      "status": "new",
+      "lemma": "I am going to tell you what sort of a being of God",
+      "readings": {
+        "B": "I am going to tell you what sort of a being of God",
+        "W": "I want you to understand God and how he comes to be God",
+        "R": "om.",
+        "C": "Going to tell you how God came to be God.",
+        "T": "I am going to tell you how God came to be God."
+      },
+      "significance": "Bullock announces an inquiry into what God is; Woodruff and Clayton announce an account of how God became God. The second is the far stronger thesis, and it is the one the rest of the section argues. T follows Clayton, which is why the received text opens the argument with the becoming rather than the being.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 289 n. 31"
+      ]
+    },
+    {
       "id": "V003",
       "section": "S09",
+      "order": 2,
       "type": "theological",
-      "flag": "high",
+      "status": "revised",
       "lemma": "for he was God from the begin of all Eternity & if I do not refute it",
-      "witnesses": {
+      "readings": {
         "B": "for he was God from the begin of all Eternity & if I do not refute it",
         "W": "We suppose that God was God from eternity, I will refute that Idea",
-        "R": "refute the Idea that God was God from all eternity",
-        "C": "We have imagined that God was God from all eternity"
+        "R": "refute the Idea that God was God from all eternity—",
+        "C": "We have imagined that God was God from all eternity.",
+        "T": "We have imagined that God was God from all eternity."
       },
-      "note": "Bullock's phrasing is ambiguous: 'for he was God from the begin of all Eternity & if I do not refute it' could be read as affirmation or as stating the conventional view before refuting. Woodruff ('We suppose') and Clayton ('We have imagined') clearly frame it as a belief to be corrected. The framing verb is critical: 'suppose' vs. 'imagined' vs. Bullock's declarative construction.",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Bullock's clause has no attributing verb, so it can be read as an assertion that God was God from eternity or as the opinion about to be refuted; Woodruff's 'We suppose' and Clayton's 'We have imagined' mark it unambiguously as a common belief to be corrected, and Richards's bare 'refute the Idea' agrees. Three witnesses against one on the modal frame make the refutation reading much the likelier, and T prints Clayton's.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 51",
+        "Smith, p. 275",
+        "Smith, p. 289 n. 31"
+      ],
       "legacy_verification": {
         "scale": "plausible",
         "note": "All three framing verbs verified: Bullock declarative, Woodruff 'suppose', Clayton 'imagined'. Variant genuine.",
@@ -96,20 +480,48 @@
       }
     },
     {
+      "id": "V049",
+      "section": "S09",
+      "order": 3,
+      "type": "unique",
+      "status": "new",
+      "lemma": "or I will do away or take away the veil so you may see",
+      "lemma_witness": "W",
+      "readings": {
+        "B": "om.",
+        "W": "or I will do away or take away the veil so you may see",
+        "R": "om.",
+        "C": "om.",
+        "T": "om."
+      },
+      "significance": "Woodruff alone reports the alternative Joseph Smith offers to refutation: not argument but disclosure. Smith notes the addition. It casts the whole of what follows as revelation rather than proof, which sits in tension with Bullock's 'I will shew it from the Bible' a few lines later, and no part of it reached T.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 289 n. 31"
+      ]
+    },
+    {
       "id": "V004",
       "section": "S09",
+      "order": 4,
       "type": "theological",
-      "flag": "high",
+      "status": "revised",
       "lemma": "God himself the father of us all dwelt on a Earth same as J C himself did",
-      "witnesses": {
+      "readings": {
         "B": "God himself the father of us all dwelt on a Earth same as J C himself did",
         "W": "the Father was once on an earth like us",
         "R": "om.",
-        "C": "was on a planet as Jesus was in the flesh"
+        "C": "he was once as one of us and was on a planet as Jesus was in the flesh",
+        "T": "God himself; the Father of us all dwelt on an earth the same as Jesus Christ himself did"
       },
-      "note": "Three significantly different renderings of the same teaching. Bullock: 'dwelt on an Earth same as JC himself did' (parallel with Christ). Woodruff: 'an earth like us' (parallel with humanity; ambiguous—like our earth, or like us?). Clayton: 'on a planet as Jesus was in the flesh' (most explicit about embodiment, and uses 'planet' not 'earth'). Clayton's 'in the flesh' is the strongest assertion of God's prior corporeality.",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "All three reports have the Father's prior mortality, but they locate it differently: Bullock and T on 'an earth' as Christ was, Woodruff on an earth 'like us', Clayton on 'a planet' and explicitly 'in the flesh'. Clayton's is the most corporeal and, as Smith notes, reflects Nauvoo planetary theology. Smith shows the claim being deduced from John 5:19, and records that the Utah redactors later replaced the whole of it with the Snow couplet.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 31",
+        "Smith, p. 268 n. 79",
+        "Smith, p. 290 n. 26",
+        "Smith, p. 289 n. 33"
+      ],
       "legacy_verification": {
         "scale": "confirmed",
         "note": "Clayton's 'planet' clearly legible — distinct from Bullock/Woodruff's 'earth'. Clayton's 'in the flesh' also clear. Three different phrasings confirmed.",
@@ -120,37 +532,150 @@
       }
     },
     {
+      "id": "V051",
+      "section": "S10",
+      "order": 1,
+      "type": "rhetorical",
+      "status": "new",
+      "lemma": "I wish I had the trump of an Arch Angel I cod. tell the story in such a manner that persecution: shod. cease for ever—",
+      "readings": {
+        "B": "I wish I had the trump of an Arch Angel I cod. tell the story in such a manner that persecution: shod. cease for ever—",
+        "W": "And I wish I was in a suitable place to tell it",
+        "R": "om.",
+        "C": "If I have the privilege could tell the story in such a manner as persecution would cease forever—",
+        "T": "I wish I had the trump of an arch angel, I could tell the story in such a manner that persecution would cease forever;"
+      },
+      "reading_sections": {
+        "T": "S09"
+      },
+      "significance": "What the speaker says he lacks differs: an archangel's trumpet (B), a suitable place (W), the privilege (C). Bullock's is an image of amplification, Woodruff's and Clayton's are complaints about circumstance. Only Bullock's reached T. The section boundary falls before this sentence in T, which places it at the end of S09.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V050",
+      "section": "S10",
+      "order": 2,
+      "type": "unique",
+      "status": "new",
+      "lemma": "(mark it Br Rigdn )",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "(mark it Br Rigdn )",
+        "T": "(mark it elder Rigdon;)"
+      },
+      "significance": "Clayton alone records Joseph Smith turning to Sidney Rigdon by name at the John 5:19 argument. It is the only direct address to a named hearer in the discourse, and it matters for the April 1844 setting, since Rigdon had spoken at length earlier in the conference. T keeps it but raises 'Br' to 'elder'; Smith notes the change of title.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 289 n. 34"
+      ]
+    },
+    {
+      "id": "V052",
+      "section": "S10",
+      "order": 3,
+      "type": "scribal",
+      "status": "new",
+      "lemma": "as the Father. hath power in himself",
+      "readings": {
+        "B": "as the Father. hath power in himself",
+        "W": "As the Father hath power in himself",
+        "R": "as the father Had power in himself",
+        "C": "as the father had power in himself (canc. hath)",
+        "T": "as the Father hath power in himself"
+      },
+      "significance": "Clayton wrote 'hath', struck it, and wrote 'had'; Richards independently has 'Had'. The tense is not indifferent in this sermon: the present tense quotes John 5:19 as it stands, the past tense assimilates the verse to the argument that the Father's work was done in a prior mortality. Clayton's correction is evidence that he heard, or understood, the past. Bullock, Woodruff and T all keep the present.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 289 n. 36"
+      ]
+    },
+    {
+      "id": "V007",
+      "section": "S11",
+      "order": 1,
+      "type": "theological",
+      "status": "revised",
+      "lemma": "you have got to learn how to be a God yourself",
+      "readings": {
+        "B": "you have got to learn how to be a God yourself",
+        "W": "you have got to learn how to make yourselves God, king and priest,",
+        "R": "you have got to learn how to make yourselves Gods Kings. Priests.—",
+        "C": "You have got to learn how to be a god yourself in order to save yourself—",
+        "T": "You have got to learn how to be Gods yourselves;"
+      },
+      "significance": "Bullock and Clayton have 'be', Woodruff and Richards 'make yourselves'; the second makes deification a work performed on oneself rather than a state attained. Richards alone has the plural 'Gods'. Clayton alone supplies the motive, 'in order to save yourself', which subordinates deification to salvation. T pluralises, giving a reading no report has in that exact form.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 31",
+        "Smith, p. 290 n. 37"
+      ]
+    },
+    {
+      "id": "V053",
+      "section": "S11",
+      "order": 2,
+      "type": "scribal",
+      "status": "new",
+      "lemma": "& be a King & Priest to God",
+      "readings": {
+        "B": "& be a King & Priest to God (canc. God)",
+        "W": "king and priest,",
+        "R": "Kings. Priests.—",
+        "C": "to be priests & Kings",
+        "T": "to be kings and priests to God,"
+      },
+      "significance": "Bullock first wrote 'be a King & God', struck 'God', and wrote 'Priest to God'. Smith confirms the sequence from the manuscript. What the scribe first heard, or first expected, was the more extreme claim that the hearer would be a king and a God; the correction to 'Priest' brings the phrase back to the Revelation 1:6 formula that Woodruff, Richards and Clayton all report. The cancellation is therefore evidence about what was audible at the point where the sermon is at its most radical.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 290 n. 37"
+      ]
+    },
+    {
       "id": "V005",
       "section": "S11",
+      "order": 3,
       "type": "theological",
-      "flag": "medium",
-      "lemma": "from grace to grace until the resurrection",
-      "witnesses": {
-        "B": "from grace to grace until the resurrection",
-        "W": "from a small capacity to a great capacity to the resurrection of the dead",
-        "R": "from a small to great capacity",
-        "C": "from a small degree to another from exaltation to exaltation"
+      "status": "revised",
+      "lemma": "from grace to grace until the resurrection.",
+      "readings": {
+        "B": "from grace to grace until the resurrection.",
+        "W": "from a small capacity to a great capacity to the resurrection of the dead,",
+        "R": "by going from a small to great capacity.",
+        "C": "from a small degree to another from exaltation to exaltation—",
+        "T": "from a small degree to another, from grace to grace, from exaltation to exaltation,"
       },
-      "note": "Bullock uses scriptural language 'grace to grace' (John 1:16). Woodruff/Richards use 'capacity' (implying growth in ability). Clayton uses 'exaltation to exaltation' (implying progressive glorification). Each frames the process of deification differently.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Three different metrics for the ascent: grace (B, from John 1:16), capacity (W, R) and exaltation (C). They are not interchangeable — grace is given, capacity is enlarged, exaltation is conferred. T prints all three in a single series, a reading no eyewitness supports and the clearest single instance of its compositive method.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 31",
+        "Smith, p. 138",
+        "Smith, p. 275"
+      ]
     },
     {
       "id": "V006",
       "section": "S11",
+      "order": 4,
       "type": "theological",
-      "flag": "high",
-      "lemma": "sit in everlasting power as they who have gone before",
-      "witnesses": {
-        "B": "sit in everlasting power as they who have gone before",
-        "W": "to dwelling in everlasting burnings",
-        "R": "dwell in evelastig burning & everlasting power",
-        "C": "sit in glory as doth those who sit enthroned"
+      "status": "revised",
+      "lemma": "& sit in everlasting power as they who have gone before",
+      "readings": {
+        "B": "& sit in everlasting power as they who have gone before",
+        "W": "to dwelling in everlasting burnings,",
+        "R": "Till they are able to dwell in everlasting burning & everlasting power.—",
+        "C": "till they are able to sit in glory as doth those who sit enthroned.",
+        "T": "until you are able to sit in glory as doth those who sit enthroned in everlasting power;"
       },
-      "note": "Four different characterizations of the divine state. Bullock: 'everlasting power.' Woodruff: 'everlasting burnings' (echoing Isaiah 33:14, implying God dwells in fire). Clayton: 'glory...enthroned.' Richards uniquely combines both: 'burning & everlasting power.' The 'burnings' reading has significant theological weight—it recasts fire as the medium of God's dwelling rather than punishment.",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Bullock has power, Woodruff burnings, Clayton glory; Richards has burning and power together, which is some evidence that both words were spoken. 'Everlasting burnings' (Isaiah 33:14) recasts fire as the medium of God's dwelling rather than as punishment, and it is the reading that does most theological work. Bullock could not see Woodruff or Richards when he compiled T, and T accordingly prints glory and power without burnings.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 138",
+        "Smith, p. 290 n. 38"
+      ],
       "legacy_verification": {
         "scale": "plausible",
         "note": "Four-way split verified. Richards combining 'burning & everlasting power' suggests JS may have used both words; each scribe caught a different one.",
@@ -161,71 +686,91 @@
       }
     },
     {
-      "id": "V007",
-      "section": "S11",
+      "id": "V054",
+      "section": "S12",
+      "order": 1,
       "type": "theological",
-      "flag": "medium",
-      "lemma": "you have got to learn how to be a God yourself",
-      "witnesses": {
-        "B": "you have got to learn how to be a God yourself",
-        "W": "you have got to learn how to make yourselves God, king and priest",
-        "R": "you have got to learn how to make yourselves Gods Kings. Priests.",
-        "C": "You have got to learn how to be a god yourself in order to save yourself— to be priests & Kings"
+      "status": "new",
+      "lemma": "that all Earthly tabernacles shall be dissolved",
+      "readings": {
+        "B": "that all Earthly tabernacles shall be dissolved",
+        "W": "to know that though they lay down this body it will rise & dwell with everlasting burnings",
+        "R": "to know their very being will rise to dwell in everlasting burning.—",
+        "C": "to know that those being shall rise in immortal glory to sorrow die nor suffer any more.",
+        "T": "although the earthly tabernacle shall be dissolved, that they shall rise in immortal glory, not to sorrow, suffer or die any more,"
       },
-      "note": "Clayton uniquely adds 'in order to save yourself' as the motivation for deification. Woodruff/Richards use 'make yourselves' (active self-creation) vs. Bullock/Clayton 'be' (state of being). Richards has 'Gods' (plural) while others have 'God' (singular).",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "What is offered as consolation differs. Bullock offers only the dissolution of the body; Woodruff and Richards offer a rising into everlasting burnings, which continues the Isaiah 33 language of the previous section; Clayton offers immortal glory defined negatively, by the end of sorrow, suffering and death. T sets Bullock's dissolution and Clayton's glory side by side and again omits the burnings.",
+      "jsp_footnotes": [],
+      "sources": []
     },
     {
       "id": "V008",
       "section": "S12",
+      "order": 2,
       "type": "theological",
-      "flag": "medium",
-      "lemma": "they shall be heirs of God & joint heirs of J. C. to inherit the same powers exaltation",
-      "witnesses": {
-        "B": "they shall be heirs of God & joint heirs of J. C. to inherit the same powers exaltation",
-        "W": "to be an heir of God & joint heir of Jesus Christ enjoying the same rise exhaltation & glory untill you arive at the station of a God",
+      "status": "revised",
+      "lemma": "to inherit the same powers exaltation. until you ascend. the throne of Etl. power same as those who are gone before",
+      "readings": {
+        "B": "to inherit the same powers exaltation. until you ascend. the throne of Etl. power same as those who are gone before",
+        "W": "enjoying the same rise exhaltation & glory untill you arive at the station of a God.",
         "R": "heirs of God.",
-        "C": "they shall be heirs of God &c— What is it— to inherit the same glory power & exaltation with those who are gone"
+        "C": "to inherit the same glory power & exaltation with those who are gone— before—",
+        "T": "to inherit the same glory, the same power and the same exaltation, until you ascend the throne of eternal power the same as those who are gone before."
       },
-      "note": "Woodruff uniquely adds 'untill you arive at the station of a God'—the most explicit statement of theosis/deification as the endpoint. Clayton phrases it as inheriting 'with those who are gone before.' Richards abbreviates to just 'heirs of God.'",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Bullock and Clayton expand Romans 8:17 into shared power, glory and exaltation; Woodruff carries the expansion one step further to 'the station of a God', which names the terminus the others leave implicit. Richards has the bare scriptural phrase and nothing more. T follows Bullock and Clayton, so the explicit statement of the endpoint is not in the received text.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 31",
+        "Smith, p. 290 n. 41"
+      ]
     },
     {
       "id": "V009",
       "section": "S13",
+      "order": 1,
       "type": "historical",
-      "flag": "medium",
-      "lemma": "before worlds came rolled into existence I saw my Father work out his Kingdom with fear & trembling",
-      "witnesses": {
-        "B": "before worlds came rolled into existence I saw my Father work out his Kingdom with fear & trembling",
-        "W": "What did Jesus Christ do the same thing as I see the Father do see the father do what, work out a kingdom",
-        "R": "I saw the father work out his kingdom with fear & trembling",
-        "C": "I saw the father work out a kingdom with fear & trembling"
+      "status": "revised",
+      "lemma": "before worlds came rolled nto existence",
+      "readings": {
+        "B": "before worlds came rolled nto existence",
+        "W": "the same thing as I see the Father do",
+        "R": "om.",
+        "C": "when worlds came into existens",
+        "T": "when worlds came rolling into existence."
       },
-      "note": "Bullock alone preserves the temporal marker 'before worlds came rolled into existence.' Woodruff lacks 'fear & trembling.' Clayton has 'a kingdom' (indefinite) vs. Bullock/Richards 'his Kingdom' (possessive).",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Bullock places the Father's probation before the worlds came into existence, Clayton at the time they did. The difference sets the Father's mortal work either prior to or contemporaneous with creation, which bears directly on how the sermon's chain of Gods is to be ordered. Woodruff has no temporal marker at all. T follows Clayton's 'when'.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 32",
+        "Smith, p. 276"
+      ]
     },
     {
       "id": "V010",
       "section": "S13",
+      "order": 2,
       "type": "theological",
-      "flag": "high",
-      "lemma": "so that he obtains Kingdom rolling upon Kingdom",
-      "witnesses": {
-        "B": "so that he obtains Kingdom rolling upon Kingdom",
-        "W": "He will take a Higher exhaltation & I will take his place and am also exhalted",
-        "R": "god is gratified in Exaltation of his creations",
-        "C": "when I get my kingdom work I will present to the father & it will exalt his glory and Jesus steps into his tracts"
+      "status": "revised",
+      "lemma": "so that he obtains K rolling. upon K.",
+      "readings": {
+        "B": "so that he obtains K rolling. upon K.",
+        "W": "He will take a Higher exhaltation & I will take his place and am also exhalted.",
+        "R": "god is gratified in salvation Exaltation— of his creations &c—",
+        "C": "it will exalt his glory and Jesus steps into his tracts",
+        "T": "so that he obtains kingdom upon kingdom, and it will exalt his glory,"
       },
-      "note": "Four significantly different renderings of the succession doctrine. Bullock: 'Kingdom rolling upon Kingdom' (cosmic expansion). Woodruff: Christ takes God's place and is 'also exalted' (explicit succession). Clayton: presenting the kingdom to the Father 'exalts his glory' (additive model). Richards: God is 'gratified in Exaltation of his creations' (God's motive). Each implies a different model of divine progression.",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Four models of what the Son's finished work does for the Father. Bullock has accumulation of kingdoms; Woodruff has succession, the Father advancing and the Son taking his place; Clayton has the Father's glory increased; Richards has the Father gratified. JSP flags Richards's word as possibly 'glorified', which would move his reading toward Clayton's. T fuses Bullock and Clayton and leaves the succession out.",
+      "jsp_footnotes": [
+        {
+          "witness": "R",
+          "n": 2
+        }
+      ],
+      "sources": [
+        "JSP R n. 2",
+        "Smith, p. 32",
+        "Smith, p. 290 n. 42"
+      ],
       "legacy_verification": {
         "scale": "plausible",
         "note": "Bullock's 'K rolling upon K' visible in shorthand. Four distinct succession models verified.",
@@ -236,37 +781,89 @@
       }
     },
     {
-      "id": "V011",
-      "section": "S14",
-      "type": "rhetorical",
-      "flag": "medium",
-      "lemma": "when you climb a ladder you must begin at the bottom rung",
-      "witnesses": {
-        "B": "when you climb a ladder you must begin at the bottom rung until you learn the last principle of the Gospel",
+      "id": "V055",
+      "section": "S13",
+      "order": 3,
+      "type": "reception",
+      "status": "new",
+      "lemma": "it is plain beyond comprehension.",
+      "readings": {
+        "B": "it is plain beyond comprehension.",
         "W": "om.",
         "R": "om.",
-        "C": "You have got to find the beginning of the history & go on till you have learned the last"
+        "C": "om.",
+        "T": "it is plain beyond disputation,"
       },
-      "note": "The famous ladder metaphor appears only in Bullock. Clayton has a flat restatement without the ladder image. Woodruff and Richards omit entirely. This became one of the most quoted images from the discourse.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Bullock, the only witness at this point, wrote 'comprehension'; the printed text reads 'disputation'. Smith records the substitution as Bullock's own, made while preparing T. The two are near opposites: 'beyond comprehension' concedes that the doctrine exceeds the hearer, 'beyond disputation' claims it is settled. The received text has the confident reading and the manuscript the diffident one.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 290 n. 43"
+      ]
+    },
+    {
+      "id": "V011",
+      "section": "S14",
+      "order": 1,
+      "type": "rhetorical",
+      "status": "revised",
+      "lemma": "when you climb a ladder you must begin at the bottom rung until you learn the last principle of the Gospel",
+      "readings": {
+        "B": "when you climb a ladder you must begin at the bottom rung until you learn the last principle of the Gospel",
+        "W": "It will take a long time after the grave to understand the whole",
+        "R": "not all to be comprehended in this world——",
+        "C": "You have got to find the beginning of the history & go on till you have learned the last— will be a great while before you learn the last.",
+        "T": "When you climb a ladder, you must begin at the bottom and go on until you learn the last principle;"
+      },
+      "significance": "The ladder is Bullock's alone. Clayton has the same sequence without the image, and Woodruff and Richards have only the claim about duration. The image is what made the passage quotable, and Smith records that the Utah redactors elaborated it further into 'step by step until you arrive at the top'. T keeps the ladder but drops Bullock's 'rung'.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 54",
+        "Smith, p. 60",
+        "Smith, p. 291 n. 45",
+        "Smith, p. 291 n. 46"
+      ]
+    },
+    {
+      "id": "V056",
+      "section": "S14",
+      "order": 2,
+      "type": "rhetorical",
+      "status": "new",
+      "lemma": "I think there is so many wise men who wod. put me to death for treason",
+      "readings": {
+        "B": "I think there is so many wise men who wod. put me to death for treason",
+        "W": "the cry of treason would be herd",
+        "R": "om.",
+        "C": "you would cry treason so many learned and wise men here",
+        "T": "I think there are so many wise men here, who would put me to death for treason;"
+      },
+      "significance": "Woodruff and Clayton report a cry of treason; Bullock reports a threat to life. In April 1844, with the dissenters organising, the difference between an accusation and an execution is not rhetorical decoration. Smith notes that Clayton inverts the order of the treason and wise-men clauses relative to Bullock. T follows Bullock and prints the threat.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 291 n. 47"
+      ]
     },
     {
       "id": "V012",
       "section": "S15",
+      "order": 1,
       "type": "theological",
-      "flag": "high",
-      "lemma": "he did not put the 1st part to it a man a Jew without any authority thought it too bad to begin to talk about the head",
-      "witnesses": {
-        "B": "when the Inspired man wrote it he did not put the 1st part to it a man a Jew without any authority thought it too bad to begin to talk about the head",
-        "W": "when the inspired man wrote it, he did not put the Baith there. an old Jew added the word Bath",
+      "status": "revised",
+      "lemma": "he did not put the 1st. pt. to it a man a Jew without. any authy. thought. it too bad to begin to talk about the head of any man",
+      "readings": {
+        "B": "he did not put the 1st. pt. to it a man a Jew without. any authy. thought. it too bad to begin to talk about the head of any man",
+        "W": "an old Jew added the word Bath, it red the head one of the gods",
         "R": "om.",
-        "C": "when they inspired man wrote it he did not put the Ba there— But a jew put it there"
+        "C": "he did not put the Ba. there— But a jew put it there.",
+        "T": "he did not put the baith there. A man, a Jew without any authority, thought it too bad to begin to talk about the head."
       },
-      "note": "Bullock says the Jew 'thought it too bad to begin to talk about the head' (theological motive for the corruption). Woodruff says the Jew 'added the word Bath' (describes the act of addition). Clayton is most concise: 'a jew put it there.' Bullock alone preserves the claim about the Jew's theological motivation.",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Bullock alone supplies a motive for the interpolation — the Jew 'thought it too bad to begin to talk about the head' — which turns a philological claim into a charge of deliberate theological suppression. Woodruff and Clayton report only the act. Smith records that the three reports spell the Hebrew word differently and that Bullock adopted Clayton's spelling for T; T also takes Bullock's motive clause.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 33",
+        "Smith, p. 291 n. 48",
+        "Smith, p. 291 n. 49"
+      ],
       "legacy_verification": {
         "scale": "plausible",
         "note": "Bullock's theological motive ('thought it too bad') and Woodruff's factual description ('added the word Bath') both verified.",
@@ -277,54 +874,322 @@
       }
     },
     {
+      "id": "V058",
+      "section": "S15",
+      "order": 2,
+      "type": "scribal",
+      "status": "new",
+      "lemma": "Berosheet—",
+      "readings": {
+        "B": "Berosheet—",
+        "W": "Barasheet",
+        "R": "om.",
+        "C": "Berosheit (canc. Barau)",
+        "T": "Berosheit."
+      },
+      "significance": "Clayton began to write 'Barau' immediately after 'Berosheit' and struck it out. The cancellation is direct manuscript evidence at exactly the point where Smith says the printed text inserts 'Baurau' without warrant: Clayton was on the verge of writing it here and did not, which is consistent either with his having anticipated a word not yet spoken or with a false start. Either way the surviving reports put the analysis of *bara* later, in the ex nihilo argument.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 291 n. 48",
+        "Smith, p. 291 n. 49"
+      ]
+    },
+    {
+      "id": "V059",
+      "section": "S15",
+      "order": 3,
+      "type": "reception",
+      "status": "new",
+      "lemma": "Roshed the head",
+      "readings": {
+        "B": "Roshed the head",
+        "W": "in and through the head,",
+        "R": "the head.— the head one—",
+        "C": "rosh— next— the head.",
+        "T": "Rosh, the head. Sheit, gramatical termination."
+      },
+      "significance": "T supplies a grammatical parsing of the third element of *Bereshit* that no report has: 'Sheit, gramatical termination.' The eyewitnesses stop at 'the head', and Clayton records the question 'sheet where do it come from—' unanswered. The printed explanation therefore represents editorial tidying of an argument the reports leave incomplete.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 291 n. 48"
+      ]
+    },
+    {
+      "id": "V060",
+      "section": "S15",
+      "order": 4,
+      "type": "reception",
+      "status": "new",
+      "lemma": "is the true meaning. of the word—",
+      "readings": {
+        "B": "is the true meaning. of the word—",
+        "W": "om.",
+        "R": "om.",
+        "C": "is the true meaning—",
+        "T": "that is the true meaning of the words. Baurau, signifies to bring forth."
+      },
+      "significance": "T inserts 'Baurau, signifies to bring forth' into the Genesis 1:1 analysis. Smith states flatly that this does not reflect the sources at this point, though the word does appear later in several of them. The effect is to move the argument about *bara* forward, so the received text has the creation verb glossed before Joseph Smith reaches it; Clayton's struck 'Barau' a few words earlier is the only manuscript trace anywhere near it.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 291 n. 49"
+      ]
+    },
+    {
+      "id": "V057",
+      "section": "S15",
+      "order": 5,
+      "type": "theological",
+      "status": "new",
+      "lemma": "thus the Head God brought. forth the Gods in the Head council—",
+      "readings": {
+        "B": "thus the Head God brought. forth the Gods in the Head council—",
+        "W": "it red the head one of the gods, broat forth the gods,",
+        "R": "The head one of the Gods, brought forth the Gods.—",
+        "C": "hence the head God brought forth the head God in the grand Council—",
+        "T": "Thus the head God brought forth the Gods in the grand council."
+      },
+      "significance": "Clayton's object is singular and identical to the subject: the head God brought forth the head God. Bullock, Woodruff and Richards all have the head God bringing forth the Gods in the plural. Clayton's reading, if not a slip, would describe divine self-generation rather than the generation of a council, which is a materially different claim. JSP flags Bullock's abbreviation here as possibly 'K'. Smith notes Bullock's 'head council' against the 'grand council' T prints.",
+      "jsp_footnotes": [
+        {
+          "witness": "B",
+          "n": 34
+        }
+      ],
+      "sources": [
+        "JSP B n. 34",
+        "Smith, p. 291 n. 50"
+      ]
+    },
+    {
       "id": "V013",
       "section": "S16",
+      "order": 1,
       "type": "theological",
-      "flag": "medium",
-      "lemma": "the Head God called together the Gods & set in Grand Council",
-      "witnesses": {
-        "B": "the Head God called together the Gods & set in Grand Council",
-        "W": "The grand council set at the head and contemplated the creation of the world",
-        "R": "The head one called the Gods together in grand council— to bring forth the world",
-        "C": "The grand councilers set in yonder heavens and contemplated the creation of the worlds"
+      "status": "revised",
+      "lemma": "the Head God called togr. the Gods & set in Grand Council",
+      "readings": {
+        "B": "the Head God called togr. the Gods & set in Grand Council",
+        "W": "The grand council set at the head and contemplated the creation of the world,",
+        "R": "The head one called the Gods together in grand council— to bring forth the world.—",
+        "C": "The grand councilers set in yonder heavens and contemplated the creation of the worlds that was created at that time.",
+        "T": "The head God called together the Gods, and set in grand council. The grand counsellors sat in yonder heavens, and contemplated the creation of the worlds that were created at that time."
       },
-      "note": "Clayton has 'worlds' (plural) vs. others 'world' (singular)—implying the council planned multiple creations. Woodruff inverts the agency: 'The grand council set at the head' (the council is the subject) vs. Bullock/Richards where 'the Head God' is the agent who calls the council.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Clayton has 'worlds' where Bullock, Woodruff and Richards have the singular, so on his report the council planned more than this earth. Agency also differs: in Bullock and Richards a head God convenes the council, in Woodruff and Clayton the council itself is the acting subject. T prints Bullock's sentence and Clayton's together, which is why the received text has both a convening head God and a self-seated body of counsellors.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 33",
+        "Smith, p. 64",
+        "Smith, p. 291 n. 50"
+      ]
+    },
+    {
+      "id": "V061",
+      "section": "S17",
+      "order": 1,
+      "type": "unique",
+      "status": "new",
+      "lemma": "now if Jacob had the keys you might talk about James and never get the keys.",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "now if Jacob had the keys you might talk about James and never get the keys.",
+        "T": "Now if Jacob had the keys, you might talk about James through all eternity, and never get the keys."
+      },
+      "significance": "Clayton alone supplies the point of the philology: the name carries the keys, so the mistranslation costs the reader access to authority. Bullock has only 'you may talk about James thro all Eternity', which without Clayton's clause is a complaint about futility rather than an argument about priesthood. T takes Clayton's reading, so the received text has the stronger claim.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 292 n. 54"
+      ]
+    },
+    {
+      "id": "V062",
+      "section": "S17",
+      "order": 2,
+      "type": "theological",
+      "status": "new",
+      "lemma": "& how can we escape the damnation. of hell witht. God reveal to us.",
+      "readings": {
+        "B": "& how can we escape the damnation. of hell witht. God reveal to us.",
+        "W": "If you say any thing not according to the Bible we will cry treason, But if ye are not led by revelation how can ye escape the damnation of Hell,",
+        "R": "om.",
+        "C": "how can we escape the damnation of hell unless God be with us— men bind us with chains—",
+        "T": "How can we escape the damnation of hell except God reveal to us; men bind us with chains;"
+      },
+      "significance": "Bullock and Woodruff make revelation the condition of escape; Clayton makes it God's presence, and adds the image of being bound with chains by men. The first is an epistemic claim about how truth is got, the second a claim about divine accompaniment. T takes Bullock's condition and Clayton's chains into one sentence.",
+      "jsp_footnotes": [],
+      "sources": []
     },
     {
       "id": "V014",
       "section": "S17",
+      "order": 3,
       "type": "rhetorical",
-      "flag": "medium",
-      "lemma": "I thank him more for the gift of the Holy Ghost",
-      "witnesses": {
-        "B": "I thank him more for the gift of the H G",
-        "W": "I thank God for the old Book but more for the Holy Ghost",
+      "status": "revised",
+      "lemma": "thank God I have got this book & I thank him more for the gift of the H G.",
+      "readings": {
+        "B": "thank God I have got this book & I thank him more for the gift of the H G.",
+        "W": "I thank God for the old Book but more for the Holy Ghost.",
         "R": "om.",
-        "C": "he has got the oldest book in the world— but he has got the oldest book in his heart"
+        "C": "He has got the oldest book in the world— but he has got the oldest book in his heart.",
+        "T": "I thank God I have got this book, and thank him more for the gift of the Holy Ghost. I have got the oldest book in the world, but I have got the oldest book in my heart."
       },
-      "note": "Clayton's rendering is strikingly different: 'the oldest book in his heart' as a metaphor for inner revelation, vs. Bullock/Woodruff who explicitly name the Holy Ghost. Clayton's version reframes the comparison as external book vs. internal knowledge.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Bullock and Woodruff have a comparison between the polyglot and the gift of the Holy Ghost; Clayton has a comparison between two books, the outward one and the one in the heart, which makes the same point as metaphor rather than doctrine. Smith notes that Clayton shifts to the third person here. T prints both versions in succession, so the received text says the thing twice in two idioms.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 34",
+        "Smith, p. 292 n. 55"
+      ]
+    },
+    {
+      "id": "V064",
+      "section": "S17",
+      "order": 4,
+      "type": "scribal",
+      "status": "new",
+      "lemma": "Greek says Jacob",
+      "readings": {
+        "B": "Greek says Jacob (canc. Jachem)",
+        "W": "om.",
+        "R": "Greek Hebrew. German. & Latin.—",
+        "C": "Greek Ichobon— Jacob—",
+        "T": "Greek says Jacob;"
+      },
+      "significance": "Bullock first wrote a different Greek form, struck it, and inserted 'Jacob'. The correction falls inside the demonstration whose whole force depends on the four languages agreeing, so the scribe's hesitation over the Greek is evidence of how hard the polyglot passage was to take down. Clayton's 'Ichobon' preserves an attempt at the Greek that Bullock's corrected text loses.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V063",
+      "section": "S17",
+      "order": 5,
+      "type": "rhetorical",
+      "status": "new",
+      "lemma": "I shod. not have brot. up this wod only to shew that I am right",
+      "readings": {
+        "B": "I shod. not have brot. up this wod only to shew that I am right",
+        "W": "om.",
+        "R": "om.",
+        "C": "Should not have introduced this testimony were it not to back up the word rosh— The head father of the Gods.",
+        "T": "I should not have introduced this testimony were it not to back up the word Rosh, the head, Father of the Gods. I should not have brought it up only to show that I am right."
+      },
+      "significance": "Bullock makes the purpose of the polyglot self-vindication; Clayton makes it corroboration of the Hebrew argument about *rosh*. The second subordinates the demonstration to the doctrine, the first to the speaker's credit. JSP flags Bullock's word as possibly 'wo[r]d' or 'wo[ul]d'. T prints both sentences, so the received text gives two different reasons for the same digression.",
+      "jsp_footnotes": [
+        {
+          "witness": "B",
+          "n": 40
+        }
+      ],
+      "sources": [
+        "JSP B n. 40"
+      ]
+    },
+    {
+      "id": "V065",
+      "section": "S17",
+      "order": 6,
+      "type": "rhetorical",
+      "status": "new",
+      "lemma": "The Gods came together & concocked the plan of making the world & the inhabitants,",
+      "lemma_witness": "W",
+      "readings": {
+        "B": "om.",
+        "W": "The Gods came together & concocked the plan of making the world & the inhabitants,",
+        "R": "the head of the gods calld a council of the Gods— and concoctd a scheme to create this world.—",
+        "C": "om.",
+        "T": "om."
+      },
+      "significance": "Woodruff and Richards both return to the grand council after the polyglot argument and both describe its work as concocting a plan or scheme — a word neither Bullock nor Clayton uses anywhere. 'Concocted' makes the creation a contrivance rather than a decree. The recapitulation falls here only because these two reports take the council material out of Bullock's order; the material itself belongs with S16. Smith records the Utah redactors fusing these two clauses.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 292 n. 56"
+      ]
+    },
+    {
+      "id": "V067",
+      "section": "S18",
+      "order": 1,
+      "type": "theological",
+      "status": "new",
+      "lemma": "& he begins to unfold the heavens to us & tell us all about. it bef our prayers get to his ears",
+      "readings": {
+        "B": "& he begins to unfold the heavens to us & tell us all about. it bef our prayers get to his ears",
+        "W": "having an knowledge of God we know how to Approach him & ask & he will answer",
+        "R": "he begins to unfold the heavns to us.—",
+        "C": "when we begin to know how to come to him he begins to come to us. When we are ready to come to him he is ready to receive us.",
+        "T": "he begins to unfold the heavens to us and tell us all about it. When we are ready to come to him, he is ready to come to us."
+      },
+      "reading_sections": {
+        "T": "S17"
+      },
+      "significance": "Bullock has God answering before the prayer arrives, which makes the divine response anticipatory; Woodruff has an ordinary sequence of asking and answering; Clayton has a matched readiness on both sides. The three describe different relations between petition and answer. T takes Bullock's unfolding and Clayton's mutual readiness but drops Bullock's 'before our prayers get to his ears'. The passage falls at the end of T's S17.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V068",
+      "section": "S18",
+      "order": 2,
+      "type": "scribal",
+      "status": "new",
+      "lemma": "when we begin to learn in this way we beg to learn the only true God",
+      "readings": {
+        "B": "when we begin to learn in this way we beg to learn the only true God",
+        "W": "om.",
+        "R": "Soon as we begin to understand the character of God, (canc. the; s)",
+        "C": "When we begin in this way we begin to find out God— what kind a being we have got to worship—",
+        "T": "When we begin to learn in this way, we begin to learn the only true God, and what kind of a being we have got to worship."
+      },
+      "reading_sections": {
+        "T": "S17"
+      },
+      "significance": "Richards wrote 'the Gods', then struck both the article and the final s to leave 'God'. In a sermon whose argument is precisely that the Gods are plural, a scribe correcting the plural back to the singular at the moment of understanding is worth recording: it shows the pull of the ordinary usage against what was being said. The surviving reading agrees with Bullock and Clayton. The T counterpart falls at the end of T's S17.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V066",
+      "section": "S18",
+      "order": 3,
+      "type": "unique",
+      "status": "new",
+      "lemma": "they account it blasphemy to contradict the idea— they will call you a fool—",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "they account it blasphemy to contradict the idea— they will call you a fool—",
+        "T": "they account it blasphemy to contradict the idea, they will call you a fool.—"
+      },
+      "significance": "Clayton alone reports the charge that the learned treat denial of creation from nothing as blasphemy. Woodruff has the milder 'they think you are a fool'. The difference is between being thought foolish and being accused of a religious crime, which is a sharper characterisation of the opposition. T places Clayton's clause immediately after Bullock's 'they are unlearned'.",
+      "jsp_footnotes": [],
+      "sources": []
     },
     {
       "id": "V015",
       "section": "S18",
+      "order": 4,
       "type": "theological",
-      "flag": "high",
-      "lemma": "Element & in which dwells all the glory— that nothing can destroy they never can have an ending they exist eternally",
-      "witnesses": {
-        "B": "Element & in which dwells all the glory— that nothing can destroy they never can have an ending they exist eternally",
-        "W": "element they are principles that cannot be disolved they may be reorganized",
-        "R": "nothing can destroy. no beginning no end.",
-        "C": "element had an existence from the time he had. The pure principles of element are principles that never can be destroyed— they may be organized— and reorganized— but not destroyed"
+      "status": "revised",
+      "lemma": "which is Element & in which dwells all the glory— that nothing can destroy they never can have an ending they exist eternally—",
+      "readings": {
+        "B": "which is Element & in which dwells all the glory— that nothing can destroy they never can have an ending they exist eternally—",
+        "W": "element they are principles that cannot be disolved they may be reorganized.",
+        "R": "Elements— nothing. can destroy. no beginning no end.——",
+        "C": "element had an existence from the time he had. The pure pure principles of element are principles that never can be destroyed— they may be organized— and reorganized— but not destroyed.",
+        "T": "which is element, and in which dwells all the glory. Element had an existence from the time he had. The pure principles of element, are principles that can never be destroyed."
       },
-      "note": "Two critical sub-variants: (1) Bullock alone says glory 'dwells' in element—a theological claim about the inherent divinity of matter. (2) Clayton says element 'had an existence from the time he [God] had'—implying God himself had a beginning concurrent with element. Neither claim appears in the other witnesses.",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Two claims here belong to one witness each. Bullock alone says the glory dwells in element, which makes matter itself the seat of divine glory. Clayton alone dates element's existence to God's own — 'from the time he had' — which sets God and element on the same footing and, read strictly, gives God a beginning. Richards's 'no beginning no end' supports the eternity without the comparison. T prints Bullock's and Clayton's clauses in sequence.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 34",
+        "Smith, p. 248",
+        "Smith, p. 292 n. 59",
+        "Smith, p. 292 n. 60",
+        "Smith, p. 293 n. 62"
+      ],
       "legacy_verification": {
         "scale": "flagged",
         "note": "Bullock's 'dwells all the glory' plausible. Clayton's 'from the time he had' (implying God had a beginning) is legible but FLAGGED — theologically explosive claim deserves highest-resolution verification.",
@@ -335,37 +1200,85 @@
       }
     },
     {
+      "id": "V070",
+      "section": "S19",
+      "order": 1,
+      "type": "rhetorical",
+      "status": "new",
+      "lemma": "oh man says God created in the beging.",
+      "readings": {
+        "B": "oh man says God created in the beging.",
+        "W": "The learned says God made it in the beginning, but it is not so",
+        "R": "Doctor of Divinity. God created in the beginning—",
+        "C": "they say God created it in the beginning—",
+        "T": "All men say God created it in the beginning."
+      },
+      "significance": "Woodruff and Richards attribute the doctrine of a created soul to the learned and to doctors of divinity; Bullock and Clayton attribute it indefinitely. T generalises further still, to 'All men'. Naming the learned makes the passage another round in the sermon's quarrel with the clergy; the indefinite and universal forms make it a correction of common opinion.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
       "id": "V016",
       "section": "S19",
+      "order": 2,
       "type": "theological",
-      "flag": "medium",
-      "lemma": "God made man & put into Adams Spirit & so became a living Spirit",
-      "witnesses": {
-        "B": "God made man & put into Adams Spirit & so became a living Spirit",
-        "W": "God made a tabernacle & put a spirit in it and it became a Human soul",
-        "R": "in hebrew put into him his spirit",
-        "C": "God made man out of the earth and put into him his spirit"
+      "status": "revised",
+      "lemma": "that God made man & put into it Adams Spirit & so became a living Spirit—",
+      "readings": {
+        "B": "that God made man & put into it Adams Spirit & so became a living Spirit—",
+        "W": "God made a tabernacle & put a spirit in it and it became a Human soul,",
+        "R": "in hebrew put into him his spirit.—",
+        "C": "God made man out of the earth and put into him his spirit and then it became a living body.",
+        "T": "it says God made man out of the earth, and put into him Adam’s spirit, and so became a living body."
       },
-      "note": "Bullock: 'became a living Spirit.' Woodruff: 'became a Human soul.' Different anthropological terms. Clayton adds 'out of the earth' (material origin of body). Bullock uses 'Spirit' as the result; Woodruff uses 'soul'—these have distinct theological meanings in the tradition.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Genesis 2:7 reads 'living soul'; none of the reports has it. Bullock has 'living Spirit', Woodruff 'Human soul', Clayton 'living body'. The three name different results of the joining, and Clayton's 'body' in particular reverses the usual direction of the verse. Clayton alone supplies the material origin, 'out of the earth'. T combines Clayton's earth with Bullock's 'Adam's spirit' and Clayton's 'living body'.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 35",
+        "Smith, p. 36",
+        "Smith, p. 293 n. 63"
+      ]
+    },
+    {
+      "id": "V069",
+      "section": "S19",
+      "order": 3,
+      "type": "unique",
+      "status": "new",
+      "lemma": "which was created before.",
+      "lemma_witness": "R",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "which was created before.",
+        "C": "om.",
+        "T": "om."
+      },
+      "significance": "Richards alone adds that the spirit put into man 'was created before'. Taken at face value it is in tension with the sermon's central claim, argued a few sections later, that God never had power to create the spirit of man at all. It may record a compression of 'existed before' rather than a claim about creation, but it is the only place in any report where a witness has the spirit created.",
+      "jsp_footnotes": [],
+      "sources": []
     },
     {
       "id": "V017",
       "section": "S20",
+      "order": 1,
       "type": "theological",
-      "flag": "high",
-      "lemma": "the mind of man is as immortal as God himself",
-      "witnesses": {
-        "B": "the mind of man is as immortal as God himself",
-        "W": "man exhisted in spirit & mind coequal with God himself",
-        "R": "Mind of man co-equal with God himself",
-        "C": "The mind of man— the intelligent part is coequal with God himself"
+      "status": "revised",
+      "lemma": "the mind of man is as immortal as God himself—",
+      "readings": {
+        "B": "the mind of man is as immortal as God himself—",
+        "W": "man exhisted in spirit & mind coequal with God himself,",
+        "R": "Mind of man co-equal with God himself—",
+        "C": "The mind of man— the intelligent part is coequal with God himself",
+        "T": "The mind of man is as immortal as God himself."
       },
-      "note": "Bullock says 'immortal as God' (shared attribute of eternality). Woodruff, Richards, and Clayton all say 'coequal with God' (shared status/nature). These are significantly different claims: immortality asserts equal duration; coequality asserts equal standing or nature. Clayton adds 'the intelligent part' as a clarification of what is coequal.",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Three reports against one: Woodruff, Richards and Clayton all have 'coequal', Bullock alone 'immortal'. The claims differ in kind — immortality asserts equal duration, coequality equal standing — and the second is much the stronger. Clayton alone specifies what is coequal, 'the intelligent part'. T prints Bullock's word at this point while keeping 'coequal' a few lines later, which is how both readings entered the tradition. Smith treats the coequal reading as the archetype.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 36",
+        "Smith, p. 139",
+        "Smith, p. 279"
+      ],
       "legacy_verification": {
         "scale": "uncertain",
         "note": "MOST IMPORTANT VARIANT. Bullock's 'immortal' vs. three witnesses' 'coequal'. Word length consistent with 'immortal'; letter forms appear to begin 'im-'. JSP reading likely correct but cannot definitively confirm at this scan resolution. Deserves physical manuscript examination.",
@@ -376,37 +1289,133 @@
       }
     },
     {
+      "id": "V072",
+      "section": "S20",
+      "order": 2,
+      "type": "unique",
+      "status": "new",
+      "lemma": "I know that my testimony is true.",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "I know that my testimony is true.",
+        "T": "I know that my testimony is true,"
+      },
+      "significance": "Clayton alone records a testimony formula attached to the coequality claim, which converts an argument into an attestation. Its placement immediately after the most contested sentence in the discourse gives it some weight, and T carries it into the received text at exactly that point.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V071",
+      "section": "S20",
+      "order": 3,
+      "type": "reception",
+      "status": "new",
+      "lemma": "their Spirits coexisted with God",
+      "readings": {
+        "B": "their Spirits coexisted with God",
+        "W": "man exhisted in spirit & mind coequal with God himself,",
+        "R": "from their spirits. coequal with God.",
+        "C": "but their spirit existed coequal with God",
+        "T": "their spirits existed coequal with God,"
+      },
+      "significance": "Bullock has 'coexisted with God', Clayton 'existed coequal with God'. T follows Clayton against Bullock, and so the printed text carries 'coequal' here even though it carries 'immortal' three lines earlier. This is the sentence from which the later tradition took its language: Smith traces the Utah redactors substituting 'co-equal' throughout and B. H. Roberts replacing it with 'co-eternal' in 1907–09. Coexistence asserts only that the spirits were there; coequality asserts parity.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 139",
+        "Smith, p. 140",
+        "Smith, p. 171"
+      ]
+    },
+    {
+      "id": "V073",
+      "section": "S21",
+      "order": 1,
+      "type": "rhetorical",
+      "status": "new",
+      "lemma": "I take my ring from my finger & liken it unto the mind of man the immortal. Spirit because it has no beging.",
+      "readings": {
+        "B": "I take my ring from my finger & liken it unto the mind of man the immortal. Spirit because it has no beging.",
+        "W": "my ring is like the exhistanc of man it has no begining or end,",
+        "R": "om.",
+        "C": "illustrated by his ring.",
+        "T": "I take my ring from my finger and liken it unto the mind of man, the immortal spirit, because it has no beginning."
+      },
+      "significance": "Bullock and Woodruff both develop the ring, and both add the cut that would give it ends; Clayton records only that the ring was used, in the third person, and Richards not at all. What the ring stands for differs: Bullock likens it to the mind, Woodruff to 'the exhistanc of man'. The image is the sermon's compact argument against a created spirit, and T prints Bullock's version.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 36",
+        "Smith, p. 280"
+      ]
+    },
+    {
       "id": "V018",
       "section": "S21",
+      "order": 2,
       "type": "theological",
-      "flag": "medium",
-      "lemma": "intelligence is self existent it is a Spirit from age to end",
-      "witnesses": {
-        "B": "intelligence is self existent it is a Spirit from age to end",
-        "W": "Intelligence is Eternal & it is self exhisting",
-        "R": "Intelligence exist upon a self existent principle no creation about it",
-        "C": "Intelligence exists upon a selfexistent principle— is a spirit from age to age & no creation about it"
+      "status": "revised",
+      "lemma": "intelligence is self existent it is a Sp from age to end & there is no creatn abt. it",
+      "readings": {
+        "B": "intelligence is self existent it is a Sp from age to end & there is no creatn abt. it",
+        "W": "Intelligence is Eternal & it is self exhisting,",
+        "R": "Intelligence exist upon a self existent principle no creation about. it.",
+        "C": "Intelligence exists upon a selfexistent principle— is a spirit from age to age & no creation about it—",
+        "T": "intelligence exists upon a self existent principle, it is a spirit from age to age, and there is no creation about it."
       },
-      "note": "Bullock has 'from age to end'—possibly a scribal error for 'age to age' which appears in Clayton. Woodruff simply says 'Eternal.' Richards and Clayton both add 'no creation about it.' If Bullock's 'end' is accurate rather than an error, it would imply intelligence has a terminus, contradicting the self-existent teaching.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "reading_sections": {
+        "W": "S22",
+        "R": "S22",
+        "C": "S22"
+      },
+      "significance": "Bullock has 'from age to end' where Clayton has 'from age to age'. If Bullock's reading is what he heard rather than a slip of the pen, it gives intelligence a terminus and contradicts the self-existence the same sentence asserts; every other witness, and T, has perpetuity. Woodruff reduces the claim to 'Eternal'; Richards and Clayton both add 'no creation about it', which is the negative form of the argument. Woodruff's, Richards's and Clayton's counterparts fall at the head of S22, one section later than Bullock's.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 36",
+        "Smith, p. 170",
+        "Smith, p. 280"
+      ]
+    },
+    {
+      "id": "V074",
+      "section": "S22",
+      "order": 1,
+      "type": "theological",
+      "status": "new",
+      "lemma": "because he was greater",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "because he was greater",
+        "T": "because he was greater,"
+      },
+      "significance": "Clayton alone gives a reason for God's primacy among the spirits: not a difference of kind but of degree, 'because he was greater'. On Bullock's report God simply finds himself in the midst of spirits and institutes laws. Clayton's clause makes the whole arrangement follow from comparative greatness, which is consistent with the sermon's account of coequal intelligences and is the reading T prints.",
+      "jsp_footnotes": [],
+      "sources": []
     },
     {
       "id": "V019",
       "section": "S22",
+      "order": 2,
       "type": "theological",
-      "flag": "high",
-      "lemma": "he saw proper to institute laws for those who were in less intelligence that they might have one glory upon another",
-      "witnesses": {
-        "B": "he saw proper to institute laws for those who were in less intelligence that they might have one glory upon another",
+      "status": "revised",
+      "lemma": "he saw proper to institute laws for those who were in less intelligence that they mit. have one glory upon another",
+      "readings": {
+        "B": "he saw proper to institute laws for those who were in less intelligence that they mit. have one glory upon another",
         "W": "God has power to institute laws to instruct the weaker intelligences that they may be exhalted with himself",
-        "R": "all minds & spirits God ever sent into the world are susceptible of enlargement",
-        "C": "saw proper to institute laws whereby the rest could have a privilege to advance like himself"
+        "R": "all minds & spirit God ever sent into the world are susceptible of enlargement.——",
+        "C": "saw proper to institute laws whereby the rest could have a privilege to advance like himself.",
+        "T": "because he saw proper to institute laws, whereby the rest could have a privilege to advance like himself, that they might have one glory upon another,"
       },
-      "note": "Different descriptions of the purpose of God's laws. Bullock: 'one glory upon another' (graduated degrees of glory). Woodruff: 'exalted with himself' (full equality with God as the goal). Clayton: 'advance like himself' (God-like progression). Richards: 'susceptible of enlargement' (capacity for growth). The end-state differs: multiple gradations (B) vs. equality with God (W) vs. God-like advancement (C).",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "The end the laws serve differs by report: graduated glories (B), exaltation with God himself (W), advancement like God (C), enlargement of capacity (R). Woodruff's is the only one that states parity with God as the terminus; Bullock's is the only one that keeps the outcome graduated. T sets Clayton's purpose clause and Bullock's together.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 37",
+        "Smith, p. 294 n. 67"
+      ],
       "legacy_verification": {
         "scale": "plausible",
         "note": "Three different end-states verified: 'one glory upon another' (B), 'exalted with himself' (W), 'advance like himself' (C).",
@@ -417,54 +1426,291 @@
       }
     },
     {
+      "id": "V075",
+      "section": "S22",
+      "order": 3,
+      "type": "rhetorical",
+      "status": "new",
+      "lemma": "you say honey is Sweet & so do I.",
+      "readings": {
+        "B": "you say honey is Sweet & so do I.",
+        "W": "this is good doctrin, it taste good, I can taste the principles of eternal life, so can you,",
+        "R": "om.",
+        "C": "I know that when I tell you those words of eternal life that are given to me I know you taste it and I know you believe it.",
+        "T": "You say honey is sweet and so do I."
+      },
+      "significance": "Bullock alone has the honey, which supplies the analogy that the other reports leave implicit: the taste of eternal life is self-authenticating in the way a sweet taste is. Woodruff has the taste without the honey, Clayton the shared knowledge without either. T keeps Bullock's simile and Clayton's sentence both.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V077",
+      "section": "S23",
+      "order": 1,
+      "type": "unique",
+      "status": "new",
+      "lemma": "are revealed to us in the abstract & independant of affinity of this mortal tabernacle—",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "are revealed to us in the abstract & independant of affinity of this mortal tabernacle—",
+        "T": "are revealed to us in the abstract and independent of affinity of this mortal tabernacle;"
+      },
+      "significance": "Clayton alone qualifies how revelation reaches a mortal: in the abstract, independent of any affinity with the body. Bullock, Woodruff and Richards have only the comparison 'as if we had no bodies'. Clayton's phrase makes a claim about the mode of revelation rather than an analogy about it, and T takes it into the received text alongside Bullock's comparison.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V076",
+      "section": "S23",
+      "order": 2,
+      "type": "theological",
+      "status": "new",
+      "lemma": "& those revns. which will save our dead will save our bodies—",
+      "readings": {
+        "B": "& those revns. which will save our dead will save our bodies—",
+        "W": "and in saving our spirits we save the body,",
+        "R": "what will save our spirits will save our bodies.——",
+        "C": "& those revelations must of necessity save our spirits with them.",
+        "T": "and those revelations which will save our dead will save our bodies;"
+      },
+      "significance": "Woodruff, Richards and Clayton all have the revelations saving our spirits; Bullock alone has them saving 'our dead'. The substitution turns a claim about the constitution of the living person into a claim about vicarious work for the dead, which is the theme of the sections that follow. T follows Bullock, so the received text reads the sentence proleptically.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V078",
+      "section": "S23",
+      "order": 3,
+      "type": "unique",
+      "status": "new",
+      "lemma": "& God reveals them to us in the view of no Eternal dissolution. of the body—",
+      "readings": {
+        "B": "& God reveals them to us in the view of no Eternal dissolution. of the body—",
+        "W": "om.",
+        "R": "om.",
+        "C": "om.",
+        "T": "and God reveals them to us in view of no eternal dissolution of the body;"
+      },
+      "significance": "Bullock alone adds that the revelations are given on the assumption that the body's dissolution is not permanent. It is the premise the whole argument needs and no other report supplies it. T keeps it.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V080",
+      "section": "S24",
+      "order": 1,
+      "type": "omission",
+      "status": "new",
+      "lemma": "to let you know I am not a fallen prophet—",
+      "readings": {
+        "B": "to let you know I am not a fallen prophet—",
+        "W": "(I wish I had 40 days to talk)",
+        "R": "om.",
+        "C": "I would let you know that I am not a fallen prophet.",
+        "T": "I would let you know that I am not a fallen prophet."
+      },
+      "significance": "Bullock and Clayton both attach a denial of the charge of fallen prophet to the wish for forty days; Woodruff has the wish alone, parenthetically. Smith records that the charge was circulating in Nauvoo in April 1844, largely over polygamy and over the doctrines of this sermon. Woodruff keeps the wish for forty days and the surrounding argument in full, so the loss of the denial is not compression of the passage but the dropping of its most personal and most topical clause.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 292 n. 54"
+      ]
+    },
+    {
+      "id": "V079",
+      "section": "S24",
+      "order": 2,
+      "type": "reception",
+      "status": "new",
+      "lemma": "the greatest responsibility that God has laid upon us to seek after our dead—",
+      "readings": {
+        "B": "the greatest responsibility that God has laid upon us to seek after our dead—",
+        "W": "God dwells in eternity, and he does not view things as we do,",
+        "R": "we are looked upon by God as though we were in Eternity—",
+        "C": "When his commandments touch us it is in view of eternity.",
+        "T": "When his commandments teach us, it is in view of eternity."
+      },
+      "significance": "Clayton has 'when his commandments touch us'; T prints 'teach us'. Touching and teaching are different relations between the commandment and the hearer, and the printed reading is the likelier misreading of a longhand hand than the reverse. Woodruff and Richards both report the surrounding thought as being about God's view of time rather than about commandments at all, so no eyewitness supports T's reading.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V081",
+      "section": "S24",
+      "order": 3,
+      "type": "unique",
+      "status": "new",
+      "lemma": "meet Paul 1/2 way.—",
+      "lemma_witness": "R",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "meet Paul 1/2 way.—",
+        "C": "om.",
+        "T": "om."
+      },
+      "significance": "Richards alone reduces the Hebrews 11:40 argument to a figure of meeting Paul half way, which makes the mutual dependence of the generations reciprocal in a way Bullock's 'you cant be perfect witht. us' does not. It is a compression, but it is a compression that adds an image, and it did not reach T.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
       "id": "V020",
       "section": "S24",
-      "type": "unique_content",
-      "flag": "medium",
-      "lemma": "God said he shall send Elijah",
-      "witnesses": {
-        "B": "God said he shall send Elijah",
-        "W": "it is necessary that the seals are in our hands to seal our children & our dead for the folness of the dispensation of times, A dispensation to meet the promises made by Jesus Christ befor the foundation of the world for the salvation of man",
-        "R": "Hence the saying of Elijah.",
-        "C": "hence the saying of Elijah"
+      "order": 4,
+      "type": "unique",
+      "status": "revised",
+      "lemma": "God said he shall send Elijah &c",
+      "readings": {
+        "B": "God said he shall send Elijah &c",
+        "W": "it is necessary that the seals are in our hands to seal our children & our dead for the folness of the dispensation of times, A dispensation to meet the promises made by Jesus Christ befor the foundation of the world for the salvation of man.",
+        "R": "Hence the saying of Elijah.—",
+        "C": "hence the saying of Elijah",
+        "T": "Hence God said he should send Elijah, &c.;"
       },
-      "note": "Woodruff preserves substantially more content: the sealing power, 'seals in our hands,' sealing children and dead, 'fulness of the dispensation of times,' and promises made 'before the foundation of the world.' Bullock, Richards, and Clayton record only the bare Elijah reference. This is major unique content in Woodruff.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Bullock, Richards and Clayton all stop at the bare reference to Elijah. Woodruff alone unpacks it into the sealing of children and of the dead, the fulness of the dispensation of times, and promises made before the foundation of the world — the fullest statement of temple theology anywhere in the reports. Smith notes that T omits it, since Bullock did not have Woodruff's journal, and that it was restored to the tradition only in 1855–56.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 38",
+        "Smith, p. 294 n. 71"
+      ]
+    },
+    {
+      "id": "V084",
+      "section": "S25",
+      "order": 1,
+      "type": "theological",
+      "status": "new",
+      "lemma": "the provision. which God made from before the foundation. of the world.",
+      "readings": {
+        "B": "the provision. which God made from before the foundation. of the world.",
+        "W": "God has made provision for evry spirit in the eternal world,",
+        "R": "God made provisions before the world was—",
+        "C": "the provisions God hath made to suit the conditions of man.",
+        "T": "the provisions which God hath made to suit the conditions of man; made from before the foundation of the world."
+      },
+      "significance": "Bullock and Richards date the provision before the world; Clayton characterises it instead by its fit to human need. The one locates it in the divine decree, the other in its adequacy to the case, and they answer different objections. T fuses the two, so the received text has both the date and the fit.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V083",
+      "section": "S25",
+      "order": 2,
+      "type": "theological",
+      "status": "new",
+      "lemma": "there is a Saln. for him or in the world to come—",
+      "readings": {
+        "B": "there is a Saln. for him or in the world to come—",
+        "W": "All sins and blasphemy, were to be forgiven except the sin against the Holy Ghost.",
+        "R": "in this world or world to com——",
+        "C": "there is a provision either in this world or in the world of spirit.",
+        "T": "there is a salvation for him either in this world, or the world to come."
+      },
+      "significance": "Bullock and Richards have the scriptural pair 'this world or the world to come' (Matthew 12:32); Clayton has 'the world of spirit'. The spirit world is a determinate intermediate state, the world to come an undifferentiated future, and the sermon's argument about postmortem repentance turns on which is meant. T prints the scriptural pair.",
+      "jsp_footnotes": [],
+      "sources": []
     },
     {
       "id": "V021",
       "section": "S25",
+      "order": 3,
       "type": "theological",
-      "flag": "medium",
-      "lemma": "so you can see how far you can be Savior",
-      "witnesses": {
-        "B": "so you can see how far you can be Savior",
-        "W": "Any man that has a friend in eternity can save him",
-        "R": "can save every man who has not committed the unpardonable sin",
-        "C": "Every man who has a friend in the eternal world... you can save him"
+      "status": "revised",
+      "lemma": "& so you can see how far you can be Savior",
+      "readings": {
+        "B": "& so you can see how far you can be Savior",
+        "W": "Any man that has a friend in eternity can save him if he has not commit the unpardonable sin,",
+        "R": "can save every man who has not committd the unpardonable sin.",
+        "C": "Every man who has a friend in the eternal world who hath not committed the unpardonable sin you can save him.",
+        "T": "and so you can see how far you can be a savior."
       },
-      "note": "Bullock alone uses the word 'Savior' as a title applied to humans acting vicariously for the dead. Other witnesses use the verb 'save' without the titular form. Calling humans 'Savior' is a stronger theological claim than saying they can 'save.'",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Bullock alone applies the title 'Savior' to the living man acting for his dead; the other three have only the verb. A title claims a standing, a verb an action, and in this sermon the distinction is not idle. T follows Bullock. The earlier note on this entry attributed 'saviors on mount Zion' to Woodruff, Richards and Clayton; the phrase is in none of them, and Smith does not use it.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 38",
+        "Smith, p. 282"
+      ]
+    },
+    {
+      "id": "V082",
+      "section": "S25",
+      "order": 4,
+      "type": "scribal",
+      "status": "new",
+      "lemma": "who hath not committed the unpardonable sin",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "unless he has comd. the unpardonable sin",
+        "W": "if he has not commit the unpardonable sin,",
+        "R": "who has not committd the unpardonable sin.",
+        "C": "who hath not committed the unpardonable sin (canc. eternal sin)",
+        "T": "unless he has committed the unpardonable sin,"
+      },
+      "significance": "Clayton wrote 'eternal sin', struck it, and wrote 'unpardonable sin'. 'Eternal sin' is the Mark 3:29 reading and is not the term any report otherwise uses; the cancellation shows a scribe reaching first for the scriptural phrase and then correcting to what was actually said. It is the clearest piece of evidence in the reports that 'unpardonable' is the spoken word.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V023",
+      "section": "S26",
+      "order": 1,
+      "type": "theological",
+      "status": "revised",
+      "lemma": "those that are witht. wisdom until they get exalted to wisdom",
+      "readings": {
+        "B": "those that are witht. wisdom until they get exalted to wisdom",
+        "W": "If a man has knowledge he can be saved,",
+        "R": "Knowledge saves a man.—",
+        "C": "knowledge saves a man and in the wold of spirits a man cant be exalted but by his knowledge.",
+        "T": "Knowledge saves a man, and in the world of spirits a man cannot be exalted but by knowledge;"
+      },
+      "significance": "Bullock has wisdom, the other three knowledge. In this sermon knowledge is the operative term — it is what a man carries out of this world and what makes exaltation possible — and wisdom is not otherwise used that way. Clayton alone extends the claim explicitly into the world of spirits. T follows Clayton.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 38",
+        "Smith, p. 282"
+      ]
+    },
+    {
+      "id": "V086",
+      "section": "S26",
+      "order": 2,
+      "type": "scribal",
+      "status": "new",
+      "lemma": "a sinner has his own mind & is in his own condemner",
+      "readings": {
+        "B": "a sinner has his own mind & is in his own condemner (canc. so long as man will not give acct. of his sins)",
+        "W": "om.",
+        "R": "no way for a man to come to understanding but giv his consent to the commandment——",
+        "C": "So long as a man will not give heed to the commandments he must abide without salvation.",
+        "T": "so long as a man will not give heed to the commandments, he must abide without salvation."
+      },
+      "significance": "Bullock wrote a whole clause, 'so long as man will not give acct. of his sins', and struck it out. Clayton and Richards both preserve a clause of the same shape at the same point, Clayton nearly word for word except that his condition is giving heed to the commandments rather than giving account of sins. The cancellation is therefore evidence that something was said here which Bullock's reading text no longer contains, and T prints Clayton's version of it.",
+      "jsp_footnotes": [],
+      "sources": []
     },
     {
       "id": "V022",
       "section": "S26",
+      "order": 3,
       "type": "theological",
-      "flag": "high",
+      "status": "revised",
       "lemma": "a sinner has his own mind & is in his own condemner",
-      "witnesses": {
+      "readings": {
         "B": "a sinner has his own mind & is in his own condemner",
-        "W": "his own mind damns him I have no fear of hell fire that dont exhist",
-        "R": "as exquisite the disappointment of the mind of man",
-        "C": "A man is his own torment"
+        "W": "his own mind damns him",
+        "R": "as exquisite the disappointment of the mind of man——",
+        "C": "A man is his own torment",
+        "T": "A man is his own tormenter, and is his own condemner:"
       },
-      "note": "Woodruff alone records 'I have no fear of hell fire that dont exist'—an explicit denial of literal hell fire found in no other witness. Richards uses 'disappointment' instead of 'torment' or 'condemnation'—a notably milder characterization. Each witness uses different language for self-inflicted suffering: 'condemner' (B), 'damns' (W), 'disappointment' (R), 'torment' (C).",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Four words for the same interiorising of damnation: condemner (B), damns (W), disappointment (R), torment (C). Richards's is markedly the mildest — disappointment is not punishment — and Bullock's the most forensic. The common ground, that the suffering is the mind's own, is the doctrinally consequential part, and T prints Clayton's and Bullock's terms together.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 39",
+        "Smith, p. 282"
+      ],
       "legacy_verification": {
         "scale": "confirmed",
         "note": "Woodruff's 'I have no fear of hell fire that dont exhist' verified — words 'hell fire' and 'dont exhist' visible. Richards' 'disappointment' also verified. Genuine variants.",
@@ -475,37 +1721,66 @@
       }
     },
     {
-      "id": "V023",
+      "id": "V085",
       "section": "S26",
-      "type": "theological",
-      "flag": "medium",
-      "lemma": "those that are without wisdom until they get exalted to wisdom",
-      "witnesses": {
-        "B": "those that are without wisdom until they get exalted to wisdom",
-        "W": "If a man has knowledge he can be saved",
-        "R": "Knowledge saves a man",
-        "C": "knowledge saves a man and in the world of spirits a man cant be exalted but by his knowledge"
+      "order": 4,
+      "type": "unique",
+      "status": "new",
+      "lemma": "I have no fear of hell fire that dont exhist,",
+      "lemma_witness": "W",
+      "readings": {
+        "B": "om.",
+        "W": "I have no fear of hell fire that dont exhist,",
+        "R": "om.",
+        "C": "om.",
+        "T": "om."
       },
-      "note": "Bullock uses 'wisdom' where all three other witnesses use 'knowledge.' These are theologically distinct concepts. Clayton adds the unique detail that exaltation is impossible in the spirit world without knowledge.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Woodruff alone records an explicit denial that hell fire exists. Bullock, Richards and Clayton all keep the lake of fire as a simile for the mind's torment, which implies as much without saying it; Woodruff has Joseph Smith saying it. The claim is the sharpest form of the sermon's psychologising of damnation and it is in exactly one report.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V087",
+      "section": "S26",
+      "order": 5,
+      "type": "omission",
+      "status": "new",
+      "lemma": "All will suffer untill they obey Christ himself,",
+      "lemma_witness": "W",
+      "readings": {
+        "B": "om.",
+        "W": "All will suffer untill they obey Christ himself,",
+        "R": "will suffer in the eternal world until he will be exalted.—",
+        "C": "om.",
+        "T": "om."
+      },
+      "significance": "Woodruff and Richards both terminate postmortem suffering — in obedience to Christ, or in exaltation. Bullock and Clayton have no such limit and leave the damned's state open. Bullock and Clayton are both full at this point — Bullock runs to the salvation wrought out for all men, Clayton to the same — so their silence about a limit is not a matter of length; either they did not hear one or none was stated. Neither clause reached T.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 296"
+      ]
     },
     {
       "id": "V024",
       "section": "S27",
+      "order": 1,
       "type": "theological",
-      "flag": "high",
-      "lemma": "the devil said he could save them all",
-      "witnesses": {
-        "B": "J. contended that there would be certain souls that would be condemned & the devil said he could save them all",
-        "W": "even the devil said I am a savior and can save all rose up in rebelion against God and was cast down",
-        "R": "Devil said he could save them all— Lot fell on Jesus",
-        "C": "Jesus said there were certain men would not be saved the devil said he could save them. he rebelled against God and was thrust down"
+      "status": "revised",
+      "lemma": "J. contended. that there wod. be certn. souls that wod. be condemnd & the devil sd. he cod. save them all",
+      "readings": {
+        "B": "J. contended. that there wod. be certn. souls that wod. be condemnd & the devil sd. he cod. save them all",
+        "W": "even the devil said I am a savior and can save all",
+        "R": "Devil said he could save them all—",
+        "C": "Jesus said there were certain men would not be saved the devil said he could save them.",
+        "T": "Jesus said there would be certain souls that would not be saved, and the devil said he could save them all;"
       },
-      "note": "Three critical sub-variants: (1) Woodruff has the devil speaking in first person: 'I am a savior'—a much more dramatic rendering. (2) Richards has 'Lot fell on Jesus'—likely 'lot' (vote/choice) not the name Lot; meaning the council voted for Jesus. This is a unique detail about the mode of decision. (3) Bullock says 'certain souls would be condemned' (damnation inevitable); Clayton says 'certain men would not be saved' (softer framing).",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Bullock has souls condemned, Clayton men not saved; the first asserts a positive sentence, the second only a failure to be saved. Woodruff alone puts the devil's offer in the first person and has him claim the title savior outright, which makes the council a contest between two claimants rather than a proposal and a refusal. T follows Clayton's 'would not be saved' and Bullock's 'all'.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 39",
+        "Smith, p. 66",
+        "Smith, p. 296 n. 75"
+      ],
       "legacy_verification": {
         "scale": "uncertain",
         "note": "Woodruff's first-person devil speech ('I am a savior') verified. Richards' 'Lot/lot fell on Jesus' present but capitalization AMBIGUOUS — context favors 'lot' (vote/choice). Only witness recording mode of council decision.",
@@ -516,20 +1791,65 @@
       }
     },
     {
+      "id": "V088",
+      "section": "S27",
+      "order": 2,
+      "type": "historical",
+      "status": "new",
+      "lemma": "as the grand council gave in for J. C.",
+      "readings": {
+        "B": "as the grand council gave in for J. C.",
+        "W": "om.",
+        "R": "Lot fell on Jesus.——",
+        "C": "om.",
+        "T": "the grand council gave in for Jesus Christ:"
+      },
+      "significance": "Bullock and Richards both record a decision procedure, and they describe it differently: the council 'gave in for' Jesus, or the lot 'fell on' him. Both suggest a determination rather than an appointment, and Richards's is the language of casting lots. Woodruff and Clayton have only the rebellion and the fall, with no account of how Christ came to be chosen. Smith connects Richards's phrase to council elections. T prints Bullock's.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 66",
+        "Smith, p. 296 n. 75"
+      ]
+    },
+    {
+      "id": "V089",
+      "section": "S27",
+      "order": 3,
+      "type": "unique",
+      "status": "new",
+      "lemma": "Jesus Christ will save all except the sons of perdition.",
+      "lemma_witness": "W",
+      "readings": {
+        "B": "om.",
+        "W": "Jesus Christ will save all except the sons of perdition.",
+        "R": "om.",
+        "C": "om.",
+        "T": "om."
+      },
+      "significance": "Woodruff alone supplies the outcome of the contest in the council: a universal salvation with one exception. The phrase 'sons of perdition' appears nowhere else in the reports. It names, in the technical vocabulary of the 1832 vision, the category the rest of the sermon describes without labelling, and no part of it reached T.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
       "id": "V025",
       "section": "S28",
+      "order": 1,
       "type": "rhetorical",
-      "flag": "high",
-      "lemma": "he has got to deny J. C. when the heavens are open to him",
-      "witnesses": {
-        "B": "he has got to say that the Sun does not shine while he sees it he has got to deny J. C. when the heavens are open to him",
-        "W": "they must receive the Holy Ghost have the heavens opened unto them, & know God, & then sin against him",
-        "R": "Got to deny the plan of Salvation &c— with his eyes open",
-        "C": "After a man has sinned the sin against the H G. there is no repentance for him"
+      "status": "revised",
+      "lemma": "he has got to say that the Sun does not shine while he sees it he has got to deny J. C. when the heavens are open to him—",
+      "readings": {
+        "B": "he has got to say that the Sun does not shine while he sees it he has got to deny J. C. when the heavens are open to him—",
+        "W": "they must receive the Holy Ghost have the heavens opened unto them, & know God, & then sin against him,",
+        "R": "Got to deny the plan of Salvation. &c— with his eyes open.—",
+        "C": "After a man has sinned the sin against the H G. there is no repentance for him.",
+        "T": "he has got to say that the sun does not shine, while he sees it, he has got to deny Jesus Christ when the heavens were open to him,"
       },
-      "note": "Bullock alone preserves the vivid metaphor 'say that the Sun does not shine while he sees it.' Woodruff provides the clearest doctrinal sequence: receive Holy Ghost -> heavens opened -> know God -> sin. Richards: 'deny the plan of Salvation' (different object of denial than B's 'deny J.C.'). Clayton gives only the consequence, not the definition.",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Bullock alone has the sun image. What must be denied also differs: Jesus Christ (B) or the plan of salvation (R) — a person or a scheme. Woodruff alone gives the sequence as a definition, with the receipt of the Holy Ghost as its first term, and Clayton gives only the consequence. T interpolates Clayton's 'no repentance for him' inside Bullock's sentence, splitting it, and shifts Bullock's 'are open' to 'were open'.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 39",
+        "Smith, p. 295 n. 74"
+      ],
       "legacy_verification": {
         "scale": "plausible",
         "note": "Bullock's 'Sun does not shine' metaphor verified. Woodruff's doctrinal sequence and Richards' 'plan of Salvation' both verified. Three genuine renderings.",
@@ -542,69 +1862,309 @@
     {
       "id": "V026",
       "section": "S29",
+      "order": 1,
       "type": "theological",
-      "flag": "medium",
-      "lemma": "he has the same Spirit that they had who crucified the Lord of life",
-      "witnesses": {
-        "B": "he has the same Spirit that they had who crucified the Lord of life",
-        "W": "they have got the same spirit the devil had",
+      "status": "revised",
+      "lemma": "for he has the same Sp. that they had who crucified. the Lord of life—",
+      "readings": {
+        "B": "for he has the same Sp. that they had who crucified. the Lord of life—",
+        "W": "they have got the same spirit the devil had,",
         "R": "om.",
-        "C": "he has got the same spirit that crucified Jesus"
+        "C": "he has got the same spirit that crucified Jesus",
+        "T": "He has the same spirit that they had who crucified the Lord of Life:"
       },
-      "note": "Bullock/Clayton attribute the spirit to those who crucified Christ (human agents). Woodruff attributes it directly to 'the devil.' Different sources of the apostate spirit: human historical actors vs. Satan himself.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Bullock and Clayton trace the apostate's spirit to the crucifiers, human agents in a historical act; Woodruff traces it to the devil. The first makes apostasy a repetition of a crime, the second a possession. Clayton alone adds the Hebrews 6:6 consequence, 'You cant renew them to repentance'. T follows Bullock.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 40",
+        "Smith, p. 296 n. 76"
+      ]
+    },
+    {
+      "id": "V091",
+      "section": "S29",
+      "order": 2,
+      "type": "unique",
+      "status": "new",
+      "lemma": "they go too far the spirit leaves them",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "they go too far the spirit leaves them",
+        "T": "om."
+      },
+      "significance": "Clayton alone offers a mechanism for apostasy: a point past which the Spirit withdraws. Bullock and Woodruff describe only the behaviour that follows. The clause makes the condition a consequence of the man's own progress rather than a sudden choice, and although T takes several neighbouring phrases from Clayton it does not take this one.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V090",
+      "section": "S29",
+      "order": 3,
+      "type": "reception",
+      "status": "new",
+      "lemma": "when a man begins to be an enemy he hunts him—",
+      "readings": {
+        "B": "when a man begins to be an enemy he hunts him—",
+        "W": "they never seease to try to hurt me,",
+        "R": "om.",
+        "C": "hence they seek to kill me they thirst for my blood they never cease—",
+        "T": "When a man begins to be an enemy, he hunts me."
+      },
+      "significance": "Bullock's object is third person: the apostate hunts his victim, whoever that is. T reads 'me'. Woodruff and Clayton both have the first person in their neighbouring clauses, so the printed reading has support in the sense of the passage but not in the sentence Bullock wrote. The effect is to make a general statement about apostasy into a statement about the danger to Joseph Smith, six weeks before Carthage.",
+      "jsp_footnotes": [],
+      "sources": []
     },
     {
       "id": "V027",
       "section": "S30",
+      "order": 1,
       "type": "rhetorical",
-      "flag": "medium",
-      "lemma": "when you find a Spirit wants bloodshed murder same is not of God but is of the devil",
-      "witnesses": {
-        "B": "when you find a Spirit wants bloodshed murder same is not of God but is of the devil",
-        "W": "if a spirit of Bitterness is in you, dont be in haste",
-        "R": "lest you be deceived. best men brings forth best works.",
-        "C": "you may by and by find out that you have been deceived"
+      "status": "revised",
+      "lemma": "when you find a Sp. wants bloodshed murder same is not of God but is of the devil",
+      "readings": {
+        "B": "when you find a Sp. wants bloodshed murder same is not of God but is of the devil",
+        "W": "if a spirit of Bitterness is in you, dont be in haste,",
+        "R": "lest you be deceived.",
+        "C": "you may by and by find out that you have been deceived",
+        "T": "when you find a spirit that wants bloodshed, murder, the same is not of God, but is of the devil."
       },
-      "note": "Bullock specifically names 'bloodshed murder' as the markers of a false spirit. Woodruff uses 'Bitterness'—a much milder characterization. Richards and Clayton focus on 'deception' rather than violence. Different diagnostic criteria for identifying false spirits.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "The test of a false spirit differs: bloodshed and murder (B), bitterness (W), deception (R, C). Bullock's is a test applied to others and is about violence; Woodruff's is addressed to the hearer's own state; Richards's and Clayton's are warnings about being taken in. T follows Bullock, which gives the received text the most violent of the four in a passage spoken eleven weeks before the killing at Carthage.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 283"
+      ]
+    },
+    {
+      "id": "V093",
+      "section": "S30",
+      "order": 2,
+      "type": "unique",
+      "status": "new",
+      "lemma": "Say you that man is a sinner, well if he repents he shall be forgiven.",
+      "lemma_witness": "W",
+      "readings": {
+        "B": "om.",
+        "W": "Say you that man is a sinner, well if he repents he shall be forgiven.",
+        "R": "om.",
+        "C": "om.",
+        "T": "om."
+      },
+      "significance": "Woodruff alone attaches a clause of mercy to the warning. Bullock's version of the same passage ends by warning against evil characters for whom there is no redemption; Woodruff's holds open repentance for the ordinary sinner. Since this is the section where the two reports diverge most, the presence of the mitigation in only one of them is worth recording rather than resolving.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V092",
+      "section": "S30",
+      "order": 3,
+      "type": "unique",
+      "status": "new",
+      "lemma": "best men brings forth best works.",
+      "lemma_witness": "R",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "best men brings forth best works.",
+        "C": "om.",
+        "T": "om."
+      },
+      "significance": "Richards alone records a proverb of discernment by fruits, compressed almost to aphorism. It is the positive counterpart of Bullock's test by bloodshed, and it supplies the criterion the other reports leave implicit in 'out of the abundance of the heart man speaks'.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V094",
+      "section": "S30",
+      "order": 4,
+      "type": "unique",
+      "status": "new",
+      "lemma": "I warn you agt all evil characters who sin agt. H. G. for there is no redemption. for them in this world nor in the world to come",
+      "readings": {
+        "B": "I warn you agt all evil characters who sin agt. H. G. for there is no redemption. for them in this world nor in the world to come",
+        "W": "om.",
+        "R": "om.",
+        "C": "om.",
+        "T": "I warn you against all evil characters, who sin against the Holy Ghost, for there is no redemption for them in this world, or in the world to come."
+      },
+      "significance": "Bullock alone closes the warning by naming those who sin against the Holy Ghost and denying them redemption in either world. The other three reports end the section without it. Coming after the test by bloodshed, it identifies the dissenters of 1844 with the unpardonable sin, which is the most pointed thing in the discourse, and it is in one report only. T keeps it.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V096",
+      "section": "S31",
+      "order": 1,
+      "type": "historical",
+      "status": "new",
+      "lemma": "there is one glory of the moon Sun & Stars &c",
+      "readings": {
+        "B": "there is one glory of the moon Sun & Stars &c",
+        "W": "their is many mansions in my fathers Kingdom,",
+        "R": "om.",
+        "C": "om.",
+        "T": "There is one glory of the sun, another glory of the moon, and another glory of the stars, &c."
+      },
+      "significance": "Bullock alone brings in 1 Corinthians 15:41. It is the scriptural warrant for the degrees of glory the section goes on to describe, and without it Woodruff's report has only the many mansions of John 14:2. T expands Bullock's compressed '&c' into the full verse, which is a regularisation against the printed Bible rather than against any report.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V098",
+      "section": "S31",
+      "order": 2,
+      "type": "reception",
+      "status": "new",
+      "lemma": "In my Fars. mansion there are many mansions &c",
+      "readings": {
+        "B": "In my Fars. mansion there are many mansions &c",
+        "W": "their is many mansions in my fathers Kingdom,",
+        "R": "om.",
+        "C": "om.",
+        "T": "in my father’s house there are many mansions, &c."
+      },
+      "significance": "Bullock has 'my Father's mansion', Woodruff 'my father's Kingdom', T 'my father's house'. Only T agrees with John 14:2. Bullock's singular mansion containing many mansions is the sort of thing a hand taking dictation produces, and he struck a false start immediately before it; but the printed correction to the King James wording is an editorial act, not a report, and it is what fixed the familiar form of the quotation in the tradition.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V097",
+      "section": "S31",
+      "order": 3,
+      "type": "reception",
+      "status": "new",
+      "lemma": "for your husband has gone to wait until the resn.",
+      "readings": {
+        "B": "for your husband has gone to wait until the resn.",
+        "W": "they have gone to await the resurrection of the dead to go to the celestial glory,",
+        "R": "your friend has gone to wait—",
+        "C": "om.",
+        "T": "(speaking of the death of Elder King Follett,) for your husband is gone to wait until the resurrection;"
+      },
+      "significance": "T inserts an editorial parenthesis identifying the death in question. No report has it, and it is not speech: it is the printed text supplying for a reading audience the context a hearer in the grove already had. It is recorded here because it is one of the few places where the composite's editorial voice is visible on the page.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V095",
+      "section": "S31",
+      "order": 4,
+      "type": "unique",
+      "status": "new",
+      "lemma": "those who have died in the faith are now in the selestial kingdom of God,",
+      "lemma_witness": "W",
+      "readings": {
+        "B": "om.",
+        "W": "those who have died in the faith are now in the selestial kingdom of God,",
+        "R": "om.",
+        "C": "om.",
+        "T": "om."
+      },
+      "significance": "Woodruff alone places the faithful dead in the celestial kingdom already, before the resurrection. Bullock has only 'he is gone to the home of the just', which leaves the intermediate state undescribed, and Richards only that the friend has gone to wait. Woodruff's reading collapses the wait the other two preserve, and none of it is in T.",
+      "jsp_footnotes": [],
+      "sources": []
     },
     {
       "id": "V028",
       "section": "S31",
+      "order": 5,
       "type": "theological",
-      "flag": "medium",
-      "lemma": "while their murderers shall welter for years",
-      "witnesses": {
-        "B": "while their murderers shall welter for years",
-        "W": "while their murderers shall dwell in torment untill they pay the utmost farthing",
-        "R": "worlds must wait myriads of years before they can receive the like blessings",
-        "C": "om."
+      "status": "revised",
+      "lemma": "while their murderers shall welter for years——",
+      "readings": {
+        "B": "while their murderers shall welter for years——",
+        "W": "while their murderers shall dwell in torment untill they pay the utmost farthing.",
+        "R": "while worlds must wait myriads of years befor they can receive the like blessings.—",
+        "C": "om.",
+        "T": "while their murderers shall welter for ages."
       },
-      "note": "Woodruff adds 'until they pay the utmost farthing' (Matthew 5:26)—implying even murderers' punishment has an end and redemption is possible. Bullock's 'welter for years' is less definitive. Richards has a completely different referent: 'worlds' (not murderers) waiting 'myriads of years.'",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Woodruff's 'until they pay the utmost farthing' (Matthew 5:26) makes the murderers' punishment terminable; Bullock's 'for years' leaves its length unstated; T prints 'for ages', which is longer than Bullock and unsupported by any report. Richards's sentence has a different subject altogether — worlds waiting for blessings, not murderers suffering — so his clause is not strictly a variant of the same words but the nearest thing his report has.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 40",
+        "Smith, p. 285",
+        "Smith, p. 297 n. 79"
+      ]
+    },
+    {
+      "id": "V099",
+      "section": "S32",
+      "order": 1,
+      "type": "unique",
+      "status": "new",
+      "lemma": "no fear of mobs—",
+      "readings": {
+        "B": "no fear of mobs—",
+        "W": "om.",
+        "R": "om.",
+        "C": "om.",
+        "T": "There will be no fear of mobs, &c.,"
+      },
+      "significance": "Bullock alone names what the reunion of the dead will be free of. Woodruff has the reunion without the threat, Richards only the blessing on the bereaved. The word places the consolation squarely in the Missouri and Illinois experience of the hearers rather than in the abstract, and T keeps it.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V100",
+      "section": "S32",
+      "order": 2,
+      "type": "unique",
+      "status": "new",
+      "lemma": "the trump will soon be blown.",
+      "lemma_witness": "W",
+      "readings": {
+        "B": "om.",
+        "W": "the trump will soon be blown.",
+        "R": "om.",
+        "C": "om.",
+        "T": "om."
+      },
+      "significance": "Woodruff alone makes the reunion imminent and eschatological. Bullock has the friends 'absent for a moment' and Richards 'gon for a few moments', both of which describe the dead's absence; Woodruff turns the brevity into a claim about how soon the resurrection comes. It did not reach T.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
+      "id": "V102",
+      "section": "S33",
+      "order": 1,
+      "type": "reception",
+      "status": "new",
+      "lemma": "Mothers you shall have your Children for they shall have it—",
+      "readings": {
+        "B": "Mothers you shall have your Children for they shall have it—",
+        "W": "yes, yes, you will have the Children,",
+        "R": "Shall mothrs have their Children? Yes.",
+        "C": "om.",
+        "T": "Mothers you shall have your children, for they shall have eternal life:"
+      },
+      "significance": "Bullock's 'they shall have it' has no antecedent; T resolves the pronoun to 'eternal life'. Woodruff and Richards both have the promise without any such clause, so the resolution has no manuscript warrant. It is a small editorial decision with a doctrinal result: what the reports leave a dangling pronoun, the received text makes a statement about infant salvation.",
+      "jsp_footnotes": [],
+      "sources": []
     },
     {
       "id": "V029",
       "section": "S33",
+      "order": 2,
       "type": "theological",
-      "flag": "high",
-      "lemma": "for their debt is paid there is no damnation awaits them for they are in the Spirits",
-      "witnesses": {
-        "B": "for their debt is paid there is no damnation awaits them for they are in the Spirits",
-        "W": "as is it falls so it will rise, It will never grow",
-        "R": "they shall have it without price. redemption is paid possessing all the intelligence of a god",
-        "C": "He continued his discourse— & told of parents receiving their children."
+      "status": "revised",
+      "lemma": "for their debt is paid there is no damnation awaits them for they are in the Spirits—",
+      "readings": {
+        "B": "for their debt is paid there is no damnation awaits them for they are in the Spirits—",
+        "W": "om.",
+        "R": "they shall have it without price. redemption is paid possessing all the intelligence of a god.",
+        "C": "om.",
+        "T": "for their debt is paid, there is no damnation awaits them, for they are in the spirit.—"
       },
-      "note": "Richards alone says children possess 'all the intelligence of a god'—a striking claim not found in any other witness. Bullock says 'their debt is paid.' Richards says 'redemption is paid...without price.' Woodruff focuses on the physical: 'It will never grow.' Richards' claim about children's intelligence is a major unique theological statement.",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Richards alone says that the child possesses 'all the intelligence of a god'. It is the strongest claim made about deceased infants anywhere in the reports, and it answers a question Bullock's 'their debt is paid' leaves open: not merely that they are safe but what they are. Smith discusses the resurrection of children at length and does not treat this phrase. Clayton's section here is a clerk's summary, not a report of words, and Woodruff's parallel is the no-growth claim recorded at the next entry.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 41",
+        "Smith, p. 156",
+        "Smith, p. 285",
+        "Smith, p. 297 n. 80"
+      ],
       "legacy_verification": {
         "scale": "flagged",
         "note": "Richards' 'possessing all the intelgen of a god' visible but abbreviated text is dense. Lowercase 'god' notable. Extraordinary theological claim found in no other witness — deserves highest-resolution verification.",
@@ -615,71 +2175,145 @@
       }
     },
     {
+      "id": "V101",
+      "section": "S33",
+      "order": 3,
+      "type": "reception",
+      "status": "new",
+      "lemma": "& be living in the burng. of God—",
+      "readings": {
+        "B": "& be living in the burng. of God—",
+        "W": "om.",
+        "R": "om.",
+        "C": "om.",
+        "T": "and be forever living in the learning of God,"
+      },
+      "significance": "Bullock, the only witness here, wrote 'burng.'; T prints 'learning'. Burning belongs to the sermon's Isaiah 33 language, in which God dwells in everlasting burnings and the risen enter them; learning belongs to nothing in the discourse. The likeliest account is a misreading of Bullock's own hand in the print shop, and its effect is to replace an image of glory with an image of instruction at the climax of the promise to mourning mothers.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
       "id": "V030",
       "section": "S33",
-      "type": "unique_content",
-      "flag": "medium",
+      "order": 4,
+      "type": "unique",
+      "status": "revised",
       "lemma": "children dwell & exercise power in the same form as they laid them down",
-      "witnesses": {
+      "readings": {
         "B": "children dwell & exercise power in the same form as they laid them down",
         "W": "Eternity is full of thrones upon which dwell thousands of Children reigning on thrones of glory not one cubit added to their stature",
-        "R": "throne upon thrones. Dominion upon dominions just as you",
-        "C": "om."
+        "R": "throne upon thrones. Dominion upon dominions just as you——",
+        "C": "om.",
+        "T": "Children dwell and exercise power in the same form as they laid them down."
       },
-      "note": "Woodruff uniquely preserves the vivid image: 'Eternity is full of thrones upon which dwell thousands of Children reigning on thrones of glory.' Richards has 'Dominion upon dominions' (echoing Daniel 7:27). Bullock is more restrained. Woodruff's version is the most elaborate depiction of children's exalted state.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Woodruff's is much the fullest: thrones, thousands of children reigning, and 'not one cubit added to their stature', which states the no-growth doctrine explicitly. Richards has the thrones and dominions without the children's stature. Bullock has the doctrine without the vision. Smith records that this teaching was excised from the printed tradition in 1909 and again in 1952; T, which had only Bullock, prints the restrained form.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 41",
+        "Smith, p. 156",
+        "Smith, p. 157",
+        "Smith, p. 285"
+      ]
+    },
+    {
+      "id": "V103",
+      "section": "S34",
+      "order": 1,
+      "type": "reception",
+      "status": "new",
+      "lemma": "I call upon all to say I— (shouts of I)",
+      "readings": {
+        "B": "I call upon all to say I— (shouts of I)",
+        "W": "om.",
+        "R": "called upon all men. Priests and all to repent and obey the gospel.—",
+        "C": "om.",
+        "T": "I call upon all you Germans, who know that it is true, to say aye, (loud shouts of aye.)"
+      },
+      "significance": "Bullock has a call to the whole congregation and a general assent. T restricts the call to the German speakers and makes them warrantors of the translation. The narrowing converts a rhetorical appeal into a claim of corroborated expertise, and no report supports it. Richards's nearest clause has Joseph Smith calling on all men to repent, which is a different act.",
+      "jsp_footnotes": [],
+      "sources": []
     },
     {
       "id": "V031",
       "section": "S34",
+      "order": 2,
       "type": "historical",
-      "flag": "medium",
-      "lemma": "Alexander Campbell— how are you going to save them with water",
-      "witnesses": {
-        "B": "Alexander Campbell— how are you going to save them with water",
+      "status": "revised",
+      "lemma": "Alexander Campbell— how are you going to save them with water—",
+      "readings": {
+        "B": "Alexander Campbell— how are you going to save them with water—",
         "W": "om.",
         "R": "om.",
-        "C": "om."
+        "C": "om.",
+        "T": "Alexander Campbell, how are you going to save them with water alone?"
       },
-      "note": "Only Bullock records the direct reference to Alexander Campbell by name—a pointed critique of Campbellite (Disciples of Christ) baptismal theology. No other witness preserves this.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Bullock alone names Alexander Campbell. Woodruff has the same argument against water-only baptism without the name, and Richards has the three baptisms without the polemic. Smith connects the apostrophe to Campbell's baptismal theology. T keeps the name and adds 'alone', which sharpens the charge into one Campbell might have recognised.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 286",
+        "Smith, p. 297 n. 82"
+      ]
+    },
+    {
+      "id": "V104",
+      "section": "S34",
+      "order": 3,
+      "type": "unique",
+      "status": "new",
+      "lemma": "There has also been remarks made concerning all men being redeemed from Hell,",
+      "lemma_witness": "W",
+      "readings": {
+        "B": "om.",
+        "W": "There has also been remarks made concerning all men being redeemed from Hell,",
+        "R": "om.",
+        "C": "om.",
+        "T": "om."
+      },
+      "significance": "Woodruff alone records that Joseph Smith was answering remarks made by someone else at the conference, on universal redemption. It anchors the closing section of the discourse in the proceedings of 7 April 1844 rather than in the speaker's own plan, and it is the only such cue in any report. Clayton has broken off by this point and Richards is very brief, so the loss is not evidence of much beyond Bullock's selectivity; but it did not reach T.",
+      "jsp_footnotes": [],
+      "sources": []
     },
     {
       "id": "V032",
       "section": "S34",
+      "order": 4,
       "type": "theological",
-      "flag": "medium",
-      "lemma": "they shall die the 2nd death",
-      "witnesses": {
-        "B": "those who Sin against the H. G. cannot be forgiven in this world or in the world to come but they shall die the 2nd death",
+      "status": "revised",
+      "lemma": "but they shall die the 2nd. death—",
+      "readings": {
+        "B": "but they shall die the 2nd. death—",
         "W": "any man who commits the unpardonable sin must dwell in hell worlds without end",
-        "R": "those who commit the unpardonable sin are doomed to Gnolom without end",
-        "C": "om."
+        "R": "those who commit the unpardonable sin are doomd to Gnolom. without end.—",
+        "C": "om.",
+        "T": "they shall die the second death;"
       },
-      "note": "Three different terms for the final state of the damned. Bullock: 'die the 2nd death' (Revelation 21:8). Woodruff: 'dwell in hell worlds without end.' Richards uses the Hebrew 'Gnolom' ('olam = eternity)—the only witness to record Joseph using this Hebrew term here.",
-      "status": "carried_forward",
-      "sources": [],
-      "legacy_verification": null
+      "significance": "Three terms for the final state: the second death of Revelation 21:8 (B), hell worlds without end (W), and Richards's transliterated Hebrew 'Gnolom'. Richards is the only witness anywhere in the reports to record the Hebrew term at this point, and it matters because *olam* denotes an age or a hidden duration rather than infinity, which is not what 'without end' says. T follows Bullock.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 42",
+        "Smith, p. 286"
+      ]
     },
     {
       "id": "V033",
       "section": "S34",
+      "order": 5,
       "type": "theological",
-      "flag": "high",
-      "lemma": "some shall rise to the everlasting burning of God & some shall rise to the damnation of their own filthiness— same as the lake of fire & brimstone",
-      "witnesses": {
-        "B": "some shall rise to the everlasting burning of God & some shall rise to the damnation of their own filthiness— same as the lake of fire & brimstone",
+      "status": "revised",
+      "lemma": "some shall rise to the everlasting burning of God & some shall rise to the dn. of their own filthiness— same as the lake of fire & brimstone—",
+      "readings": {
+        "B": "some shall rise to the everlasting burning of God & some shall rise to the dn. of their own filthiness— same as the lake of fire & brimstone—",
         "W": "om.",
-        "R": "God dwells in everlasting burnings.",
-        "C": "om."
+        "R": "God dwells in everlasting burnings.——",
+        "C": "om.",
+        "T": "some shall rise to the everlasting burning of God, and some shall rise to the damnation of their own filthiness—as exquisite as the lake of fire and brimstone."
       },
-      "note": "Bullock alone preserves this critical dual use of 'burning': the righteous rise to 'the everlasting burning of God' (fire as divine glory) while the wicked rise to 'their own filthiness— same as the lake of fire' (fire as punishment). This reinterprets 'everlasting burning' as a positive divine attribute. Richards records only the positive half: 'God dwells in everlasting burnings.'",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Bullock alone sets the two senses of burning side by side: the righteous rise to God's everlasting burning, the wicked to a damnation that is their own filthiness. Richards has only the positive half, which is the Isaiah 33:14 doctrine stated flatly. The pairing is what makes the fire a single thing experienced two ways rather than two different fires, and it is in one report. T keeps it and makes the lake a simile of exquisiteness rather than an identity.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 42",
+        "Smith, p. 286"
+      ],
       "legacy_verification": {
         "scale": "plausible",
         "note": "Bullock's dual 'burning' theology verified — positive (divine glory) and negative (punishment) uses both present. Richards' 'God dwells in everlasting burnings' also verified.",
@@ -690,20 +2324,74 @@
       }
     },
     {
+      "id": "V105",
+      "section": "S35",
+      "order": 1,
+      "type": "reception",
+      "status": "new",
+      "lemma": "I rejoice in hearing the test of my aged friend—",
+      "readings": {
+        "B": "I rejoice in hearing the test of my aged friend—",
+        "W": "om.",
+        "R": "om.",
+        "C": "om.",
+        "T": "I rejoice in bearing the testimony of my aged friends."
+      },
+      "significance": "Two changes in one clause. JSP flags Bullock's 'hearing' as possibly 'bearing', and T prints 'bearing'; more consequentially, T pluralises 'friend'. Smith identifies the singular as a reference to Sidney Rigdon, who had spoken at length earlier in the conference, and reads the plural as an editorial decision taken during the August 1844 succession crisis to avoid appearing to endorse Rigdon's standing. The plural is in no report.",
+      "jsp_footnotes": [
+        {
+          "witness": "B",
+          "n": 85
+        }
+      ],
+      "sources": [
+        "JSP B n. 85",
+        "Smith, p. 43",
+        "Smith, p. 287 n. 89",
+        "Smith, p. 298 n. 89"
+      ]
+    },
+    {
+      "id": "V106",
+      "section": "S35",
+      "order": 2,
+      "type": "unique",
+      "status": "new",
+      "lemma": "Love all men but hate your deeds.—",
+      "lemma_witness": "R",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "Love all men but hate your deeds.—",
+        "C": "om.",
+        "T": "om."
+      },
+      "significance": "Richards alone qualifies the profession of universal love with a hatred of deeds. Bullock has 'I love you all' and 'I have no enmity agst any man' unqualified. The qualification changes the closing posture from unconditional affection to a distinction between persons and conduct, and since only Bullock and Richards are present in this section there is no third report to adjudicate.",
+      "jsp_footnotes": [],
+      "sources": []
+    },
+    {
       "id": "V034",
       "section": "S35",
+      "order": 3,
       "type": "rhetorical",
-      "flag": "high",
-      "lemma": "you never knew my heart no man knows my history",
-      "witnesses": {
-        "B": "you never knew my heart no man knows my history— I cannot do it I shall never undertake it",
+      "status": "revised",
+      "lemma": "you never knew my heart no man knows my history— I can not do it I shall never undertake—",
+      "readings": {
+        "B": "you never knew my heart no man knows my history— I can not do it I shall never undertake—",
         "W": "om.",
-        "R": "You dont know me— you never will. I dont blame you for not believing my history had I not experienced it could not believe it myself",
-        "C": "om."
+        "R": "You dont know me— you never will I dont blame you for not believing my history had I not experienced it could not believe it myself",
+        "C": "om.",
+        "T": "You never knew my heart; no man knows my history; I cannot tell it. I shall never undertake it;"
       },
-      "note": "The famous 'you don't know me' passage. Richards is more absolute: 'you never will' know me. Bullock: 'I shall never undertake' to tell it. Richards adds the unique self-reflection: 'had I not experienced it could not believe it myself.' Only B and R record this passage; W and C omit it entirely.",
-      "status": "carried_forward",
-      "sources": [],
+      "significance": "Bullock and Richards record complementary halves. Bullock has the refusal to tell; Richards has the certainty that the hearers never will know, and the concession that he would not have believed it himself. Richards's 'you never will' is the more absolute claim and his self-doubt the more humane one. T prints Bullock and drops Richards, whom Bullock did not have; the tradition combined them only in 1855–56.",
+      "jsp_footnotes": [],
+      "sources": [
+        "Smith, p. 42",
+        "Smith, p. 43",
+        "Smith, p. 287",
+        "Smith, p. 298 n. 90"
+      ],
       "legacy_verification": {
         "scale": "confirmed",
         "note": "Both readings clearly visible. Bullock: 'you never knew my heart...I shall never undertake it.' Richards: 'You dont know me— you never will...had I not experienced it could not believe it myself.' Both genuine.",
