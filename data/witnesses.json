@@ -1,0 +1,132 @@
+{
+  "metadata": {
+    "project": "King Follett Discourse — digital critical edition",
+    "file": "data/witnesses.json",
+    "description": "The four eyewitness reports of the discourse of 7 April 1844, their reporters' roles that day, and the counts and page ranges derived from the transcripts. word_count_raw counts whitespace-separated tokens of the raw body (JSP markup included); word_count_reading counts them in the reading rendering (kf.jsp.render_reading). Page labels are as JSP gives them; brackets mark JSP-supplied pagination.",
+    "base_text": "B",
+    "date": "7 April 1844",
+    "occasion": "Funeral sermon for King Follett, preached in a grove east of the Nauvoo temple during the church's April 1844 general conference.",
+    "related_account": "A polished account amalgamating Bullock's and Clayton's notes appeared in the Times and Seasons, 15 Aug. 1844. It is not one of the four witnesses collated here, but JSP footnotes cite it frequently; see kind 'times_and_seasons' in data/footnotes.json."
+  },
+  "witnesses": [
+    {
+      "siglum": "B",
+      "reporter": "Thomas Bullock",
+      "title": "Discourse, 7 April 1844, as Reported by Thomas Bullock",
+      "role": "Conference reporter and clerk. Bullock attended the April 1844 conference specifically as a reporter and took down the discourse as JS spoke; his text stands in his minutes of the 6–9 April 1844 conference (Historian's Office, General Church Minutes), pp. 14–22.",
+      "record": "Thomas Bullock, Minutes, 6–9 Apr. 1844, pp. 14–22",
+      "taken_down": "as JS spoke",
+      "role_verified": true,
+      "role_source": "JSP Source Note and Historical Introduction, 'Discourse, 7 April 1844, as Reported by Thomas Bullock'",
+      "transcript": "transcripts/bullock.md",
+      "jsp_url": "https://www.josephsmithpapers.org/paper-summary/discourse-7-april-1844-as-reported-by-thomas-bullock/1",
+      "word_count_raw": 4121,
+      "word_count_reading": 4074,
+      "footnote_count": 87,
+      "pages": [
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22"
+      ],
+      "page_range": "14–22",
+      "sections_present": 35,
+      "sections_absent": []
+    },
+    {
+      "siglum": "W",
+      "reporter": "Wilford Woodruff",
+      "title": "Discourse, 7 April 1844, as Reported by Wilford Woodruff",
+      "role": "Personal journal. Woodruff was apparently not assigned to take notes; he wrote his account into his own journal, probably from rough notes taken while JS spoke — he recalled in 1877 having written the sermon down “on the crown of his hat, standing in the congregation.” JSP judges the journal text a fair copy or refined version of those notes.",
+      "record": "Woodruff, Journal, 7 Apr. 1844",
+      "taken_down": "personal record, refined from notes taken while JS spoke",
+      "role_verified": true,
+      "role_source": "JSP Source Note and Historical Introduction, 'Discourse, 7 April 1844, as Reported by Thomas Bullock'",
+      "transcript": "transcripts/woodruff.md",
+      "jsp_url": "https://www.josephsmithpapers.org/paper-summary/discourse-7-april-1844-as-reported-by-wilford-woodruff/1",
+      "word_count_raw": 2425,
+      "word_count_reading": 2406,
+      "footnote_count": 3,
+      "pages": [
+        "[133]",
+        "[134]",
+        "[135]",
+        "[136]",
+        "[137]",
+        "[138]",
+        "[139]",
+        "[140]"
+      ],
+      "page_range": "[133]–[140]",
+      "sections_present": 34,
+      "sections_absent": [
+        "S35"
+      ]
+    },
+    {
+      "siglum": "R",
+      "reporter": "Willard Richards",
+      "title": "Discourse, 7 April 1844, as Reported by Willard Richards",
+      "role": "JS's private secretary and historian, and keeper of JS's journal. Richards recorded his account as JS spoke; JSP describes it as shorter, less detailed and at times cryptic.",
+      "record": "Richards, Journal, 7 Apr. 1844",
+      "taken_down": "as JS spoke",
+      "role_verified": true,
+      "role_source": "JSP Source Note and Historical Introduction, 'Discourse, 7 April 1844, as Reported by Thomas Bullock'",
+      "transcript": "transcripts/richards.md",
+      "jsp_url": "https://www.josephsmithpapers.org/paper-summary/discourse-7-april-1844-as-reported-by-willard-richards/1",
+      "word_count_raw": 1101,
+      "word_count_reading": 1072,
+      "footnote_count": 5,
+      "pages": [
+        "[67]",
+        "[68]",
+        "[69]",
+        "[70]",
+        "[71]"
+      ],
+      "page_range": "[67]–[71]",
+      "sections_present": 33,
+      "sections_absent": [
+        "S02",
+        "S03"
+      ]
+    },
+    {
+      "siglum": "C",
+      "reporter": "William Clayton",
+      "title": "Discourse, 7 April 1844, as Reported by William Clayton",
+      "role": "JS's private clerk. Clayton recorded his account as JS spoke; JSP notes that it ends abruptly and fails to record the last part of the discourse.",
+      "record": "Clayton, Journal, 7 Apr. 1844",
+      "taken_down": "as JS spoke",
+      "role_verified": true,
+      "role_source": "JSP Source Note and Historical Introduction, 'Discourse, 7 April 1844, as Reported by Thomas Bullock'",
+      "transcript": "transcripts/clayton.md",
+      "jsp_url": "https://www.josephsmithpapers.org/paper-summary/discourse-7-april-1844-as-reported-by-william-clayton/1",
+      "word_count_raw": 2943,
+      "word_count_reading": 2907,
+      "footnote_count": 11,
+      "pages": [
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18"
+      ],
+      "page_range": "11–18",
+      "sections_present": 32,
+      "sections_absent": [
+        "S31",
+        "S32",
+        "S35"
+      ]
+    }
+  ]
+}
