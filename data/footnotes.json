@@ -2,7 +2,7 @@
   "metadata": {
     "project": "King Follett Discourse — digital critical edition",
     "file": "data/footnotes.json",
-    "description": "The editorial footnotes JSP prints with each transcript, keyed by witness and footnote number. anchor_char is the character offset of the anchor digits in the witness's body text; section is the data/sections.json id whose range contains that offset. anchor_context is the 60 characters of body text preceding the anchor, for orientation. works_cited holds the bibliography block JSP prints under the note, where there is one.",
+    "description": "The editorial footnotes JSP prints with each transcript, keyed by witness and footnote number. anchor_char is the character offset of the anchor digits in the witness's body text; section is the data/sections.json id whose range contains that offset. anchor_context is the 60 characters of body text preceding the anchor, for orientation. works_cited holds the bibliography block JSP prints under the note, where there is one. JSP supplies no footnotes for the published T text, so its entry is empty.",
     "kinds": {
       "textual": "JSP alternate-reading note; the text begins 'TEXT:'.",
       "times_and_seasons": "Cites the Times and Seasons account of 15 Aug. 1844, the polished amalgamation of Bullock's and Clayton's notes.",
@@ -19,7 +19,8 @@
       "B": 87,
       "W": 3,
       "R": 5,
-      "C": 11
+      "C": 11,
+      "T": 0
     },
     "kind_totals": {
       "textual": 9,
@@ -33,219 +34,219 @@
       "1": {
         "text": "TEXT: Possibly “inspr.”. William Clayton’s account renders this passage as “the inspirati[o]n of A[lmighty] God.”",
         "kind": "textual",
-        "anchor_char": 741,
+        "anchor_char": 745,
         "section": "S01",
         "anchor_context": "this subj[ec]t. I want your prayer, faith the instr[uctio]n.1"
       },
       "2": {
         "text": "See Book of Mormon, 1840 ed., 119 [2 Nephi 33:1].",
         "kind": "scripture",
-        "anchor_char": 831,
+        "anchor_char": 835,
         "section": "S01",
         "anchor_context": "ngs that are true & shall carry the testimony to your hearts2"
       },
       "3": {
         "text": "See Revelation 8:3–4.",
         "kind": "scripture",
-        "anchor_char": 924,
+        "anchor_char": 928,
         "section": "S01",
-        "anchor_context": " my lungs— stay the winds— & let the pray[ers] of the Saints3"
+        "anchor_context": "my lungs— stay the winds— & let the pray[ers] of the Saints3"
       },
       "4": {
         "text": "See James 5:16.",
         "kind": "scripture",
-        "anchor_char": 987,
+        "anchor_char": 991,
         "section": "S01",
         "anchor_context": "o heaven appear— for the prayers of the righteous avail much4"
       },
       "5": {
         "text": "The Times and Seasons account renders this word as “consequently.”",
         "kind": "times_and_seasons",
-        "anchor_char": 1861,
+        "anchor_char": 1865,
         "section": "S04",
         "anchor_context": "ehend any thing that is past or that which is to come & com:5"
       },
       "6": {
         "text": "See 1 Corinthians 2:9–11; and Third Lecture on Faith, in Doctrine and Covenants, 1835 ed., 36–37.",
         "kind": "scripture",
-        "anchor_char": 2169,
+        "anchor_char": 2173,
         "section": "S04",
-        "anchor_context": " by no o[the]r. way than the Insp[iratio]n of A[lmighty] God6"
+        "anchor_context": "by no o[the]r. way than the Insp[iratio]n of A[lmighty] God6"
       },
       "7": {
         "text": "See John 17:3.",
         "kind": "scripture",
-        "anchor_char": 2756,
+        "anchor_char": 2760,
         "section": "S05",
         "anchor_context": "rnal life to know God & J. C [Jesus Christ] who he has sent—7"
       },
       "8": {
         "text": "The Times and Seasons account renders this passage as “if I should be the man to comprehend God, and explain or convey the principles to your hearts.”",
         "kind": "times_and_seasons",
-        "anchor_char": 3062,
+        "anchor_char": 3066,
         "section": "S06",
         "anchor_context": "the man to com[prehend]: the God & I com: them to your heart8"
       },
       "9": {
         "text": "See Psalm 31:18.",
         "kind": "scripture",
-        "anchor_char": 3161,
+        "anchor_char": 3165,
         "section": "S06",
-        "anchor_context": " their mouths & never say anything ag[ain]st. the man of God9"
+        "anchor_context": "their mouths & never say anything ag[ain]st. the man of God9"
       },
       "10": {
         "text": "In a meeting held on Sunday, 24 March 1844, JS publicly exposed a reported plot to kill him and his family members. (Discourse, 24 Mar. 1844–A; JS, Journal, 24 Mar. 1844; see also Abiathar Williams, Affidavit, Hancock Co., IL, 27 Mar. 1844, and Merinus G. Eaton, Affidavit, Hancock Co., IL, 27 Mar. 1844, in Nauvoo Neighbor, 17 Apr. 1844, [2].)",
         "kind": "other",
-        "anchor_char": 3463,
+        "anchor_char": 3471,
         "section": "S06",
-        "anchor_context": " my head & some wod. feel auth[orize]d to take away my life—10"
+        "anchor_context": "my head & some wod. feel auth[orize]d to take away my life—10"
       },
       "11": {
         "text": "TEXT: Possibly “servt.”, although JS’s scriptural allusion suggests that the word should have been rendered as “scribe”. (See Matthew 7:28–29; and Mark 1:22.)",
         "kind": "textual",
-        "anchor_char": 4150,
+        "anchor_char": 4158,
         "section": "S07",
         "anchor_context": "t for I speak as one hav[in]g. auth[orit]y. & not as a senr.11"
       },
       "12": {
         "text": "In April 1843, JS taught that when the Savior “shall appear we shall see him as he is. we shall see that he is a man like ourselves.” He explained that the idea of “the father and the Son” dwelling “in a mans heart is an old Sectarian notion. and is not correct.” Instead, “the Father has a body of flesh & bones as tangible as mans the Son also.” (Instruction, 2 Apr. 1843 [D&C 130:1, 3, 22]; see also 1 John 3:2.)",
         "kind": "scripture",
-        "anchor_char": 4565,
+        "anchor_char": 4573,
         "section": "S08",
         "anchor_context": "s power if you were to see him to day you wod. see him a man12"
       },
       "13": {
         "text": "See Genesis 1:26–27; 5:1; and Old Testament Revision 1, pp. 4, 11 [Moses 2:26–27; 6:8–9].",
         "kind": "scripture",
-        "anchor_char": 4625,
+        "anchor_char": 4633,
         "section": "S08",
         "anchor_context": "12 for Adam was an man like in fashion & image like unto him13"
       },
       "14": {
         "text": "TEXT: Possibly “Comd.”.",
         "kind": "textual",
-        "anchor_char": 4659,
+        "anchor_char": 4667,
         "section": "S08",
         "anchor_context": "hion & image like unto him13 Adam walkd talked & com[mune]d.14"
       },
       "15": {
         "text": "See Genesis 3:8–12, 17–19; and Old Testament Revision 1, p. 7 [Moses 4:14–18, 23–25].",
         "kind": "scripture",
-        "anchor_char": 4717,
+        "anchor_char": 4725,
         "section": "S08",
         "anchor_context": "d.14 with him as one man talks & com[munes]: with ano[the]r.15"
       },
       "16": {
         "text": "See Third Lecture on Faith, in Doctrine and Covenants, 1835 ed., 36; and Fourth Lecture on Faith, in Doctrine and Covenants, 1835 ed., 44.",
         "kind": "other",
-        "anchor_char": 4866,
+        "anchor_char": 4874,
         "section": "S09",
         "anchor_context": "nd it is necy. to understand the cha[racte]r. & being of God16"
       },
       "17": {
         "text": "The Times and Seasons account renders this passage as “I am going to tell you how God came to be God. We have imagined that God was God from all eternity” (italics added).",
         "kind": "times_and_seasons",
-        "anchor_char": 4969,
+        "anchor_char": 4977,
         "section": "S09",
         "anchor_context": "a being of God for he was God from the begin of all Eternity17"
       },
       "18": {
         "text": "In 1842 JS taught that “the God & father of our Lord Jesus Christ was once the same as the Son or Holy Ghost bothaving [both having] redeemed a world became the eternal God of that world he had a son Jesus Christ who redeemed this earth the same as his father had a world which made them equal & the Holy Ghost would do the same in his turn & so would all the Saints who inherited a Celestial glory so their would be Gods many & Lords many.” (Discourse, 30 Jan. 1842.)",
         "kind": "other",
-        "anchor_char": 5267,
+        "anchor_char": 5275,
         "section": "S09",
         "anchor_context": "rth same as J C himself did & I will shew it from the Bible—18"
       },
       "19": {
         "text": "See 1 Thessalonians 4:16; and Revelation, Sept. 1830–A [D&C 29:26].",
         "kind": "scripture",
-        "anchor_char": 5311,
+        "anchor_char": 5319,
         "section": "S10",
-        "anchor_context": " from the Bible—18 I wish I had the trump of an Arch An[gel]19"
+        "anchor_context": "from the Bible—18 I wish I had the trump of an Arch An[gel]19"
       },
       "20": {
         "text": "See John 5:19–21, 26; 10:17–18; and Discourse, 11 June 1843–A.",
         "kind": "scripture",
-        "anchor_char": 5507,
+        "anchor_char": 5519,
         "section": "S10",
-        "anchor_context": "elf to do even so hath the Son power to do what the Far. did20"
+        "anchor_context": "~~to do~~ even so hath the Son power to do what the Far. did20"
       },
       "21": {
         "text": "In August 1843, JS taught, “What was the design of the almighty in making man, it was to exalt him to be as God, the scripture says ye are Gods and it cannot be broken, heirs of God and joint heirs I with Jesus Christ equal with him possesing all power &c.” (Discourse, 27 Aug. 1843; see also Psalm 82:6; Isaiah 41:23; John 10:34; Vision, 16 Feb. 1832 [D&C 76:58]; Revelation, 12 July 1843 [D&C 132:19–20]; and Discourse, 13 Aug. 1843–A.)",
         "kind": "scripture",
-        "anchor_char": 5899,
+        "anchor_char": 5915,
         "section": "S11",
         "anchor_context": "se & true God you have got to learn how to be a God yourself21"
       },
       "22": {
         "text": "See Revelation 1:6; 5:10; and Vision, 16 Feb. 1832 [D&C 76:56].",
         "kind": "scripture",
-        "anchor_char": 5935,
+        "anchor_char": 5955,
         "section": "S11",
-        "anchor_context": "how to be a God yourself21 & be a K[ing] & God Priest to God22"
+        "anchor_context": "to be a God yourself21 & be a K[ing] & ~~God~~ Priest to God22"
       },
       "23": {
         "text": "See John 1:16; and Revelation, 6 May 1833 [D&C 93:12–13, 20].",
         "kind": "scripture",
-        "anchor_char": 6026,
+        "anchor_char": 6046,
         "section": "S11",
         "anchor_context": "ng from a small cap[acit]y to an[othe]r. from grace to grace23"
       },
       "24": {
         "text": "Wilford Woodruff’s account renders this passage as “And you have got to learn how to make yourselves God, king and priest, by going from a small capacity to a great capacity to the resurrection of the dead, to dwelling in everlasting burnings.”",
         "kind": "other",
-        "anchor_char": 6054,
+        "anchor_char": 6074,
         "section": "S11",
         "anchor_context": "o an[othe]r. from grace to grace23 until the res[urrectio]n.24"
       },
       "25": {
         "text": "The Times and Seasons account renders this passage as “to know, that although the earthly tabernacle shall be dissolved” (italics added).",
         "kind": "times_and_seasons",
-        "anchor_char": 6400,
+        "anchor_char": 6424,
         "section": "S12",
         "anchor_context": "ve to know that all Earthly taber[nacles] shall be dissolved25"
       },
       "26": {
         "text": "See Romans 8:17.",
         "kind": "scripture",
-        "anchor_char": 6470,
+        "anchor_char": 6494,
         "section": "S12",
         "anchor_context": ". 16] they shall be heirs of God & j[oin]t. h[ei]rs of J. C.26"
       },
       "27": {
         "text": "See Revelation 21:7; Vision, 16 Feb. 1832 [D&C 76:59]; Revelation, 1 Mar. 1832 [D&C 78:22]; and Revelation, 22–23 Sept. 1832 [D&C 84:38].",
         "kind": "scripture",
-        "anchor_char": 6499,
+        "anchor_char": 6523,
         "section": "S12",
         "anchor_context": "God & j[oin]t. h[ei]rs of J. C.26 to inherit the same powers27"
       },
       "28": {
         "text": "See John 5:19.",
         "kind": "scripture",
-        "anchor_char": 6641,
+        "anchor_char": 6665,
         "section": "S13",
         "anchor_context": "e gone bef[ore] what J. did I do the things I saw my Far. do28"
       },
       "29": {
         "text": "See Philippians 2:12; and Book of Mormon, 1840 ed., 522 [Mormon 9:27].",
         "kind": "scripture",
-        "anchor_char": 6744,
+        "anchor_char": 6768,
         "section": "S13",
         "anchor_context": "e I saw my Far. work out his K[ingdom] with fear & trembling29"
       },
       "30": {
         "text": "See 1 Corinthians 15:24; and Vision, 16 Feb. 1832 [D&C 76:107].",
         "kind": "scripture",
-        "anchor_char": 6802,
+        "anchor_char": 6826,
         "section": "S13",
         "anchor_context": "ng29 & I must do the same when I shall give my K to the Far.30"
       },
       "31": {
         "text": "Genesis 1:1. JS’s commentary on the Hebrew in Genesis 1:1 seems to have been influenced by a combination of insights he gleaned from his Hebrew studies with Joshua Seixas in early 1836, Hebrew resources he acquired during his studies, and his own thinking on the possibilities of various Hebrew words and phrases. (See Grey, “Joseph Smith’s Study of Hebrew in Kirtland,” 264, 272; JS, Journal, 20 Nov. 1835; 26 Jan. 1836; 29 Mar. 1836; and JS, Discourse, 16 June 1844, JS Collection, CHL; see also August Hahn, Biblia Hebraica [New York: Carl Tauchnitz, 1834]; Moses Stuart, Grammar of the Hebrew Language [Andover, MA: Flagg and Gould, 1831]; Josiah W. Gibbs, Manual Hebrew and English Lexicon [New Haven, CT: Hezekiah Howe, 1832]; Joshua Seixas, Manual Hebrew Grammar for the Use of Beginners [Andover, MA: Gould and Newman, 1834]; and Supplement to J. Seixas’ Manual Hebrew Grammar [New York: West and Trow, 1836].)",
         "kind": "scripture",
-        "anchor_char": 7484,
+        "anchor_char": 7512,
         "section": "S15",
-        "anchor_context": "o to the first Hebrew word in the Bible the 1st. sen[tence]:31",
+        "anchor_context": "the first Hebrew word in the Bible the 1__st__. sen[tence]:31",
         "works_cited": [
           "Grey, Matthew J. “‘The Word of the Lord in the Original’: Joseph Smith’s Study of Hebrew in Kirtland.” In Approaching Antiquity: Joseph Smith and the Ancient World, edited by Lincoln H. Blumell, Matthew J. Grey, and Andrew H. Hedges, 249–302. Provo, UT: Religious Studies Center, Brigham Young University; Salt Lake City: Deseret Book, 2015.",
           "Hahn, August. Biblia Hebraica ad optimas editiones inprimis Everardi van der Hooght ex recensione Aug Hahnii expressa. New York: Carl Tauchnitz, 1834.",
@@ -257,9 +258,9 @@
       "32": {
         "text": "Berasheeth or Bereshit is a construct clause traditionally translated in Genesis 1:1 as “in the beginning.” In his interpretation of this clause, JS removed its first letter (baith/bet, a preposition that can mean “in” or “by”) and its final two letters (-eet/-it), which Seixas identified as a grammatical “termination,” leaving the remaining core of the word, resh or rosh, which means “head.” (Seixas, Manual Hebrew Grammar, 12, 15, 21.)",
         "kind": "scripture",
-        "anchor_char": 7515,
+        "anchor_char": 7543,
         "section": "S15",
-        "anchor_context": "he Bible the 1st. sen[tence]:31 In the beginning— Berosheet—32",
+        "anchor_context": "ible the 1__st__. sen[tence]:31 In the beginning— Berosheet—32",
         "works_cited": [
           "Seixas, Joshua. Manual Hebrew Grammar for the Use of Beginners. 2nd ed., enl. and impr. Andover, MA: Gould and Newman, 1834."
         ]
@@ -267,9 +268,9 @@
       "33": {
         "text": "The full logic of this statement is best reflected in the Times and Seasons account, which renders this passage as “Berosheit. I want to analyze the word; baith, in, by, through, in, and every thing else. Rosh, the head. Sheit, gramatical termination. When the inspired man wrote it, he did not put the baith there. A man, a Jew without any authority, thought it too bad to begin to talk about the head. It read first, ‘The head one of the Gods brought forth the Gods,’ that is the true meaning of the words. Baurau, signifies to bring forth.” In this reconstructed passage, JS explained the way in which he reinterpreted the first word of Genesis 1:1 (Berasheeth/Bereshit) as “the head,” meaning one of the Gods; retranslated the verb of this sentence (baurau/bara) from the traditional “to create” to the less conventional “to bring forth”; and shifted the plural noun Elōheem/Elohim (“Gods”) from acting as the sentence’s subject to serving as its direct object. Thus, JS reworked the first portion of Genesis 1:1 (traditionally, “in the beginning God created”) to read “the head brought forth the Gods” in an attempt to demonstrate how the Hebrew version of this passage could be viewed as supporting his teachings on the nature of God and creation. For other examples of how JS or his associates interpreted Genesis 1:1, see JS, Discourse, 16 June 1844, JS Collection, CHL; and “The Living God,” Times and Seasons, 15 Feb. 1845, 6:808–809.",
         "kind": "times_and_seasons",
-        "anchor_char": 7817,
+        "anchor_char": 7845,
         "section": "S15",
-        "anchor_context": " brought forth the Gods” is the true mean[in]g. of the word—33",
+        "anchor_context": "brought forth the Gods” is the true mean[in]g. of the word—33",
         "works_cited": [
           "Times and Seasons. Commerce/Nauvoo, IL. Nov. 1839–Feb. 1846."
         ]
@@ -277,30 +278,30 @@
       "34": {
         "text": "TEXT: Possibly “K”.",
         "kind": "textual",
-        "anchor_char": 7938,
+        "anchor_char": 7966,
         "section": "S15",
         "anchor_context": "n of God— no man can tell you more than I do thus the H[ead]34"
       },
       "35": {
         "text": "See Book of Abraham Excerpt and Facsimile 2, 15 Mar. 1842 [Abraham 3:22–28; 4:26; 5:2].",
         "kind": "scripture",
-        "anchor_char": 8189,
+        "anchor_char": 8217,
         "section": "S16",
         "anchor_context": "o— the Head God called togr. the Gods & set in Grand Council35"
       },
       "36": {
         "text": "The Times and Seasons account renders this passage as “Some learned doctor might take a notion to say, the scriptures say thus and so, and are not to be altered” (italics added).",
         "kind": "times_and_seasons",
-        "anchor_char": 8424,
+        "anchor_char": 8452,
         "section": "S17",
         "anchor_context": "ake a not[io]n. to say thus & so— & are not to be alt[ere]d.36"
       },
       "37": {
         "text": "Although Thomas Bullock’s account does not name the title of this book, the accounts of others confirm that it was a polyglot Bible. William Clayton called it “an old Book (N. T.) in the Hebrew. Latin German & Greek.” Wilford Woodruff recorded a dream in which he saw JS with “his old Hebrew and Jerman Bible.” William Goforth also mentioned this Bible in a letter published in the Nauvoo Neighbor, calling it “the oldest book in existence of Latin, Greek, and Hebrew, whose leaves seen in a character of decay and as having been the figure whereon the spirit of God was first displayed.” JS’s polyglot Bible may have been a volume titled Novum Testamentum Harmonicum, which contained the text of the New Testament printed in parallel columns of Hebrew, Greek, Latin, and German, making it possible to compare the same passage in all four languages. (Woodruff, Journal, 19 Aug. 1844; William Goforth [Sissimus, pseud.], Nauvoo, IL, 10 Apr. 1844, Letter to the Editor, Nauvoo Neighbor, 1 May 1844, [2]; Novum Testamentum, Harmonicum . . . , edited by Elias Hutter [Nuremberg, Germany, 1602].)",
         "kind": "other",
-        "anchor_char": 8514,
+        "anchor_char": 8542,
         "section": "S17",
-        "anchor_context": " error I have an old book in the Latin Greek Hebrew & German37",
+        "anchor_context": "error I have an old book in the Latin Greek Hebrew & German37",
         "works_cited": [
           "Woodruff, Wilford. Journals, 1833–1898. Wilford Woodruff, Journals and Papers, 1828–1898. CHL. MS 1352.",
           "Nauvoo Neighbor. Nauvoo, IL. 1843–1845.",
@@ -310,30 +311,30 @@
       "38": {
         "text": "JS studied German with the assistance of Orson Hyde and Alexander Neibaur. On 22 March 1844, he was reading in German, apparently on his own. (JS, Journal, 22 Dec. 1842; JS, Journal, 18 and 22 Mar. 1844.)",
         "kind": "other",
-        "anchor_char": 8555,
+        "anchor_char": 8583,
         "section": "S17",
         "anchor_context": "eek Hebrew & German37 & I have been read[in]g. the Germ[an]:38"
       },
       "39": {
         "text": "TEXT: Possibly “test[imony].” The Times and Seasons account renders this passage as “In the 21st verse of the 4th chapter of Mathew, it gives the word Jacob instead of James.”",
         "kind": "textual",
-        "anchor_char": 8861,
+        "anchor_char": 8889,
         "section": "S17",
         "anchor_context": "n the 21 v[erse] of 4th. Mat[thew]: where it gives the test.39"
       },
       "40": {
         "text": "TEXT: Possibly “wo[r]d” or “wo[ul]d”.",
         "kind": "textual",
-        "anchor_char": 9263,
+        "anchor_char": 9299,
         "section": "S17",
         "anchor_context": "& read if you can [p. 17] I shod. not have brot. up this wod40"
       },
       "41": {
         "text": "Creation ex nihilo, or the doctrine that God “created the universe out of nothing,” was a position long held by mainstream Christians, although it “was being called into question by scientists and churchmen alike, with the dawn of the nineteenth century.” (Givens, Wrestling the Angel, 53–54.)",
         "kind": "other",
-        "anchor_char": 9685,
+        "anchor_char": 9729,
         "section": "S18",
-        "anchor_context": " say that God created the Heavens & the Earth out of nothing41",
+        "anchor_context": "say that God created the Heavens & the Earth out of nothing41",
         "works_cited": [
           "Givens, Terryl L. Wrestling the Angel: The Foundations of Mormon Thought: Cosmos, God, Humanity. New York: Oxford University Press, 2015."
         ]
@@ -341,9 +342,9 @@
       "42": {
         "text": "Baurau, or bara, is the Hebrew verb in Genesis 1:1 that is traditionally translated as “to create.” JS, however, drew upon less conventional translations of the verb—which could include “to form” or “to make”—to refute the notion of creation ex nihilo. (See Gibbs, Manual Hebrew and English Lexicon, 36.)",
         "kind": "scripture",
-        "anchor_char": 9876,
+        "anchor_char": 9924,
         "section": "S18",
-        "anchor_context": " all the world I will associate with it— what does Boro mean42",
+        "anchor_context": "the world I will associate with it— what does __Boro__ mean42",
         "works_cited": [
           "Gibbs, Josiah W. A Manual Hebrew and English Lexicon Including Biblical Chaldee. Designed Particularly for Beginners. 2nd ed. New Haven, CT: Hezekiah Howe, 1832."
         ]
@@ -351,63 +352,63 @@
       "43": {
         "text": "JS had previously taught that the earth had been formed out of existing materials. (See Accounts of Meeting and Discourse, 5 Jan. 1841; and Book of Abraham Excerpt and Facsimile 2, 15 Mar. 1842 [Abraham 3:24; 4:1].)",
         "kind": "scripture",
-        "anchor_char": 9996,
+        "anchor_char": 10044,
         "section": "S18",
         "anchor_context": "d himself had materials to org[anize] the world out of chaos43"
       },
       "44": {
         "text": "See Revelation, 6 May 1833 [D&C 93:33].",
         "kind": "scripture",
-        "anchor_char": 10125,
+        "anchor_char": 10173,
         "section": "S18",
-        "anchor_context": " destroy they never can have an ending they exist eternally—44"
+        "anchor_context": "destroy they never can have an ending they exist eternally—44"
       },
       "45": {
         "text": "The Times and Seasons account renders this passage as “I have another subject to dwell upon” (italics added).",
         "kind": "times_and_seasons",
-        "anchor_char": 10152,
+        "anchor_char": 10200,
         "section": "S19",
         "anchor_context": "e an ending they exist eternally—44 I have anor. to dwell on45"
       },
       "46": {
         "text": "See Genesis 2:7; Old Testament Revision 1, p. 5 [Moses 3:7]; and Book of Abraham Excerpt and Facsimile 2, 15 Mar. 1842 [Abraham 5:7].",
         "kind": "scripture",
-        "anchor_char": 10815,
+        "anchor_char": 10863,
         "section": "S19",
-        "anchor_context": " & put into <​it​> Adams Spirit & so became a living Spirit—46"
+        "anchor_context": "& put into <​it​> Adams Spirit & so became a living Spirit—46"
       },
       "47": {
         "text": "The Times and Seasons account renders this passage as “hence when I talk to these mourners; what have they lost.” The Willard Richards and Wilford Woodruff versions clarify that “they” refers not to the “mourners” but to their recently departed “friends.”",
         "kind": "times_and_seasons",
-        "anchor_char": 10919,
+        "anchor_char": 10967,
         "section": "S20",
         "anchor_context": "mortal as God himself— hence while I talk to these mourners—47"
       },
       "48": {
         "text": "In 1843 JS taught that the “same sociality which exists amongst us here will exist among us there only it will be coupled with eternal glory which we do not enjoy now.” (Instruction, 2 Apr. 1843 [D&C 130:2].)",
         "kind": "scripture",
-        "anchor_char": 11058,
+        "anchor_char": 11106,
         "section": "S20",
         "anchor_context": "coexisted with God & now converse one another same as we do—48"
       },
       "49": {
         "text": "The Times and Seasons account renders this passage as “suppose you cut it in two” (italics added).",
         "kind": "times_and_seasons",
-        "anchor_char": 11360,
+        "anchor_char": 11412,
         "section": "S21",
         "anchor_context": "Sp[irit] bec[ause] it has no beging. suppose you cut it into49"
       },
       "50": {
         "text": "In 1841 JS taught that “that which has a beginning will surely have an end.” Instructing his audience to consider a ring, he continued, “It is without beginning or end; cut it for a beginning place, and at the same time you have an ending place.” Later he concluded that “if the soul of man had a beginning it will surely have an end.” (Accounts of Meeting and Discourse, 5 Jan. 1841.)",
         "kind": "other",
-        "anchor_char": 11407,
+        "anchor_char": 11459,
         "section": "S21",
         "anchor_context": "u cut it into49 but as the L[or]d lives there wod. be an end50"
       },
       "51": {
         "text": "The doctrine of annihilation, as understood in Christian theology, argues that “human beings may pass or be put out of existence altogether”—as opposed to living out a postmortal eternity of rewards or punishments in heaven or hell. JS also referenced the idea of annihilation in a 13 August 1843 discourse. (Pinnock, “Annihilationism,” 462; Discourse, 13 Aug. 1843–A.)",
         "kind": "other",
-        "anchor_char": 11578,
+        "anchor_char": 11630,
         "section": "S21",
         "anchor_context": "n the doc[trine] of annihilitn. [annihilation] wod. be true—51",
         "works_cited": [
@@ -417,147 +418,147 @@
       "52": {
         "text": "See Book of Abraham Excerpt and Facsimile 2, 15 Mar. 1842 [Abraham 3:19, 22–23]; Revelation, 6 May 1833 [D&C 93:29]; Discourse, between ca. 26 June and ca. 4 Aug. 1839–A; and Discourse, 5 Feb. 1840.",
         "kind": "scripture",
-        "anchor_char": 11835,
+        "anchor_char": 11891,
         "section": "S21",
         "anchor_context": "tent it is a Sp from age to end & there is no creatn abt. it52"
       },
       "53": {
         "text": "See Book of Abraham Excerpt and Facsimile 2, 15 Mar. 1842 [Abraham 3:23–26].",
         "kind": "scripture",
-        "anchor_char": 12112,
+        "anchor_char": 12168,
         "section": "S22",
         "anchor_context": "e one glory upon another in all that knowledge power & glory53"
       },
       "54": {
         "text": "The Times and Seasons account renders this passage as “God reveals them to us in view of no eternal dissolution of the body” (italics added).",
         "kind": "times_and_seasons",
-        "anchor_char": 12781,
+        "anchor_char": 12841,
         "section": "S23",
-        "anchor_context": " to us in the view of no Eternal diss[olutio]n. of the body—54"
+        "anchor_context": "to us in the view of no Eternal diss[olutio]n. of the body—54"
       },
       "55": {
         "text": "See Hebrews 11:40; and Letter to the Church, 7 Sept. 1842 [D&C 128:15].",
         "kind": "scripture",
-        "anchor_char": 13376,
+        "anchor_char": 13440,
         "section": "S24",
-        "anchor_context": " our dead— the apostle says they without us cant be perfect—55"
+        "anchor_context": "our dead— the apostle says they without us cant be perfect—55"
       },
       "56": {
         "text": "See Malachi 4:5–6. Wilford Woodruff’s account fleshes out this reference, noting that “it is necessary that the seals are in our hands to seal our children & our dead for the folness of the dispensation of times.” JS’s journal entry for 3 April 1836 notes that JS and Oliver Cowdery experienced a vision of Elijah appearing to them in the House of the Lord in Kirtland, Ohio, announcing the fulfillment of Malachi’s prophecy and conveying to them “the Keys of this dispensation.” JS had taught about Elijah and the sealing power in several recent discourses. (Visions, 3 Apr. 1836 [D&C 110:13–16]; JS, Journal, 3 Apr. 1836; see also, for example, Discourse, 13 Aug. 1843–A; Discourse, 21 Jan. 1844; and Discourse, 10 Mar. 1844.)",
         "kind": "scripture",
-        "anchor_char": 13597,
+        "anchor_char": 13661,
         "section": "S24",
-        "anchor_context": " made it obligatory to man— God said he shall send Elijah &c56"
+        "anchor_context": "made it obligatory to man— God said he shall send Elijah &c56"
       },
       "57": {
         "text": "See Matthew 12:31.",
         "kind": "scripture",
-        "anchor_char": 13987,
+        "anchor_char": 14055,
         "section": "S25",
-        "anchor_context": " has com[mitte]d. that Sin which cant be rem[itte]d. to him—57"
+        "anchor_context": "com[mitte]d. that Sin which cant be rem[itte]__d__. to him—57"
       },
       "58": {
         "text": "The Times and Seasons account renders this passage as “A man can not commit the unpardonable sin after the dissolution of the body.”",
         "kind": "times_and_seasons",
-        "anchor_char": 14310,
+        "anchor_char": 14378,
         "section": "S26",
-        "anchor_context": " can commit the unpardonable sin after the dissn of the body58"
+        "anchor_context": "can commit the unpardonable sin after the dissn of the body58"
       },
       "59": {
         "text": "Wilford Woodruff’s account renders this passage as “He cannot be damned through all eternity, their is a possibility for his escape in a little time.”",
         "kind": "other",
-        "anchor_char": 14368,
+        "anchor_char": 14436,
         "section": "S26",
         "anchor_context": "dy58 & there is a way possible for escape not partarly d——d—59"
       },
       "60": {
         "text": "The Times and Seasons account renders this passage as “Knowledge saves a man, and in the world of spirits a man cannot be exalted but by knowledge; so long as a man will not give heed to the commandments, he must abide without salvation.”",
         "kind": "times_and_seasons",
-        "anchor_char": 14432,
+        "anchor_char": 14500,
         "section": "S26",
         "anchor_context": "hose that are witht. wisdom until they get exalted to wisdom60"
       },
       "61": {
         "text": "See Revelation 21:8; Book of Mormon, 1840 ed., 316 [Alma 36:12–16, 21]; and Revelation, ca. Summer 1829 [D&C 19:15].",
         "kind": "scripture",
-        "anchor_char": 14648,
+        "anchor_char": 14724,
         "section": "S26",
-        "anchor_context": " is as exquisite as a lake burn[in]g. with fire & brimstone—61"
+        "anchor_context": "is as exquisite as a lake burn[in]g. with fire & brimstone—61"
       },
       "62": {
         "text": "See Old Testament Revision 1, p. 6 [Moses 4:2]; and Book of Abraham Excerpt and Facsimile 2, 15 Mar. 1842 [Abraham 3:27].",
         "kind": "scripture",
-        "anchor_char": 14903,
+        "anchor_char": 14979,
         "section": "S26",
         "anchor_context": "men to triumph over the devil— for he stood up for a Savior—62"
       },
       "63": {
         "text": "The Times and Seasons account renders this passage as “The contention in heaven was, Jesus said there would be certain souls that would not be saved.”",
         "kind": "times_and_seasons",
-        "anchor_char": 14975,
+        "anchor_char": 15051,
         "section": "S27",
         "anchor_context": "nde]d. that there wod. be certn. souls that wod. be condemnd63"
       },
       "64": {
         "text": "See Old Testament Revision 1, p. 6 [Moses 4:1].",
         "kind": "scripture",
-        "anchor_char": 15018,
+        "anchor_char": 15094,
         "section": "S27",
-        "anchor_context": " wod. be condemnd63 & the d[evi]l sd. he cod. save them all—64"
+        "anchor_context": "wod. be condemnd63 & the d[evi]l sd. he cod. save them all—64"
       },
       "65": {
         "text": "See Revelation 12:7–9; Old Testament Revision 1, p. 6 [Moses 4:3]; and Book of Abraham Excerpt and Facsimile 2, 15 Mar. 1842 [Abraham 3:28].",
         "kind": "scripture",
-        "anchor_char": 15112,
+        "anchor_char": 15188,
         "section": "S27",
         "anchor_context": "r J. C. so the d l fell & all who put up their heads for him65"
       },
       "66": {
         "text": "An 1832 revelation described those who have committed this sin as “having denied the holy ghost after having received it and having denied the only begoten son of the fathe[r] crucifying him unto themselves and putting him to an open shame.” A revelation recorded in 1843 specified that “the blasphemy against the Holy Ghost, which Shall not be forgiven in the world nor out of the world, is in that ye Commit murder, wherein ye Shed innocent blood and assent unto my death, after ye have received my new and Everlasting covenant.” (Vision, 16 Feb. 1832 [D&C 76:31–39]; Revelation, 12 July 1843 [D&C 132:27]; see also Matthew 12:31–32; Hebrews 6:4–6; Minutes and Discourse, 1–5 Oct. 1841; and Discourse, 10 Mar. 1844.)",
         "kind": "scripture",
-        "anchor_char": 15292,
+        "anchor_char": 15368,
         "section": "S28",
         "anchor_context": "t he has got to deny J. C. when the heavens are open to him—66"
       },
       "67": {
         "text": "See Matthew 12:34; and Luke 6:45.",
         "kind": "scripture",
-        "anchor_char": 15854,
+        "anchor_char": 15930,
         "section": "S30",
         "anchor_context": "s of the devil out of the abundance of the heart man speaks—67"
       },
       "68": {
         "text": "See John 14:2.",
         "kind": "scripture",
-        "anchor_char": 16203,
+        "anchor_char": 16283,
         "section": "S31",
-        "anchor_context": " sd. where my In my Fars. mansion there are many mansions &c68"
+        "anchor_context": "~~where my~~ In my Fars. mansion there are many mansions &c68"
       },
       "69": {
         "text": "See 1 Corinthians 15:41; and Vision, 16 Feb. 1832 [D&C 76:70–71, 78, 81, 96–98].",
         "kind": "scripture",
-        "anchor_char": 16251,
+        "anchor_char": 16331,
         "section": "S31",
-        "anchor_context": " mansions &c68 there is one glory of the moon Sun & Stars &c69"
+        "anchor_context": "mansions &c68 there is one glory of the moon Sun & Stars &c69"
       },
       "70": {
         "text": "See Vision, 16 Feb. 1832 [D&C 76:70].",
         "kind": "scripture",
-        "anchor_char": 16477,
+        "anchor_char": 16557,
         "section": "S31",
         "anchor_context": "nk asleep in the arms of J. & hence is the glory of the Sun—70"
       },
       "71": {
         "text": "See Isaiah 33:14; Hebrews 12:29; and Instruction, 2 Apr. 1843 [D&C 130:7].",
         "kind": "scripture",
-        "anchor_char": 17468,
+        "anchor_char": 17548,
         "section": "S33",
         "anchor_context": "ll it rise from the de[a]d & be living in the burng. of God—71"
       },
       "72": {
         "text": "In 1843 William Clayton asked JS “wether children who die in infancy will grow.” JS answered they would not but that “we shall receive them precisely in the same state as they died ie no larger. They will have as much intelligence as we shall but shall always remain separate and single. They will have no increase. Children who are born dead will have full grown bodies being made up by the resurrection.” (Clayton, Journal, 18 May 1843.)",
         "kind": "other",
-        "anchor_char": 17603,
+        "anchor_char": 17683,
         "section": "S33",
         "anchor_context": "ell & exercise power in the same form as they laid them down72",
         "works_cited": [
@@ -567,30 +568,30 @@
       "73": {
         "text": "See John 3:5.",
         "kind": "scripture",
-        "anchor_char": 17759,
+        "anchor_char": 17839,
         "section": "S34",
         "anchor_context": "t be born of W[ater] & Sp in order to get into the K of God—73"
       },
       "74": {
         "text": "On 6 April 1830, the Church of Christ was officially established at a meeting at Peter Whitmer Sr.’s home in Fayette Township, New York. Prior to JS’s 7 April 1844 discourse, Sidney Rigdon spoke three times during the conference on the history of the church and the kingdom of God. (See Historian’s Office, General Church Minutes, 6–9 Apr. 1844, 1–3, 5–12.)",
         "kind": "other",
-        "anchor_char": 17848,
+        "anchor_char": 17928,
         "section": "S34",
         "anchor_context": "e out same as the revn. which I have given for the 14 years—74"
       },
       "75": {
         "text": "See Matthew 3:11; Mark 1:7–8; Luke 3:16; and John 1:33.",
         "kind": "scripture",
-        "anchor_char": 18131,
+        "anchor_char": 18211,
         "section": "S34",
         "anchor_context": "has the power he shall adm[inister] the bap of F & the H. G.75"
       },
       "76": {
         "text": "Alexander Campbell (1788–1866) left his association with Regular Baptists to promote, with several other Christian reformers, the restoration of primitive Christianity through adherence to New Testament teachings and practices. Campbell’s followers and supporters came to be known as Disciples of Christ or, less formally, Campbellites. In January 1832, Campbell’s movement merged with a similar movement led by Barton Stone, whose followers—many of whom were former Presbyterians—referred to themselves simply as Christians. (See Hayden, Early History of the Disciples in the Western Reserve, chap. 1; McAllister and Tucker, Journey in Faith, 26–28; and Foster et al., Encyclopedia of the Stone-Campbell Movement, 713–716.)",
         "kind": "other",
-        "anchor_char": 18368,
+        "anchor_char": 18448,
         "section": "S34",
-        "anchor_context": " call upon all to say I— (shouts of I) Alex[ander] Campbell—76",
+        "anchor_context": "call upon all to say I— (shouts of I) Alex[ander] Campbell—76",
         "works_cited": [
           "Hayden, Amos Sutton. Early History of the Disciples in the Western Reserve, Ohio; with Biographical Sketches of the Principal Agents in Their Religious Movement. Cincinnati: Chase and Hall, 1875.",
           "McAllister, Lester G., and William E. Tucker. Journey in Faith: A History of the Christian Church (Disciples of Christ). St. Louis: Bethany Press, 1975.",
@@ -600,7 +601,7 @@
       "77": {
         "text": "Campbell taught that a person received the Holy Spirit after being baptized by immersion and that no additional ordinance was necessary. He explained, “As children, after their natural birth, inhale the spirit or air of this world; so the new born babes, or the regenerated, as soon as born of the water, receive the Spirit which pervades the kingdom into which they are born.” (Alexander Campbell to [Robert] Semple, in Millennial Harbinger, 2 Aug. 1830, 357–358; see also Benson, Alexander Campbell and Joseph Smith, 176.)",
         "kind": "other",
-        "anchor_char": 18413,
+        "anchor_char": 18493,
         "section": "S34",
         "anchor_context": "nder] Campbell—76 how are you going to save them with water—77",
         "works_cited": [
@@ -611,70 +612,70 @@
       "78": {
         "text": "See Ephesians 4:4–6.",
         "kind": "scripture",
-        "anchor_char": 18558,
+        "anchor_char": 18642,
         "section": "S34",
         "anchor_context": "s, hope of, our Calling, one baptism— all three bap make one78"
       },
       "79": {
         "text": "The Times and Seasons account renders this passage as “I have the truth and am at the defiance of the world to contradict me, if they can” (italics added).",
         "kind": "times_and_seasons",
-        "anchor_char": 18627,
+        "anchor_char": 18711,
         "section": "S34",
-        "anchor_context": " the truth & I am at the defiance of the world to contradict79"
+        "anchor_context": "the truth & I am at the defiance of the world to contradict79"
       },
       "80": {
         "text": "See Vision, 16 Feb. 1832 [D&C 76:38–39].",
         "kind": "scripture",
-        "anchor_char": 18946,
+        "anchor_char": 19030,
         "section": "S34",
         "anchor_context": "n. wont save you & ye will be dd but I do not say how along—80"
       },
       "81": {
         "text": "See Matthew 12:31–32; and Vision, 16 Feb. 1832 [D&C 76:34–39].",
         "kind": "scripture",
-        "anchor_char": 19073,
+        "anchor_char": 19157,
         "section": "S34",
         "anchor_context": "d or in the world to come but they shall die the 2nd. death—81"
       },
       "82": {
         "text": "See John 5:29; Revelation 20:10; and Book of Mormon, 1840 ed., 79 [2 Nephi 9:16].",
         "kind": "scripture",
-        "anchor_char": 19206,
+        "anchor_char": 19290,
         "section": "S34",
         "anchor_context": "se to that resurn. which is as the lake of fire & brimstone—82"
       },
       "83": {
         "text": "See Isaiah 33:14.",
         "kind": "scripture",
-        "anchor_char": 19258,
+        "anchor_char": 19342,
         "section": "S34",
         "anchor_context": "imstone—82 some shall rise to the everlasting burning of God83"
       },
       "84": {
         "text": "See Proverbs 9:8.",
         "kind": "scripture",
-        "anchor_char": 19611,
+        "anchor_char": 19695,
         "section": "S35",
         "anchor_context": "fault— if I reprove a man [p. 21] & he hate me he is a fool—84"
       },
       "85": {
         "text": "TEXT: Possibly “bearing”.",
         "kind": "textual",
-        "anchor_char": 19693,
+        "anchor_char": 19777,
         "section": "S35",
         "anchor_context": "especially these my brethren & sisters— I rejoice in hearing85"
       },
       "86": {
         "text": "“My aged friend” may be a reference to Sidney Rigdon, who had been a counselor to JS since 1832. He spoke before JS during the conference. It is also possible—if “hearing the test[imony]” is actually “bearing the test[imony]”—that JS was referring to King Follett. The Times and Seasons account, however, renders “friend” as “friends”: “I rejoice in bearing the testimony of my aged friends.” (See Historian’s Office, General Church Minutes, 6–9 Apr. 1844, 8–14.)",
         "kind": "times_and_seasons",
-        "anchor_char": 19723,
+        "anchor_char": 19807,
         "section": "S35",
-        "anchor_context": " sisters— I rejoice in hearing85 the test of my aged friend—86"
+        "anchor_context": "sisters— I rejoice in hearing85 the test of my aged friend—86"
       },
       "87": {
         "text": "See 1 Corinthians 15:52; 1 Thessalonians 4:16–17; Revelation 20:12–13; Revelation, Sept. 1830–A [D&C 29:13]; Revelation, ca. 7 Mar. 1831 [D&C 45:45]; Minutes and Prayer of Dedication, 27 Mar. 1836 [D&C 109:75]; Book of Mormon, 1840 ed., 521 [Mormon 9:13–14]; Daniel 5:27; and Job 31:6.",
         "kind": "scripture",
-        "anchor_char": 20175,
+        "anchor_char": 20259,
         "section": "S35",
         "anchor_context": "at the trump & weighed in the balance you will know me then—87"
       }
@@ -683,21 +684,21 @@
       "1": {
         "text": "See Declaration on Government and Law, ca. Aug. 1835 [D&C 134:4].",
         "kind": "scripture",
-        "anchor_char": 2473,
+        "anchor_char": 2477,
         "section": "S07",
         "anchor_context": "ry goverment ought to permit evry man to enjoy his religion,1"
       },
       "2": {
         "text": "See Matthew 7:7–8; and Revelation, 19 Jan. 1841 [D&C 124:95].",
         "kind": "scripture",
-        "anchor_char": 5859,
+        "anchor_char": 5959,
         "section": "S18",
         "anchor_context": "ge of God we know how to Approach him & ask & he will answer2"
       },
       "3": {
         "text": "See Isaiah 55:8–9.",
         "kind": "scripture",
-        "anchor_char": 8318,
+        "anchor_char": 8422,
         "section": "S24",
         "anchor_context": "od dwells in eternity, and he does not view things as we do,3"
       }
@@ -706,37 +707,37 @@
       "1": {
         "text": "The Wilford Woodruff account renders this passage as “If I am the man that shows you what kind of a being God is.” The Times and Seasons account renders this passage as “if I should be the man to comprehend God, and explain or convey the principles to your hearts so that the spirit seals it upon you.”",
         "kind": "times_and_seasons",
-        "anchor_char": 433,
+        "anchor_char": 437,
         "section": "S06",
-        "anchor_context": " am so fortunate as to comprehe[n]d and explain the— [blank]1"
+        "anchor_context": "am so fortunate as to comprehe[n]d and explain the— [blank]1"
       },
       "2": {
         "text": "TEXT: Possibly “g[lo]rified”.",
         "kind": "textual",
-        "anchor_char": 1481,
+        "anchor_char": 1485,
         "section": "S13",
-        "anchor_context": " out his kingdom with fear & trembling.—— god is gra[ti]fied2"
+        "anchor_context": "out his kingdom with fear & trembling.—— god is gra[ti]fied2"
       },
       "3": {
         "text": "See Hebrews 6:1–2; and New Testament Revision 2, part 2, p. 139 [Joseph Smith Translation, Hebrews 6:1–2].",
         "kind": "scripture",
-        "anchor_char": 5846,
+        "anchor_char": 5870,
         "section": "S34",
         "anchor_context": "eaving th[e] pincipls [principles] of doctrin of baptism &c—3"
       },
       "4": {
         "text": "The Times and Seasons account renders this passage as “There is one God, one Father, one Jesus, one hope of our calling, one baptism—all these three baptisms only make one.”",
         "kind": "times_and_seasons",
-        "anchor_char": 5904,
+        "anchor_char": 5928,
         "section": "S34",
         "anchor_context": "c—3 one god. one bapti[s]m— & one bapti[s]m— I.E. all three—4"
       },
       "5": {
         "text": "Gnolaum, or ‘olam, is a Hebrew noun defined as “eternity” or “a long period” (referring to “time to come or to time past”). The word is used and defined as the adjective “eternal” in the Book of Abraham, which JS published in 1842. (Gibbs, Manual Hebrew and English Lexicon, 160; Book of Abraham Excerpt and Facsimile 2, 15 Mar. 1842 [Abraham 3:18].)",
         "kind": "scripture",
-        "anchor_char": 6090,
+        "anchor_char": 6114,
         "section": "S34",
-        "anchor_context": " commit the unpdoabl [unpardonable] sin are doomd to Gnolom.5",
+        "anchor_context": "commit the unpdoabl [unpardonable] sin are doomd to Gnolom.5",
         "works_cited": [
           "Gibbs, Josiah W. A Manual Hebrew and English Lexicon Including Biblical Chaldee. Designed Particularly for Beginners. 2nd ed. New Haven, CT: Hezekiah Howe, 1832."
         ]
@@ -746,80 +747,81 @@
       "1": {
         "text": "See James 5:4.",
         "kind": "scripture",
-        "anchor_char": 1023,
+        "anchor_char": 1031,
         "section": "S01",
         "anchor_context": "the wind that it may enter into the ear of the Ld of Sabaoth1"
       },
       "2": {
         "text": "TEXT: Possibly “nor”.",
         "kind": "textual",
-        "anchor_char": 2011,
+        "anchor_char": 2019,
         "section": "S04",
         "anchor_context": "wn character— They cannot com[prehend] from the beginning no2"
       },
       "3": {
         "text": "See Matthew 27:51; Mark 15:38; and Luke 23:45.",
         "kind": "scripture",
-        "anchor_char": 4535,
+        "anchor_char": 4559,
         "section": "S08",
         "anchor_context": "elves— that is the great secret. If the vail was rent to day3"
       },
       "4": {
         "text": "The Times and Seasons account renders this passage as “Adam received instruction, walked, talked and conversed with him [God], as one man talkes and communes with another” (italics added).",
         "kind": "times_and_seasons",
-        "anchor_char": 4820,
+        "anchor_char": 4844,
         "section": "S08",
         "anchor_context": "eceived instruction walked talked as one man with anothe[r].4"
       },
       "5": {
         "text": "The Times and Seasons account renders this passage as “you thus learn some of the first principles of the gospel, about which so much hath been said. When you climb a ladder, you must begin at the bottom and go on until you learn the last principle.”",
         "kind": "times_and_seasons",
-        "anchor_char": 7040,
+        "anchor_char": 7072,
         "section": "S14",
         "anchor_context": "nning of the history & go on till you have learned the last—5"
       },
       "6": {
         "text": "The Times and Seasons account renders this passage as “Oh ye lawyers! ye doctors! who have persecuted me; I want to let you know that the Holy Ghost knows something as well as you do.”",
         "kind": "times_and_seasons",
-        "anchor_char": 8034,
+        "anchor_char": 8074,
         "section": "S15",
         "anchor_context": "who have persecuted me I want to let you know that the H. G.6"
       },
       "7": {
         "text": "See James 4:8; and Revelation, 27–28 Dec. 1832 [D&C 88:63].",
         "kind": "scripture",
-        "anchor_char": 9258,
+        "anchor_char": 9310,
         "section": "S18",
         "anchor_context": "we begin to know how to come to him he begins to come to us.7"
       },
       "8": {
         "text": "The Times and Seasons account renders this as “I do not believe the doctrine, I know better” (italics added).",
         "kind": "times_and_seasons",
-        "anchor_char": 10216,
+        "anchor_char": 10272,
         "section": "S19",
         "anchor_context": "an in my estimation. Dont believe the doctrine— know better—8"
       },
       "9": {
         "text": "The Willard Richards and Wilford Woodruff versions clarify that “they” refers not to the “mourners” but to their recently departed “friends.”",
         "kind": "other",
-        "anchor_char": 10773,
+        "anchor_char": 10829,
         "section": "S20",
         "anchor_context": "ue. hence when I talk to these mourners what have they lost—9"
       },
       "10": {
         "text": "The Times and Seasons account renders this as “I have a declaration to make as to the provisions which God hath made to suit the conditions of man” (italics added).",
         "kind": "times_and_seasons",
-        "anchor_char": 13263,
+        "anchor_char": 13323,
         "section": "S25",
-        "anchor_context": " the provisions God hath made to suit the conditions of man.10"
+        "anchor_context": "the provisions God hath made to suit the conditions of man.10"
       },
       "11": {
         "text": "In May 1843, JS taught that “it was impossible for a man to be saved in ignorance.” (Discourse, 17 May 1843–A [D&C 131:6].)",
         "kind": "scripture",
-        "anchor_char": 13933,
+        "anchor_char": 13997,
         "section": "S26",
-        "anchor_context": " wold of spirits a man cant be exalted but by his knowledge.11"
+        "anchor_context": "wold of spirits a man cant be exalted but by his knowledge.11"
       }
-    }
+    },
+    "T": {}
   }
 }
