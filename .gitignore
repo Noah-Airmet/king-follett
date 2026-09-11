@@ -8,3 +8,6 @@
 
 # Segments (generated, can be recreated)
 data/segments/
+
+# Local reference material (copyrighted; never commit)
+refs/
