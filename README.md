@@ -207,6 +207,49 @@ transcript's; that page ranges are right; and that `witnesses.json`,
 `footnotes.json` and `apparatus.json` agree with the transcripts and with
 `sections.json`.
 
+## The site
+
+```
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+.venv/bin/python build.py            # write site/
+.venv/bin/python build.py --serve    # write site/, then serve it
+```
+
+`build.py` generates the whole edition into `site/`, which is gitignored: the
+data is the source, the site is output, and nothing is ever hand-edited there.
+`docs/` is the January 2026 site and is not touched by the build; it stays until
+the move to `kingfollett.noahairmet.com` replaces it with a redirect stub.
+
+Every number on the site comes from `data/`. Prose in `content/` refers to
+counts as `{{stats.total_variants}}` or `{{stats.words.B}}` and `build.py`
+fills them in, so commentary cannot drift from the edition it describes; an
+unknown placeholder fails the build rather than printing into a page. The
+reading text on the page is rendered *from the string* `jsp.render_reading`
+produces, not from a second implementation of the same rules, so what a reader
+sees is what `validate` checks the apparatus readings against.
+
+The edition has one reading surface. The thirty-five-section partition is the
+only structure the data guarantees, so it is the site's spine; the witness
+pages, the apparatus ledger and the reception view are entrances into it rather
+than separate copies of the text. The reader's configuration is three things —
+which witnesses are lit, whether variants are marked, and whether the text is
+shown as the scribe left it or as it reads — and each is a checkbox the
+stylesheet reads with `:has()`. The edition is therefore fully operable with
+scripting disabled. `web/edition.js` adds the configuration to the URL so a
+link carries what the sender was looking at, opens the apparatus slip, tells
+the rail where you are, binds `1`–`5`/`v`/`m`/`j`/`k`, and attaches the siglum,
+section and manuscript page to anything copied out of a witness column.
+
+The rail down the left is five ribbons, one per witness, each swelling with
+that witness's word count in each section. It is nowhere labelled, because the
+shape is the claim: Clayton's ribbon stops at S31, Woodruff's at S35,
+Richards's is thin the whole way, and T's — the one text nobody heard — is the
+widest on the page.
+
+`markdown` is the only dependency and it is used at build time to render
+`content/`; nothing ships to the browser, and `src/kf` remains standard library
+only.
+
 ## Status
 
 The web edition at `docs/index.html` is the January 2026 first pass. It was
@@ -226,6 +269,10 @@ independent passes and adjudicated: 40 theological, 28 reception, 26 unique,
 January 2026 scan notes survive only as `legacy_verification` and are not
 evidence for this edition.
 
-**Not yet done.** Commentary files under `content/`
-do not exist. The new site and the move to `kingfollett.noahairmet.com` have
-not been started. Read `HANDOFF.md` before continuing.
+**Site (Phase 3, September 2026).** `build.py` generates the edition from
+`data/` into `site/`; see *The site* above.
+
+**Not yet done.** Commentary files under `content/` do not exist (Phase 2d), so
+the About and Reception pages carry an explicit note in place of prose rather
+than filler. The move to `kingfollett.noahairmet.com` has not been made, and
+`docs/` is still the live site. Read `HANDOFF.md` before continuing.
