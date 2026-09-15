@@ -827,6 +827,60 @@ sup[id^="fnref"] a {
   margin: 0 0 0.5rem;
 }
 
+/* ---- colophon ----------------------------------------------------------- */
+
+/* Credit, not chrome: quiet, but on every page, because the transcripts it
+   credits are on every page. */
+.colophon {
+  border-top: 1px solid var(--hair);
+  padding: 1.6rem 0 3rem;
+  color: var(--ink-faint);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+/* The colophon sits outside whatever layout the page above it used, so its
+   text has to be re-aligned to that page's measure or it starts adrift of the
+   column it sits beneath — under the rail on the discourse, at the far left
+   under a centred sheet everywhere else. */
+.colophon-inner {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 5vw, 2rem);
+}
+
+.page-witness .colophon-inner { max-width: 62rem; }
+
+.page-spine .colophon-inner {
+  max-width: none;
+  margin: 0;
+  padding-left: calc(var(--rail-w) + clamp(1rem, 4vw, 3rem));
+  padding-right: clamp(1rem, 4vw, 3rem);
+}
+
+.colophon p { margin: 0 0 0.6rem; max-width: 46rem; }
+.colophon a { color: var(--ink-soft); }
+.colophon a:hover { color: var(--gall); }
+
+.colophon-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.2rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.colophon-links a { text-decoration: none; }
+.colophon-links a:hover { text-decoration: underline; }
+
+.notes-note {
+  margin: -0.4rem 0 1.2rem;
+  color: var(--ink-faint);
+  font-size: 0.86rem;
+  max-width: 42rem;
+}
+
 /* ---- the slip ----------------------------------------------------------- */
 
 /* One reusable card for a variant or a note. Paper, a hairline, no shadow and
@@ -1003,6 +1057,7 @@ body:has(#w-B:checked):has(#w-W:checked):has(#w-R:checked):has(#w-C:checked):has
 
 @media print {
   .masthead, .rail, .controls, .nav { display: none; }
+  .colophon { border-top: 1px solid #999; }
   .frame { display: block; }
   .wit { display: block !important; }
   .sec-app[open] { display: block; }

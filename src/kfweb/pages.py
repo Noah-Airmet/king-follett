@@ -45,6 +45,35 @@ def _v() -> str:
     return f"?v={ASSET_VERSION}" if ASSET_VERSION else ""
 
 
+
+JSP_URL = "https://www.josephsmithpapers.org"
+
+
+def _colophon() -> str:
+    """Who made what, on every page.
+
+    This edition supplies the alignment, the apparatus and the commentary. It
+    does not supply the text. All five transcripts and all 106 editorial notes
+    are the Joseph Smith Papers' work, reproduced here, and a reader has no way
+    to tell that from the page unless the page says so. Site-wide rather than
+    on an about page, because the transcripts are on every reading surface.
+    """
+    return (
+        '<footer class="colophon"><div class="colophon-inner">'
+        '<p>The five transcripts, the editorial notes and the '
+        f'transcription conventions they use are reproduced from '
+        f'<a href="{JSP_URL}" rel="external">The Joseph Smith Papers</a>, a '
+        "project of the Church Historian's Press, and are theirs. This edition "
+        "supplies the alignment of the witnesses, the critical apparatus and the "
+        "commentary, and is not affiliated with or endorsed by them.</p>"
+        '<p class="colophon-links">'
+        '<a href="/about/">About this edition</a>'
+        '<a href="/about/#verification">What it claims</a>'
+        '<a href="/witnesses/">The witnesses</a>'
+        "</p></div></footer>"
+    )
+
+
 def _sharing(title: str, description: str, path: str) -> str:
     """Open Graph and Twitter tags, so a pasted link previews as the edition.
 
@@ -131,6 +160,7 @@ def shell(
         "</header>\n"
         f"{_state_inputs() if controls else ''}"
         f"{body}\n"
+        f'{_colophon()}\n'
         f'<script type="module" src="/edition.js{_v()}"></script>\n'
         "</body>\n</html>\n"
     )
@@ -565,7 +595,18 @@ def witness_page(edition: Edition, siglum: str, prose: str = "") -> str:
         tag("div", *blocks, class_="spine spine-solo"),
         tag(
             "section",
-            tag("h2", "Editorial notes"),
+            tag("h2", "The Joseph Smith Papers' notes on this text"),
+            tag(
+                "p",
+                "Reproduced from the Joseph Smith Papers. They are that "
+                "project's editorial work, not this edition's; the ones "
+                "beginning ",
+                tag("em", "TEXT:"),
+                " are where its editors flag a reading of the manuscript as "
+                "uncertain, and those are the uncertainty this edition "
+                "records.",
+                class_="notes-note",
+            ),
             tag("ol", *note_items, class_="fn-list"),
             class_="notes",
         )
