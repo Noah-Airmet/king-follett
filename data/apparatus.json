@@ -53,7 +53,7 @@
       ]
     },
     "fields": {
-      "id": "Stable identifier. V001–V034 are the January 2026 entries, kept under their original ids; V035–V121 are later additions. IDs are permanent.",
+      "id": "Stable identifier. V001–V034 are the January 2026 entries, kept under their original ids; V035–V122 are later additions. IDs are permanent.",
       "section": "The data/sections.json id the variant falls in.",
       "order": "Position of the entry within its section, counting from 1 in the order of the base text.",
       "type": "One of the criteria types above.",
@@ -72,15 +72,15 @@
       "legacy_verification": "Carried forward unchanged where the January 2026 pass left one. It records an examination of JSP manuscript scans no longer held in this repository and is history, not evidence."
     },
     "counts": {
-      "entries": 121,
+      "entries": 122,
       "by_status": {
-        "new": 87,
+        "new": 88,
         "revised": 34
       },
       "by_type": {
         "historical": 7,
         "omission": 2,
-        "reception": 27,
+        "reception": 28,
         "rhetorical": 12,
         "scribal": 7,
         "theological": 40,
@@ -2158,6 +2158,26 @@
         "superseded": true,
         "caveat": "First-pass assessment made against JSP manuscript scans that are no longer held in this repository. Retained as history only; it is not evidence for the present edition."
       }
+    },
+    {
+      "id": "V122",
+      "section": "S28",
+      "order": 2,
+      "type": "reception",
+      "status": "new",
+      "lemma": "he has got to say that the Sun does not shine while he sees it he has got to deny J. C. when the heavens are open to him—",
+      "readings": {
+        "B": "he has got to say that the Sun does not shine while he sees it he has got to deny J. C. when the heavens are open to him—",
+        "W": "they must receive the Holy Ghost have the heavens opened unto them, & know God, & then sin against him,",
+        "R": "Got to deny the plan of Salvation. &c— with his eyes open.—",
+        "C": "After a man has sinned the sin against the H G. there is no repentance for him.",
+        "T": "he has got to say that the sun does not shine, while he sees it, he has got to deny Jesus Christ when the heavens were open to him,"
+      },
+      "significance": "T shifts Bullock's present-tense 'are open' to 'were open,' making the opening of heaven narratively prior rather than standing open at denial.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent adjudication of Lane A unsure call 5"
+      ]
     },
     {
       "id": "V026",
