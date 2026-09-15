@@ -5,12 +5,14 @@ morning, before Phases 2e, 3 and 4 ran; it is in git history if you want it.
 
 Read this, then `README.md`. Run `python3 -m kf validate` and
 `python3 -m unittest discover tests` before changing anything. Both passed at
-`9b2b584`.
+`8624d4d`.
 
 This is not school work. Dev root: `/Users/nairmet/development/king-follett`.
 GitHub: `Noah-Airmet/king-follett` on `main`. **Live at
 <https://kingfollett.noahairmet.com>.** Nothing has been pushed to GitHub —
-four commits sit local on `main`. Do not push unless Noah asks.
+nine commits sit local on `main`. Do not push unless Noah asks. Note that the
+live site is *deployed*, not pushed: `wrangler pages deploy` uploads `site/`
+directly, so what is public is already ahead of what GitHub has.
 
 ## What the project is
 
@@ -38,15 +40,22 @@ a fifth independent witness). History of the Church is **not** a witness.
 7. Visual identity: **pulpit-archive family, as a sibling** — same faces, same
    discipline, manuscript paper, iron-gall ink instead of oxblood.
 
-## State at `9b2b584`
+## State at `8624d4d`
 
-Working tree clean. Commits since the morning handoff:
+Working tree clean. Commits since the morning handoff, newest first:
 
+- `8624d4d` this handoff
+- `2f735a2` wire the commentary and witness essays; link cited ids
+- `1ed34e4` Phase 2d prose (Codex Sol)
+- `fb153d8` the previous rewrite of this handoff
 - `9b2b584` migrate to kingfollett.noahairmet.com; `docs/` redirect stub
 - `2653a99` count-aware stacking; content-hashed assets
 - `724e8da` README: the site
 - `dda8705` the site itself
 - `5be3dbf` … `4cc9d3f` Phase 2e adjudication (Codex Sol)
+
+Every charted phase is now done. What remains is in *What is not done* below,
+and none of it blocks anything.
 
 **Stash `stash@{0}` is still poison.** Half-finished adjudication from
 2026-09-11 that fails validate. Do not `git stash pop`. It is now also
@@ -95,6 +104,27 @@ stays standard library.
 The stacking rule is expanded by hand over `:has()` combinations because CSS
 cannot count checked boxes. If you add a witness, regenerate those blocks.
 
+### Phase 2d — prose: DONE
+
+Seven files in `content/`, ~5,900 words, by Codex Sol at medium effort
+(`1ed34e4`), wired into the site at `2f735a2`. No "(citation to be confirmed)"
+items. Quality is markedly better than the low-effort 2e pass.
+
+Its report lists every old-commentary claim that did not survive the check
+against the revised apparatus. I spot-verified the factual corrections against
+`data/apparatus.json` and they hold — Richards's "Lot fell on Jesus" is V088,
+not V024 (which is the devil's offer to save all); Woodruff's hell-fire denial
+is the separate unique reading V085, not part of V022; R does not contain
+Bullock's "age to end" formula at V018; R preserves the positive half of V033
+but not Bullock's two-part juxtaposition. All 28 variants cited across
+`commentary.md` and `verification.md` exist.
+
+Where each file landed: `introduction`, `reading-the-apparatus`,
+`verification` and `bibliography` are the four sections of `/about/`;
+`textual-history` is the prose of `/reception/`; `commentary` is `/commentary/`
+(sixth in the nav); `witnesses` is split on its headings onto the five witness
+pages. V-ids and S-ids in prose are linked to what they name.
+
 ### Phase 4 — migration: DONE
 
 Pages project `king-follett`, custom domain, CNAME in the noahairmet.com zone.
@@ -117,24 +147,6 @@ There is no dated homelab runbook file in `~/development/homelab` — no such
 convention exists — so the recipe went only to `cloudflare-recipes.md`.
 
 ## What is not done
-
-### Phase 2d — prose (`content/`)
-
-**Dispatched to Codex Sol at medium effort 2026-09-15 ~14:10** as
-`kf-phase2d-content`; check `agent-dispatch status` and
-`~/.agent-bus/done/kf-phase2d-content.md`. Charter:
-`charters/phase2d-content.md` plus a dispatch addendum (placeholder keys, where
-each file lands on the site, and a warning not to defend its own 2e merge in
-the prose).
-
-Until it lands, `/about/` and `/reception/` carry an explicit "not written yet"
-note rather than filler. That was deliberate: the old live page made a
-verification claim the project has disavowed, so an honest gap beats leaving it
-standing. When the prose arrives: rebuild, re-deploy, and review it against
-`data/ADJUDICATION.md` before believing any claim it makes about 2e.
-
-`content/witnesses.md` and `content/commentary.md` are written by that charter
-but **not yet wired into any page** — `pages.py` will need a home for them.
 
 ### Open, smaller
 
