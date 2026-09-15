@@ -14,3 +14,9 @@ data/segments/
 
 # Local reference material (copyrighted; never commit)
 refs/
+
+# Generated site output
+site/
+
+# Build virtualenv
+.venv/

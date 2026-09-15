@@ -1,0 +1,835 @@
+/* ---------------------------------------------------------------------------
+   King Follett Discourse — the visual system.
+
+   A sibling of pulpit-archive.org, not a copy of it: the same faces and the
+   same discipline (hairlines not shadows, no motion, features drop before
+   dignity), on manuscript paper rather than book paper, and keyed to ink
+   instead of oxblood. Fresh iron-gall ink is blue-black and oxidises brown
+   with age, so the four eyewitness reports are written in the fresh colour and
+   the Times and Seasons — the later, derived layer — in the aged one. That is
+   the only place colour carries meaning, and it never carries it alone: T also
+   stands past a rule, in every surface, on its own.
+--------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/fraunces-var.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/newsreader-var.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/newsreader-italic-var.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Spline Sans Mono";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("/fonts/spline-sans-mono-var.woff2") format("woff2");
+}
+
+/* ---- tokens ------------------------------------------------------------ */
+
+:root {
+  --paper: #f4f1e8;
+  --paper-sunk: #eeeade;
+  --ink: #1f1c17;
+  --ink-soft: #5b544a;
+  --ink-faint: #8b8275;
+  --hair: #ddd7c8;
+  --hair-strong: #c3bba6;
+
+  --gall: #2f3f63;
+  --gall-lift: #4a5c82;
+  --aged: #8a6a48;
+  --aged-lift: #a3855f;
+
+  --wash: rgba(47, 63, 99, 0.12);
+
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --mono: "Spline Sans Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --rail-w: 64px;
+  --mast-h: 3.4rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #15140f;
+    --paper-sunk: #1c1a14;
+    --ink: #e8e3d5;
+    --ink-soft: #a9a293;
+    --ink-faint: #7b7466;
+    --hair: #302c23;
+    --hair-strong: #45402f;
+
+    --gall: #8fa6d1;
+    --gall-lift: #a9bce0;
+    --aged: #c19a6e;
+    --aged-lift: #d4b184;
+
+    --wash: rgba(143, 166, 209, 0.16);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light dark;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--mast-h) + 3.6rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--wash); }
+
+:focus-visible {
+  outline: 2px solid var(--gall);
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+a { color: var(--gall); text-decoration-color: var(--hair-strong); }
+a:hover { text-decoration-color: currentColor; }
+
+.skip-link {
+  position: absolute;
+  left: -100vw;
+  top: 0;
+  z-index: 60;
+  padding: 0.6rem 1rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  text-decoration: none;
+}
+.skip-link:focus-visible { left: 0.75rem; top: 0.75rem; }
+
+.state-store { display: none; }
+
+/* ---- masthead ---------------------------------------------------------- */
+
+.masthead {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  height: var(--mast-h);
+  padding: 0 1.25rem;
+  background: var(--paper);
+  border-bottom: 1px solid var(--hair);
+}
+
+.wordmark {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.0625rem;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.wordmark-sub {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.nav {
+  display: flex;
+  gap: 1.1rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+
+.nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding-bottom: 0.15rem;
+  border-bottom: 1px solid transparent;
+  white-space: nowrap;
+}
+.nav a:hover { color: var(--ink); }
+.nav a.on { color: var(--ink); border-bottom-color: var(--gall); }
+
+/* ---- frame: rail + text ------------------------------------------------ */
+
+.frame {
+  display: grid;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr);
+}
+
+.rail {
+  position: sticky;
+  top: var(--mast-h);
+  align-self: start;
+  height: calc(100svh - var(--mast-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--hair);
+}
+
+.rail-inner { padding: 1rem 0; }
+
+/* The plot is sized by height where there is room for it and by the rail's
+   own width where there is not, so it never spills across the text. */
+.rail-plot {
+  display: block;
+  height: min(calc(100svh - var(--mast-h) - 3rem), 630px);
+  width: auto;
+  max-width: 100%;
+}
+
+.rail-divider { stroke: var(--hair-strong); stroke-width: 0.5; }
+
+.rib { fill: var(--gall); opacity: 0.42; }
+.rib-T { fill: var(--aged); opacity: 0.5; }
+.rail-var { fill: var(--ink-faint); opacity: 0.55; }
+
+/* The lit witnesses read at full strength; the rest stay as ground. The rail
+   therefore answers the reader's current question without ceasing to show the
+   whole shape of the evidence. */
+body:has(#w-B:checked) .rib-B,
+body:has(#w-W:checked) .rib-W,
+body:has(#w-R:checked) .rib-R,
+body:has(#w-C:checked) .rib-C { opacity: 0.92; }
+body:has(#w-T:checked) .rib-T { opacity: 0.92; }
+
+.rail-row.on .rib { opacity: 1; }
+.rail-row.on .rail-var { opacity: 1; fill: var(--gall); }
+.rail-row:hover .rib { opacity: 1; }
+.rail-hit { cursor: pointer; }
+
+/* ---- controls ---------------------------------------------------------- */
+
+.controls {
+  position: sticky;
+  top: var(--mast-h);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  padding: 0.7rem clamp(1rem, 4vw, 3rem);
+  background: var(--paper);
+  border-bottom: 1px solid var(--hair);
+}
+
+.sigla { display: flex; align-items: stretch; gap: 0.35rem; }
+
+.sig {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  color: var(--ink-faint);
+}
+.sig:hover { color: var(--ink-soft); }
+
+.sig-letter {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.sig-name {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* T stands past a rule. This is the only statement of "derived" the interface
+   needs to make, and it is made in every view rather than explained in one. */
+.sig-derived {
+  margin-left: 0.55rem;
+  border-left: 1px solid var(--hair-strong);
+  padding-left: 0.9rem;
+}
+
+body:has(#w-B:checked) .sig-B,
+body:has(#w-W:checked) .sig-W,
+body:has(#w-R:checked) .sig-R,
+body:has(#w-C:checked) .sig-C { color: var(--gall); border-color: var(--hair-strong); }
+body:has(#w-T:checked) .sig-T { color: var(--aged); border-color: var(--hair-strong); }
+
+.switches { display: flex; gap: 0.4rem; }
+
+.switch {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--hair);
+  cursor: pointer;
+  user-select: none;
+}
+.switch:hover { color: var(--ink-soft); }
+
+body:has(#show-variants:checked) .switch[for="show-variants"],
+body:has(#show-diplomatic:checked) .switch[for="show-diplomatic"] {
+  color: var(--ink);
+  border-color: var(--ink-soft);
+}
+
+/* ---- the spine --------------------------------------------------------- */
+
+.spine {
+  padding: 1rem clamp(1rem, 4vw, 3rem) 8rem;
+}
+
+.sec {
+  padding: 2.4rem 0 1.6rem;
+  border-bottom: 1px solid var(--hair);
+}
+.sec:target .sec-head h2 { text-decoration: underline; text-decoration-color: var(--gall); }
+
+.sec-head {
+  max-width: 44rem;
+  margin-bottom: 1.3rem;
+}
+
+.sec-id {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--ink-faint);
+  text-decoration: none;
+}
+.sec-id:hover { color: var(--gall); }
+
+.sec-head h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.32rem;
+  line-height: 1.25;
+  margin: 0.25rem 0 0.3rem;
+}
+
+.sec-sum {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.94rem;
+  max-width: 42rem;
+}
+
+/* The spread. Columns are flexible and top-aligned, and they are never
+   balanced: where Richards has thirty-six words against Bullock's hundred and
+   twenty-one, the empty three-quarters of his column is the evidence. */
+/* A witness column has a floor. Where the viewport cannot hold every lit
+   witness at a readable measure, the spread scrolls sideways — five columns of
+   eight characters each would be a worse answer than a scrollbar. */
+.spread {
+  display: flex;
+  align-items: flex-start;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.wit {
+  display: none;
+  flex: 1 1 19rem;
+  min-width: 19rem;
+  max-width: 44rem;
+  position: relative;
+  padding-top: 0.2rem;
+}
+
+body:has(#w-B:checked) .wit-B,
+body:has(#w-W:checked) .wit-W,
+body:has(#w-R:checked) .wit-R,
+body:has(#w-C:checked) .wit-C,
+body:has(#w-T:checked) .wit-T { display: block; }
+
+.wit + .wit { border-left: 1px solid var(--hair); padding-left: 2rem; }
+.wit { padding-right: 2rem; }
+.wit:last-child { padding-right: 0; }
+
+.wit-mark {
+  display: none;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  margin-bottom: 0.4rem;
+}
+
+/* The siglum only needs naming when more than one witness is on the page.
+   Reading Bullock alone, a letter B over the column would be chrome telling
+   you what you just asked for. */
+body:has(#w-B:checked):has(#w-W:checked) .wit-mark,
+body:has(#w-B:checked):has(#w-R:checked) .wit-mark,
+body:has(#w-B:checked):has(#w-C:checked) .wit-mark,
+body:has(#w-B:checked):has(#w-T:checked) .wit-mark,
+body:has(#w-W:checked):has(#w-R:checked) .wit-mark,
+body:has(#w-W:checked):has(#w-C:checked) .wit-mark,
+body:has(#w-W:checked):has(#w-T:checked) .wit-mark,
+body:has(#w-R:checked):has(#w-C:checked) .wit-mark,
+body:has(#w-R:checked):has(#w-T:checked) .wit-mark,
+body:has(#w-C:checked):has(#w-T:checked) .wit-mark { display: block; }
+.wit-T .wit-mark { color: var(--aged); }
+
+.reading { hyphens: none; }
+.diplomatic { display: none; white-space: pre-wrap; font-size: 0.97rem; }
+
+body:has(#show-diplomatic:checked) .reading { display: none; }
+body:has(#show-diplomatic:checked) .diplomatic { display: block; }
+
+.wit-absent {
+  color: var(--ink-faint);
+  font-style: italic;
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.wit-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.9rem;
+  margin: 0.8rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.wit-who { color: var(--ink-soft); }
+
+/* ---- variants in the text ---------------------------------------------- */
+
+.lemma {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--gall);
+  padding-bottom: 0.03em;
+  cursor: help;
+}
+.lemma:hover { background: var(--wash); }
+.wit-T .lemma { border-bottom-color: var(--aged); }
+
+/* Off by choice: the sermon has to be readable by someone who came to read
+   it, so the marks lift out entirely rather than fading to clutter. */
+body:not(:has(#show-variants:checked)) .lemma {
+  border-bottom: none;
+  cursor: auto;
+  pointer-events: none;
+}
+
+/* ---- diplomatic matter -------------------------------------------------- */
+
+.diplomatic del { color: var(--ink-faint); text-decoration-color: var(--aged); }
+.diplomatic ins { text-decoration: none; border-bottom: 1px dotted var(--hair-strong); }
+.diplomatic u { text-decoration-color: var(--hair-strong); text-underline-offset: 0.16em; }
+
+.diplomatic .pb {
+  display: inline-block;
+  margin: 0 0.3rem;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  border: 1px solid var(--hair);
+  padding: 0 0.3rem;
+}
+.diplomatic .pb::before { content: "p. "; }
+
+.diplomatic .gloss { color: var(--ink-faint); }
+.diplomatic .expansion { color: var(--ink-soft); }
+.diplomatic .blank { color: var(--ink-faint); font-style: italic; }
+
+.fn {
+  font-family: var(--mono);
+  font-size: 0.62em;
+  vertical-align: super;
+  line-height: 0;
+  text-decoration: none;
+  color: var(--gall);
+  padding: 0 0.1em;
+}
+
+/* ---- the apparatus, in place and in the ledger -------------------------- */
+
+.sec-app { margin-top: 1.6rem; max-width: 46rem; }
+
+.app-summary {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  cursor: pointer;
+  list-style: none;
+  padding: 0.3rem 0;
+}
+.app-summary::-webkit-details-marker { display: none; }
+.app-summary::before { content: "▸ "; color: var(--hair-strong); }
+details[open] > .app-summary::before { content: "▾ "; }
+.app-summary:hover { color: var(--ink-soft); }
+
+.app-list { padding: 0.5rem 0 0; }
+
+.entry {
+  padding: 1rem 0;
+  border-top: 1px solid var(--hair);
+}
+.entry:target { background: var(--wash); box-shadow: 0 0 0 0.6rem var(--wash); }
+
+.v-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.v-id { color: var(--ink); text-decoration: none; font-weight: 500; }
+.v-sec { color: var(--ink-faint); text-decoration: none; }
+.v-sec:hover, .v-id:hover { color: var(--gall); }
+
+.v-type { color: var(--ink-faint); margin-left: auto; }
+.v-theological { color: var(--gall); }
+.v-reception { color: var(--aged); }
+
+.v-lemma {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.02rem;
+  margin: 0.45rem 0 0.6rem;
+}
+
+.v-readings { display: grid; gap: 0.1rem; }
+
+.rd {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: baseline;
+  font-size: 0.95rem;
+}
+
+.rd-sig {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--gall);
+}
+.rd-om .rd-text { color: var(--ink-faint); font-style: italic; }
+
+.rd-derived {
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--hair);
+}
+.rd-derived .rd-sig { color: var(--aged); }
+
+.v-sig {
+  margin: 0.7rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.94rem;
+  max-width: 44rem;
+}
+
+.v-sources {
+  margin: 0.4rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+
+/* ---- sheets: apparatus, witnesses, prose -------------------------------- */
+
+.sheet {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 2.6rem clamp(1rem, 5vw, 2rem) 8rem;
+}
+.sheet-wide { max-width: 62rem; }
+
+.page-head { margin-bottom: 2rem; }
+
+.page-head h1 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+}
+
+.lede { color: var(--ink-soft); margin: 0 0 0.6rem; max-width: 42rem; }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--hair);
+}
+
+.filter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--hair);
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.filter:hover { border-color: var(--hair-strong); color: var(--ink); }
+.filter.on { border-color: var(--ink-soft); color: var(--ink); }
+.f-count { color: var(--ink-faint); }
+
+.w-list { display: grid; }
+
+.w-row {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 1rem 0;
+  border-top: 1px solid var(--hair);
+  text-decoration: none;
+  color: inherit;
+}
+.w-row:hover { background: var(--paper-sunk); }
+
+.w-sig {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--gall);
+}
+.w-row:last-child .w-sig { color: var(--aged); }
+
+.w-body { display: grid; gap: 0.2rem; }
+.w-role { color: var(--ink-soft); font-size: 0.92rem; }
+
+.w-kind {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.w-derived { color: var(--aged); }
+
+.w-sig-big {
+  display: block;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--gall);
+}
+.page-witness-T .w-sig-big { color: var(--aged); }
+
+.facts {
+  display: grid;
+  gap: 0.3rem;
+  margin: 1.2rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--hair);
+}
+.fact { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 1rem; }
+.fact dt {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-top: 0.25rem;
+}
+.fact dd { margin: 0; font-size: 0.94rem; }
+
+.jsp-link { font-size: 0.9rem; margin: 1rem 0 0; }
+
+.controls-solo { justify-content: flex-end; }
+.spine-solo { padding-left: 0; padding-right: 0; }
+.sec-solo { border-bottom: none; padding-bottom: 0.6rem; }
+
+.notes { margin-top: 3rem; border-top: 1px solid var(--hair); padding-top: 1.5rem; }
+.notes h2 {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 400;
+  margin: 0 0 1rem;
+}
+
+.fn-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
+.fn-list li {
+  display: grid;
+  grid-template-columns: 1.8rem minmax(0, 1fr);
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.fn-list li:target { background: var(--wash); }
+.fn-back { font-family: var(--mono); font-size: 0.7rem; text-decoration: none; }
+
+.fn-kind {
+  grid-column: 2;
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+/* JSP's own "TEXT: Possibly …" notes are the edition's uncertainty layer. */
+.fn-textual .fn-kind { color: var(--gall); }
+
+/* ---- prose -------------------------------------------------------------- */
+
+.prose { max-width: 40rem; }
+.prose h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.3rem;
+  margin: 2.4rem 0 0.6rem;
+}
+.prose h3 { font-family: var(--display); font-weight: 500; font-size: 1.08rem; margin: 1.6rem 0 0.4rem; }
+.prose p { margin: 0 0 0.9rem; }
+.prose blockquote {
+  margin: 1rem 0;
+  padding-left: 1.1rem;
+  border-left: 1px solid var(--hair-strong);
+  color: var(--ink-soft);
+}
+
+.stub {
+  font-style: italic;
+  color: var(--ink-faint);
+  border-left: 1px solid var(--hair-strong);
+  padding-left: 1rem;
+}
+.stub code { font-family: var(--mono); font-size: 0.82em; font-style: normal; }
+
+.reception-ledger { margin-top: 3rem; }
+.reception-ledger h2 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
+}
+
+/* ---- the slip ----------------------------------------------------------- */
+
+/* One reusable card for a variant or a note. Paper, a hairline, no shadow and
+   no motion — the same object the pulpit archive uses, because a reader who
+   knows one should not have to learn the other. */
+.slip {
+  position: absolute;
+  z-index: 50;
+  max-width: 26rem;
+  background: var(--paper);
+  border: 1px solid var(--hair-strong);
+  padding: 0.75rem 0.9rem 0.65rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+.slip[hidden] { display: none; }
+.slip .v-head { margin-bottom: 0.3rem; }
+.slip .v-lemma { font-size: 0.95rem; margin: 0.2rem 0 0.5rem; }
+.slip .v-sig { font-size: 0.85rem; }
+.slip .rd { font-size: 0.86rem; }
+
+/* ---- narrow ------------------------------------------------------------- */
+
+@media (max-width: 60rem) {
+  :root { --rail-w: 30px; }
+
+  .rail-inner { width: 100%; padding: 1rem 0; }
+  .rail-plot { width: 100%; height: auto; }
+
+  .spread { display: block; overflow-x: visible; }
+  .wit { padding-right: 0; max-width: none; min-width: 0; flex-basis: auto; }
+  .wit + .wit {
+    border-left: none;
+    padding-left: 0;
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--hair);
+  }
+  .wit-mark { display: block; }
+
+  .controls { gap: 0.5rem 0.8rem; padding: 0.6rem 1rem; }
+  .sig-name { display: none; }
+  .sig { padding: 0.3rem 0.45rem; }
+  .fact { grid-template-columns: 1fr; gap: 0; }
+  .rd { grid-template-columns: 1.3rem minmax(0, 1fr); }
+}
+
+@media (max-width: 34rem) {
+  .masthead { padding: 0 0.85rem; }
+  .wordmark-sub { display: none; }
+  .spine { padding-left: 0.85rem; padding-right: 0.85rem; }
+}
+
+@media print {
+  .masthead, .rail, .controls, .nav { display: none; }
+  .frame { display: block; }
+  .wit { display: block !important; }
+  .sec-app[open] { display: block; }
+}
