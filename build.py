@@ -21,6 +21,7 @@ import hashlib
 import json
 import re
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -28,7 +29,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
 
 from kf.segments import Edition  # noqa: E402
-from kfweb import pages, render  # noqa: E402
+from kfweb import card, pages, render  # noqa: E402
 
 OUT = ROOT / "site"
 WEB = ROOT / "web"
@@ -259,6 +260,58 @@ FAVICON = (
 )
 
 
+CHROME = (
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "chromium",
+    "google-chrome",
+)
+
+
+def render_card(edition: Edition, stats: dict, *, verbose: bool) -> bool:
+    """Shoot ``card.py``'s HTML at 1200×630 with headless Chrome.
+
+    Chrome rather than an SVG rasteriser because the card uses the site's own
+    faces, and a converter that silently substitutes a fallback font would
+    produce a card that looks like a different project. The source HTML is
+    written into ``site/`` so it can resolve ``fonts/``, and removed again
+    afterwards so it is not a published page.
+
+    Returns False and leaves any previous ``og.png`` alone when no Chrome is
+    available: a machine without one should still be able to build the site.
+    """
+    binary = next((b for b in CHROME if shutil.which(b) or Path(b).exists()), None)
+    if not binary:
+        if verbose:
+            print("  no Chrome found — og.png not regenerated")
+        return False
+
+    source = OUT / "_card.html"
+    source.write_text(card.build(edition, stats), encoding="utf-8")
+    try:
+        subprocess.run(
+            [
+                binary,
+                "--headless",
+                "--disable-gpu",
+                "--hide-scrollbars",
+                f"--screenshot={OUT / 'og.png'}",
+                f"--window-size={card.WIDTH},{card.HEIGHT}",
+                source.as_uri(),
+            ],
+            check=True,
+            capture_output=True,
+            timeout=90,
+        )
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
+        if verbose:
+            print(f"  card render failed: {error}")
+        return False
+    finally:
+        source.unlink(missing_ok=True)
+    return (OUT / "og.png").exists()
+
+
 def build(*, verbose: bool = True) -> Edition:
     edition = Edition(ROOT)
     stats = statistics(edition)
@@ -296,6 +349,7 @@ def build(*, verbose: bool = True) -> Edition:
     for asset in ("edition.css", "edition.js"):
         shutil.copy2(WEB / asset, OUT / asset)
     shutil.copytree(WEB / "fonts", OUT / "fonts")
+    render_card(edition, stats, verbose=verbose)
 
     if verbose:
         written = sorted(p.relative_to(OUT) for p in OUT.rglob("*") if p.is_file())

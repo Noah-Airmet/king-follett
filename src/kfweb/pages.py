@@ -19,6 +19,10 @@ from .html import esc, tag
 #: script is never served from a cache that predates it.
 ASSET_VERSION = ""
 
+#: Absolute base for canonical and sharing URLs. Open Graph requires
+#: absolute ones, so the site has to know where it lives.
+SITE_URL = "https://kingfollett.noahairmet.com"
+
 SIGLA = ("B", "W", "R", "C", "T")
 
 NAV = (
@@ -35,6 +39,35 @@ def _v() -> str:
     return f"?v={ASSET_VERSION}" if ASSET_VERSION else ""
 
 
+def _sharing(title: str, description: str, path: str) -> str:
+    """Open Graph and Twitter tags, so a pasted link previews as the edition.
+
+    One card for the whole site rather than one per page: the image is the
+    collation rail, which is a statement about the edition as a whole and is
+    as true of the apparatus page as of the discourse. The title and
+    description are per-page, which is the part that actually orients
+    someone looking at a link in a message.
+    """
+    image = f"{SITE_URL}/og.png{_v()}"
+    tags = {
+        "og:type": "website",
+        "og:site_name": "King Follett Discourse",
+        "og:title": title,
+        "og:description": description,
+        "og:url": SITE_URL + (path or "/"),
+        "og:image": image,
+        "og:image:width": "1200",
+        "og:image:height": "630",
+        "og:image:alt": (
+            "Five threads running the length of the sermon, one per witness, "
+            "each thickening with how much that witness recorded."
+        ),
+    }
+    out = [f'<meta property="{k}" content="{esc(v)}">' for k, v in tags.items()]
+    out.append('<meta name="twitter:card" content="summary_large_image">')
+    return "\n".join(out) + "\n"
+
+
 # --------------------------------------------------------------------------- #
 # shell
 # --------------------------------------------------------------------------- #
@@ -46,9 +79,19 @@ def shell(
     description: str,
     body: str,
     active: str = "",
+    path: str = "",
     body_class: str = "",
     controls: bool = False,
 ) -> str:
+    """One page.
+
+    ``active`` is which nav entry lights up; ``path`` is the page's own URL.
+    They are not the same thing — every witness page highlights "Witnesses"
+    while living at its own address — and conflating them would canonicalise
+    all five witnesses onto the index, which is a claim that they are
+    duplicates of it.
+    """
+    path = path or active or "/"
     nav = "".join(
         tag(
             "a",
@@ -67,6 +110,8 @@ def shell(
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         f"<title>{esc(full)}</title>\n"
         f'<meta name="description" content="{esc(description)}">\n'
+        f'<link rel="canonical" href="{esc(SITE_URL + path)}">\n'
+        f'{_sharing(full, description, path)}'
         f'<link rel="stylesheet" href="/edition.css{_v()}">\n'
         '<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n'
         "</head>\n"
@@ -375,6 +420,7 @@ def apparatus_page(edition: Edition, *, only: str = "") -> str:
         description=f"The critical apparatus: {len(variants)} variants across 35 sections.",
         body=body,
         active="/apparatus/",
+        path=f"/apparatus/{only}/" if only else "/apparatus/",
         body_class="page-apparatus",
     )
 
@@ -526,6 +572,7 @@ def witness_page(edition: Edition, siglum: str, prose: str = "") -> str:
         description=f"{record['reporter']}'s report of the King Follett Discourse.",
         body=body,
         active="/witnesses/",
+        path=f"/witnesses/{siglum.lower()}/",
         body_class=f"page-witness page-witness-{siglum}",
         controls=True,
     )
