@@ -216,15 +216,16 @@ and it is being superseded. It is left in place and untouched for now because it
 is the live GitHub Pages site; the static build will be regenerated from `data/`
 in a later phase.
 
-**Data layer (Phases 1–2b, September 2026).** Transcripts, alignment, footnotes
+**Data layer (Phases 1–2e, September 2026).** Transcripts, alignment, footnotes
 and the `src/kf` parser are in place and validated. The apparatus in
-`data/apparatus.json` is a systematic collation of **106 entries** (34 revised
-from January, 72 new): 40 theological, 26 unique, 12 rhetorical, 12 reception,
-7 historical, 7 scribal, 2 omission. See `data/APPARATUS-REPORT.md`. JSP
-transcriptions are accepted as authoritative; January 2026 scan notes survive
-only as `legacy_verification`.
+`data/apparatus.json` is a systematic collation of **122 entries**, built by two
+independent passes and adjudicated: 40 theological, 28 reception, 26 unique,
+12 rhetorical, 7 historical, 7 scribal, 2 omission. Statuses are 88 new and
+34 revised; none are withdrawn. See `data/APPARATUS-REPORT.md` and
+`data/ADJUDICATION.md`. JSP transcriptions are accepted as authoritative;
+January 2026 scan notes survive only as `legacy_verification` and are not
+evidence for this edition.
 
-**Not yet done.** Two independent variant lists have not been merged (Lane B:
-`refs/variant-candidates-independent.md`). Commentary files under `content/`
+**Not yet done.** Commentary files under `content/`
 do not exist. The new site and the move to `kingfollett.noahairmet.com` have
 not been started. Read `HANDOFF.md` before continuing.
