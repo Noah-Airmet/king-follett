@@ -24,6 +24,7 @@ SIGLA = ("B", "W", "R", "C", "T")
 NAV = (
     ("/", "The discourse"),
     ("/apparatus/", "Apparatus"),
+    ("/commentary/", "Commentary"),
     ("/reception/", "Reception"),
     ("/witnesses/", "Witnesses"),
     ("/about/", "About"),
@@ -420,7 +421,7 @@ def witness_index(edition: Edition) -> str:
     )
 
 
-def witness_page(edition: Edition, siglum: str) -> str:
+def witness_page(edition: Edition, siglum: str, prose: str = "") -> str:
     record = next(w for w in edition.witnesses_data["witnesses"] if w["siglum"] == siglum)
     document = edition.documents[siglum]
     notes = edition.footnotes_data["witnesses"].get(siglum, {})
@@ -506,6 +507,7 @@ def witness_page(edition: Edition, siglum: str) -> str:
             ),
             class_="page-head",
         ),
+        tag("div", prose, class_="prose witness-prose") if prose else "",
         tag("div", tag("label", "Manuscript", for_="show-diplomatic", class_="switch"), class_="controls controls-solo"),
         tag("div", *blocks, class_="spine spine-solo"),
         tag(

@@ -16,6 +16,7 @@ the page turned, what JSP supplied in brackets.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 
 from kf import jsp
@@ -139,3 +140,42 @@ def diplomatic_html(spans: list[jsp.Span], siglum: str) -> str:
         else:
             out.append(esc(span.raw))
     return "".join(out)
+
+
+#: Text outside a tag, so a substitution over rendered HTML cannot wander into
+#: an attribute value.
+_OUTSIDE_TAGS = re.compile(r"(<[^>]*>)")
+_VARIANT_REF = re.compile(r"\bV\d{3}\b")
+_SECTION_REF = re.compile(r"\bS[0-3]\d\b")
+
+
+def linkify(html: str, variants: set[str], sections: set[str]) -> str:
+    """Make every V-id and S-id in prose a link to the thing it names.
+
+    The commentary cites variants constantly — "the ladder image (V011)" — and
+    a citation a reader cannot follow is half a citation. Only ids that
+    actually exist are linked, so a typo in the prose stays visible as plain
+    text rather than becoming a link to nothing.
+    """
+    parts = _OUTSIDE_TAGS.split(html)
+    for index, part in enumerate(parts):
+        if index % 2:  # a tag
+            continue
+        part = _VARIANT_REF.sub(
+            lambda m: (
+                f'<a class="ref" href="/apparatus/#{m.group(0)}">{m.group(0)}</a>'
+                if m.group(0) in variants
+                else m.group(0)
+            ),
+            part,
+        )
+        part = _SECTION_REF.sub(
+            lambda m: (
+                f'<a class="ref" href="/#{m.group(0)}">{m.group(0)}</a>'
+                if m.group(0) in sections
+                else m.group(0)
+            ),
+            part,
+        )
+        parts[index] = part
+    return "".join(parts)

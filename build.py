@@ -28,13 +28,18 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
 
 from kf.segments import Edition  # noqa: E402
-from kfweb import pages  # noqa: E402
+from kfweb import pages, render  # noqa: E402
 
 OUT = ROOT / "site"
 WEB = ROOT / "web"
 CONTENT = ROOT / "content"
 
 PLACEHOLDER = re.compile(r"\{\{\s*stats\.([a-zA-Z0-9_.]+)\s*\}\}")
+
+#: Filled by ``build`` before any content is rendered, so prose can cite
+#: variants and sections as links without each page passing them down.
+_VARIANT_IDS: set[str] = set()
+_SECTION_IDS: set[str] = set()
 
 
 # --------------------------------------------------------------------------- #
@@ -102,7 +107,53 @@ def read_content(name: str, stats: dict) -> tuple[dict, str]:
 
     import markdown  # imported here so `--help` works without the dependency
 
-    return meta, markdown.markdown(raw, extensions=["footnotes", "tables", "attr_list"])
+    html = markdown.markdown(raw, extensions=["footnotes", "tables", "attr_list"])
+    return meta, render.linkify(html, _VARIANT_IDS, _SECTION_IDS)
+
+
+def split_by_siglum(html: str) -> dict[str, str]:
+    """Cut ``content/witnesses.md``'s rendered HTML into one block per witness.
+
+    The file is written as one essay with a heading per witness, which is how
+    it reads best; the site wants each witness's paragraphs on that witness's
+    own page. Splitting on the rendered headings keeps the source a single
+    coherent document rather than five fragments maintained in parallel.
+
+    python-markdown collects every footnote into one list at the end of the
+    document, which would otherwise ride along on whichever witness came last.
+    Each block therefore gets back only the notes its own text cites, so a page
+    carries its references and no one else's.
+    """
+    notes = ""
+    match = re.search(r'<div class="footnote">.*?</div>', html, re.S)
+    if match:
+        notes = match.group(0)
+        html = html[: match.start()]
+
+    items = dict(re.findall(r'(<li id="fn:([^"]+)">.*?</li>)', notes, re.S)) if notes else {}
+    by_id = {key: item for item, key in re.findall(r'(<li id="fn:([^"]+)">.*?</li>)', notes, re.S)}
+
+    blocks: dict[str, str] = {}
+    current = ""
+    for chunk in re.split(r"(<h2[^>]*>.*?</h2>)", html, flags=re.S):
+        heading = re.match(r"<h2[^>]*>\s*([BWRCT])\s*(?:—|&mdash;|-)", chunk)
+        if heading:
+            current = heading.group(1)
+            blocks[current] = ""
+        elif current:
+            blocks[current] += chunk
+
+    for siglum, block in blocks.items():
+        cited = dict.fromkeys(re.findall(r'href="#fn:([^"]+)"', block))
+        mine = [by_id[key] for key in cited if key in by_id]
+        if mine:
+            blocks[siglum] = (
+                block
+                + '<div class="footnote"><hr><ol>'
+                + "".join(mine)
+                + "</ol></div>"
+            )
+    return blocks
 
 
 def stub(what: str, charter: str) -> str:
@@ -157,6 +208,19 @@ def reception_page(edition: Edition, stats: dict) -> str:
     )
 
 
+def commentary_page(edition: Edition, stats: dict) -> str:
+    _, prose = read_content("commentary", stats)
+    return pages.prose_page(
+        title="Analysis and commentary",
+        description=(
+            "What the reports agree on, where they diverge, and what can and "
+            "cannot be inferred from the difference."
+        ),
+        html=prose or stub("commentary", "charters/phase2d-content.md"),
+        active="/commentary/",
+    )
+
+
 def about_page(edition: Edition, stats: dict) -> str:
     sections = []
     for name, heading in (
@@ -204,6 +268,9 @@ def build(*, verbose: bool = True) -> Edition:
         digest.update((WEB / asset).read_bytes())
     pages.ASSET_VERSION = digest.hexdigest()[:8]
 
+    _VARIANT_IDS.update(v["id"] for v in edition.apparatus_data["variants"])
+    _SECTION_IDS.update(s.id for s in edition.sections)
+
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
@@ -213,8 +280,14 @@ def build(*, verbose: bool = True) -> Edition:
     for type_ in sorted({v["type"] for v in edition.apparatus_data["variants"]}):
         write(f"apparatus/{type_}/index.html", pages.apparatus_page(edition, only=type_))
     write("witnesses/index.html", pages.witness_index(edition))
+    _, witness_prose = read_content("witnesses", stats)
+    by_siglum = split_by_siglum(witness_prose) if witness_prose else {}
     for siglum in pages.SIGLA:
-        write(f"witnesses/{siglum.lower()}/index.html", pages.witness_page(edition, siglum))
+        write(
+            f"witnesses/{siglum.lower()}/index.html",
+            pages.witness_page(edition, siglum, by_siglum.get(siglum, "")),
+        )
+    write("commentary/index.html", commentary_page(edition, stats))
     write("reception/index.html", reception_page(edition, stats))
     write("about/index.html", about_page(edition, stats))
     write("favicon.svg", FAVICON)
