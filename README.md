@@ -252,12 +252,18 @@ only.
 
 ## Status
 
-The web edition at `docs/index.html` is the January 2026 first pass. It was
-built from `history/alignment_map.legacy.json` and
-`history/collation_map.legacy.json`, whose alignment pointers were unreliable,
-and it is being superseded. It is left in place and untouched for now because it
-is the live GitHub Pages site; the static build will be regenerated from `data/`
-in a later phase.
+The edition is live at **<https://kingfollett.noahairmet.com>** (Cloudflare
+Pages project `king-follett`; `~/.agent-bus/cloudflare-recipes.md` has the
+deploy recipe). Deploys are explicit — `build.py`, then
+`wrangler pages deploy site --project-name king-follett` — and are not tied to
+a git push.
+
+`docs/index.html` was the January 2026 first pass, built from
+`history/alignment_map.legacy.json` and `history/collation_map.legacy.json`,
+whose alignment pointers were unreliable. It is now a redirect stub: GitHub
+Pages cannot issue a 301, so the page carries a canonical link, a meta refresh
+and a script redirect, and says plainly that the old edition's
+manuscript-verification claim has been withdrawn.
 
 **Data layer (Phases 1–2e, September 2026).** Transcripts, alignment, footnotes
 and the `src/kf` parser are in place and validated. The apparatus in
@@ -272,7 +278,9 @@ evidence for this edition.
 **Site (Phase 3, September 2026).** `build.py` generates the edition from
 `data/` into `site/`; see *The site* above.
 
+**Migrated (Phase 4, September 2026).** Cloudflare Pages, custom domain, and
+the GitHub Pages redirect stub are in place.
+
 **Not yet done.** Commentary files under `content/` do not exist (Phase 2d), so
 the About and Reception pages carry an explicit note in place of prose rather
-than filler. The move to `kingfollett.noahairmet.com` has not been made, and
-`docs/` is still the live site. Read `HANDOFF.md` before continuing.
+than filler. Read `HANDOFF.md` before continuing.
