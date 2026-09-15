@@ -15,6 +15,10 @@ from kf.segments import Edition
 from . import rail, render
 from .html import esc, tag
 
+#: Set by the builder to a short content hash, so a changed stylesheet or
+#: script is never served from a cache that predates it.
+ASSET_VERSION = ""
+
 SIGLA = ("B", "W", "R", "C", "T")
 
 NAV = (
@@ -24,6 +28,10 @@ NAV = (
     ("/witnesses/", "Witnesses"),
     ("/about/", "About"),
 )
+
+
+def _v() -> str:
+    return f"?v={ASSET_VERSION}" if ASSET_VERSION else ""
 
 
 # --------------------------------------------------------------------------- #
@@ -58,7 +66,7 @@ def shell(
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         f"<title>{esc(full)}</title>\n"
         f'<meta name="description" content="{esc(description)}">\n'
-        '<link rel="stylesheet" href="/edition.css">\n'
+        f'<link rel="stylesheet" href="/edition.css{_v()}">\n'
         '<link rel="icon" href="/favicon.svg" type="image/svg+xml">\n'
         "</head>\n"
         f'<body class="{esc(body_class)}">\n'
@@ -70,7 +78,7 @@ def shell(
         "</header>\n"
         f"{_state_inputs() if controls else ''}"
         f"{body}\n"
-        '<script type="module" src="/edition.js"></script>\n'
+        f'<script type="module" src="/edition.js{_v()}"></script>\n'
         "</body>\n</html>\n"
     )
 

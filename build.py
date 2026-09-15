@@ -17,6 +17,7 @@ the move to kingfollett.noahairmet.com replaces it with a redirect stub.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import shutil
@@ -197,6 +198,11 @@ FAVICON = (
 def build(*, verbose: bool = True) -> Edition:
     edition = Edition(ROOT)
     stats = statistics(edition)
+
+    digest = hashlib.sha256()
+    for asset in ("edition.css", "edition.js"):
+        digest.update((WEB / asset).read_bytes())
+    pages.ASSET_VERSION = digest.hexdigest()[:8]
 
     if OUT.exists():
         shutil.rmtree(OUT)
