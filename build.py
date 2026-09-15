@@ -247,6 +247,17 @@ def about_page(edition: Edition, stats: dict) -> str:
     )
 
 
+#: Crawling is deliberately *allowed* while every page says ``noindex``.
+#: Disallowing here would be the intuitive move and the wrong one: a crawler
+#: that is blocked never fetches the page, so it never sees the noindex tag,
+#: and a URL someone links to can stay listed as a bare result. Letting the
+#: crawler in to read the refusal is what actually keeps the site unlisted.
+ROBOTS = """# Every page here serves: <meta name="robots" content="noindex">
+# Crawling is allowed on purpose, so that tag is actually read.
+User-agent: *
+Disallow:
+"""
+
 FAVICON = (
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">'
     '<rect width="32" height="32" fill="#f4f1e8"/>'
@@ -343,6 +354,7 @@ def build(*, verbose: bool = True) -> Edition:
     write("commentary/index.html", commentary_page(edition, stats))
     write("reception/index.html", reception_page(edition, stats))
     write("about/index.html", about_page(edition, stats))
+    write("robots.txt", ROBOTS)
     write("favicon.svg", FAVICON)
     write("stats.json", json.dumps(stats, indent=2, ensure_ascii=False))
 

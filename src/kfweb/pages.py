@@ -23,6 +23,12 @@ ASSET_VERSION = ""
 #: absolute ones, so the site has to know where it lives.
 SITE_URL = "https://kingfollett.noahairmet.com"
 
+#: Every page carries ``noindex``. The edition is public so that a link works
+#: when it is sent to someone, not so that it is found by searching; it is a
+#: small thing made for friends. ``follow`` is kept rather than ``nofollow``
+#: because outbound links to the Joseph Smith Papers are real citations and
+#: there is no reason to devalue them.
+
 SIGLA = ("B", "W", "R", "C", "T")
 
 NAV = (
@@ -110,6 +116,7 @@ def shell(
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         f"<title>{esc(full)}</title>\n"
         f'<meta name="description" content="{esc(description)}">\n'
+        '<meta name="robots" content="noindex, follow">\n'
         f'<link rel="canonical" href="{esc(SITE_URL + path)}">\n'
         f'{_sharing(full, description, path)}'
         f'<link rel="stylesheet" href="/edition.css{_v()}">\n'
