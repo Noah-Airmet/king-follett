@@ -95,7 +95,7 @@
         "t_only": true
       },
       "boundary_notes": {
-        "T": "T opens with the conference-minutes framing 'The president then arose and called the attention of the congregation', third person, where every eyewitness has Joseph Smith speaking in the first person. That framing has no eyewitness counterpart, so it is attached here and flagged t_only."
+        "T": "T opens with the conference-minutes framing 'The president then arose and called the attention of the congregation', third person, where every eyewitness has Joseph Smith speaking in the first person. That framing has no eyewitness counterpart, so it is attached here and flagged t_only. Adjudication retained the final transition here: it is a defensible rhetorical close to T's expanded introduction, while its S02 parallel is recorded as cross-section reception evidence."
       }
     },
     {
@@ -1021,10 +1021,10 @@
         "word_count": 319
       },
       "boundary_notes": {
-        "W": "Woodruff's recapitulation 'The Gods came together & concocked the plan of making the world & the inhabitants,' stands after the polyglot-Bible material, so it closes S17 rather than reopening S16.",
-        "R": "Richards likewise repeats the council after the Jacob material ('In the begin[nin]g the the head of the gods calld a coun[c]il of the Gods— and concoctd a scheme to create this world.—'); it closes S17.",
+        "W": "Woodruff's recapitulation 'The Gods came together & concocked the plan of making the world & the inhabitants,' stands after the polyglot-Bible material, so it closes S17 rather than reopening S16. Phase 2e retained the physical-order assignment and treats it as a resumed or displaced note, not a normal part of the polyglot paragraph.",
+        "R": "Richards likewise repeats the council after the Jacob material ('In the begin[nin]g the the head of the gods calld a coun[c]il of the Gods— and concoctd a scheme to create this world.—'); it closes S17. Phase 2e retained the physical-order assignment and treats it as a resumed or displaced note.",
         "C": "Clayton's S17 closes with 'Should not have introduced this testimony were it not to back up the word rosh— The head father of the Gods.'",
-        "T": "T carries both Clayton's 'I should not have introduced this testimony were it not to back up the word Rosh' and Bullock's 'I should not have brought it up only to show that I am right', which are the same remark in two reports."
+        "T": "T carries both Clayton's 'I should not have introduced this testimony were it not to back up the word Rosh' and Bullock's 'I should not have brought it up only to show that I am right', which are the same remark in two reports. Its closing God-knowledge/approach sentences parallel S18, but remain here because T deliberately uses them to conclude the polyglot argument; the cross-section relationship is editorially explicit."
       }
     },
     {
@@ -1262,7 +1262,7 @@
       },
       "boundary_notes": {
         "B": "'does not this give your satisfact[io]n. I want to reason more on the Spirit of Man...' heads S21, matching Woodruff's 'I am dwelling on the immutibility of the spirit of man'. The old map left it in a gap.",
-        "T": "T places Clayton's 'Is it logic to say that a spirit is immortal, and yet have a beginning? ... good logic' before Bullock's 'I want to reason more on the spirit of man'. S21 therefore opens with the Clayton clause and takes in the whole ring-and-annihilation argument."
+        "T": "T places Clayton's 'Is it logic to say that a spirit is immortal, and yet have a beginning? ... good logic' before Bullock's 'I want to reason more on the spirit of man'. S21 therefore opens with the Clayton clause and takes in the whole ring-and-annihilation argument. Its final enlargement sentence parallels Clayton S22 but remains as T's received conclusion to the ring argument; V120 records the cross-section source."
       }
     },
     {
@@ -1440,7 +1440,8 @@
         "word_count": 205
       },
       "boundary_notes": {
-        "T": "T fuses Clayton's 'to suit the conditions of man' with Bullock's 'made from before the foundation of the world' in the declaration sentence that opens S25, and adds Clayton's 'When his commandments teach us, it is in view of eternity' here."
+        "T": "T fuses Clayton's 'to suit the conditions of man' with Bullock's 'made from before the foundation of the world' in the declaration sentence that opens S25, and adds Clayton's 'When his commandments teach us, it is in view of eternity' here.",
+        "W": "Woodruff's closing promise before the foundation of the world could introduce S25, but it grammatically completes his sealing/dispensation sentence; Phase 2e therefore retained it in S24 and flags the thematic overlap."
       }
     },
     {
@@ -1675,7 +1676,7 @@
         "word_count": 56
       },
       "boundary_notes": {
-        "T": "T interpolates Clayton's 'after a man has sinned against the Holy Ghost there is no repentance for him' between the two halves of Bullock's sentence, splitting 'All sins shall be forgiven except the sin against the Holy Ghost' from 'he has got to say that the sun does not shine'."
+        "T": "T interpolates Clayton's 'after a man has sinned against the Holy Ghost there is no repentance for him' between the two halves of Bullock's sentence, splitting 'All sins shall be forgiven except the sin against the Holy Ghost' from 'he has got to say that the sun does not shine'. Bullock's enemy-transition appears at the head of T S29; Phase 2e retained that defensible rhetorical bridge rather than moving a clause across T's paragraph boundary."
       }
     },
     {
