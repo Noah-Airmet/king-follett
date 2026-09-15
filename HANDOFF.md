@@ -5,14 +5,17 @@ morning, before Phases 2e, 3 and 4 ran; it is in git history if you want it.
 
 Read this, then `README.md`. Run `python3 -m kf validate` and
 `python3 -m unittest discover tests` before changing anything. Both passed at
-`8624d4d`.
+`cc23975`.
 
 This is not school work. Dev root: `/Users/nairmet/development/king-follett`.
 GitHub: `Noah-Airmet/king-follett` on `main`. **Live at
-<https://kingfollett.noahairmet.com>.** Nothing has been pushed to GitHub —
-nine commits sit local on `main`. Do not push unless Noah asks. Note that the
-live site is *deployed*, not pushed: `wrangler pages deploy` uploads `site/`
-directly, so what is public is already ahead of what GitHub has.
+<https://kingfollett.noahairmet.com>.** Pushed to GitHub 2026-09-15
+(`cc23975`); `docs/`'s redirect stub is therefore in effect and the old
+January edition is off the web. Do not push again unless Noah asks.
+
+The two are independent: `wrangler pages deploy` uploads `site/` directly, so
+a push does **not** update the live site and a deploy does **not** update
+GitHub. Do both.
 
 ## What the project is
 
@@ -40,11 +43,12 @@ a fifth independent witness). History of the Church is **not** a witness.
 7. Visual identity: **pulpit-archive family, as a sibling** — same faces, same
    discipline, manuscript paper, iron-gall ink instead of oxblood.
 
-## State at `8624d4d`
+## State at `cc23975`
 
 Working tree clean. Commits since the morning handoff, newest first:
 
-- `8624d4d` this handoff
+- `cc23975` centre the masthead; dev server sends no-store
+- `a50f505` this handoff
 - `2f735a2` wire the commentary and witness essays; link cited ids
 - `1ed34e4` Phase 2d prose (Codex Sol)
 - `fb153d8` the previous rewrite of this handoff
