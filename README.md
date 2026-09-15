@@ -33,8 +33,9 @@ of the discourse actually descends from, so readers can see how the received
 text was built: where it smooths a rough report, where it fuses two witnesses
 into one sentence, and where it supplies wording no witness has. What T must
 never be treated as is a fifth independent report. Its agreement with B or C is
-not corroboration; it *is* B and C, edited. The apparatus in
-`data/apparatus.json` therefore collates the four eyewitnesses only.
+not corroboration; it *is* B and C, edited. Every apparatus entry still records
+a T reading so the received text can be seen being made; those readings are
+typed `reception` when T itself is the thing to record.
 
 ## Data model
 
@@ -77,15 +78,15 @@ citing the 1844 amalgamation, `scripture` for cross-references, `other` for
 historical and bibliographical annotation. The kinds are tested in that order,
 so a `TEXT:` note that also mentions the *Times and Seasons* is `textual`.
 
-**`data/apparatus.json`** — the critical apparatus: thirty-four variants
-`V001`–`V034` where the witnesses differ in doctrinal claim, historical detail or
-rhetorical force. Each names its section and keeps its lemma, per-witness
-readings, type, flag and note. Readings are given for the four eyewitnesses
-only, for the reason given under *Sigla*. The verification notes an earlier pass
-made against manuscript scans now sit in `legacy_verification`, marked
-superseded; they are history, not evidence. Every variant carries `status:
-"carried_forward"` and an empty `sources` list, both to be filled in when the
-apparatus is revised.
+**`data/apparatus.json`** — the critical apparatus: 106 variants `V001`–`V106`
+where the witnesses differ in doctrinal claim, historical detail, rhetorical
+force, scribal cancellation, or T's reception of the notes. Each names its
+section and keeps lemma, per-witness readings (B W R C **and** T), type, and
+a hedged `significance`. T is labelled derived; its agreement with B or C is
+not corroboration. Readings for the four eyewitnesses are verbatim substrings
+of the reading text (or `om.`). January 2026 scan notes sit in
+`legacy_verification` where present — history, not evidence. See
+`data/APPARATUS-REPORT.md` and `HANDOFF.md` for what still needs adjudication.
 
 **`src/kf/`** — the code, Python 3.11 or later, standard library only.
 `jsp.py` parses the JSP transcript conventions and renders the body three ways;
@@ -186,6 +187,7 @@ python3 -m kf validate                # check every data invariant
 python3 -m kf stats                   # per-witness, per-section word counts
 python3 -m kf section S08             # one section across all five witnesses
 python3 -m kf section S08 --render reading
+python3 -m kf apparatus S20          # one section in classical form
 python3 -m unittest discover tests    # parser tests
 ```
 
@@ -214,7 +216,15 @@ and it is being superseded. It is left in place and untouched for now because it
 is the live GitHub Pages site; the static build will be regenerated from `data/`
 in a later phase.
 
-Revising the apparatus — reassessing the thirty-four variants, adding what the
-collation missed, and citing sources for each — is the next phase and was
-deliberately not attempted in this one. The apparatus as it stands is the
-earlier collation carried forward unchanged.
+**Data layer (Phases 1–2b, September 2026).** Transcripts, alignment, footnotes
+and the `src/kf` parser are in place and validated. The apparatus in
+`data/apparatus.json` is a systematic collation of **106 entries** (34 revised
+from January, 72 new): 40 theological, 26 unique, 12 rhetorical, 12 reception,
+7 historical, 7 scribal, 2 omission. See `data/APPARATUS-REPORT.md`. JSP
+transcriptions are accepted as authoritative; January 2026 scan notes survive
+only as `legacy_verification`.
+
+**Not yet done.** Two independent variant lists have not been merged (Lane B:
+`refs/variant-candidates-independent.md`). Commentary files under `content/`
+do not exist. The new site and the move to `kingfollett.noahairmet.com` have
+not been started. Read `HANDOFF.md` before continuing.
