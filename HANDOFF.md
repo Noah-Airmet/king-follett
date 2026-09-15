@@ -1,18 +1,16 @@
 # Handoff — King Follett digital critical edition
 
-Written 2026-09-15 for the next agent. The prior Cursor session (Fable 5.1) ran
-out of usage. Do **not** rebuild the web UI in this Cursor window; the data
-layer is the remaining work, then a separate session (or Claude Code) should
-do the site.
+Rewritten 2026-09-15 (afternoon). The version this replaces was written that
+morning, before Phases 2e, 3 and 4 ran; it is in git history if you want it.
 
-Read this file, then `README.md`. Run `python3 -m kf validate` and
-`python3 -m unittest discover tests` before changing anything. Both passed
-on 2026-09-15.
+Read this, then `README.md`. Run `python3 -m kf validate` and
+`python3 -m unittest discover tests` before changing anything. Both passed at
+`9b2b584`.
 
 This is not school work. Dev root: `/Users/nairmet/development/king-follett`.
-GitHub: `Noah-Airmet/king-follett` on `main`. Live site (stale):
-https://noah-airmet.github.io/king-follett/ (`docs/index.html`, **do not
-edit** until migration). Do not push unless Noah asks.
+GitHub: `Noah-Airmet/king-follett` on `main`. **Live at
+<https://kingfollett.noahairmet.com>.** Nothing has been pushed to GitHub —
+four commits sit local on `main`. Do not push unless Noah asks.
 
 ## What the project is
 
@@ -26,109 +24,130 @@ a fifth independent witness). History of the Church is **not** a witness.
 
 ## Noah's decisions (do not reopen)
 
-1. Host at **`kingfollett.noahairmet.com`** (Cloudflare Pages), not a path on
-   `noahairmet.com`. The personal site (`development/noahairmet.com`) forbids
-   client-side JS and Worker runtime code. Recipe:
-   `~/.agent-bus/cloudflare-recipes.md`. After ship, link from the home page
-   or a field note; do not proxy through the Astro Worker.
-2. Add T as a fifth, derived witness. Do **not** add *History of the Church*.
-3. Accept the **Joseph Smith Papers transcriptions as authoritative**. Do not
-   claim manuscript-image verification. Old scan notes live only as
+1. Hosted at **`kingfollett.noahairmet.com`** on Cloudflare Pages. Done.
+2. T is a fifth, derived witness. Do **not** add *History of the Church*.
+3. The **Joseph Smith Papers transcriptions are authoritative**. Do not claim
+   manuscript-image verification anywhere. Old scan notes survive only as
    `legacy_verification` on some entries. JSP `TEXT:` footnotes are the
    edition's uncertainty layer.
 4. Web edition only. No `.docx` / print pipeline.
 5. The Smith biography PDF stays local (`refs/`, gitignored). Never commit it.
+6. Structure: **the spine**, not separate Reading/Synopsis/Apparatus views.
+   The 35-section partition is the site's backbone; other pages are entrances
+   into it. Chosen 2026-09-15 against the four-desks alternative.
+7. Visual identity: **pulpit-archive family, as a sibling** — same faces, same
+   discipline, manuscript paper, iron-gall ink instead of oxblood.
 
-## Git state (HEAD `19105b2`)
+## State at `9b2b584`
 
-Working tree clean except this handoff. Latest commits:
+Working tree clean. Commits since the morning handoff:
 
-- `19105b2` APPARATUS-REPORT
-- `0d78603` `python3 -m kf apparatus Sxx`
-- `1dccf81` `apparatus.json`: 106 entries, verbatim readings
-- `bdddc93` … `ebdbf2e` Phase 1 data model (transcripts, parser, sections,
-  T, restored `~~`/`__` markup)
+- `9b2b584` migrate to kingfollett.noahairmet.com; `docs/` redirect stub
+- `2653a99` count-aware stacking; content-hashed assets
+- `724e8da` README: the site
+- `dda8705` the site itself
+- `5be3dbf` … `4cc9d3f` Phase 2e adjudication (Codex Sol)
 
-**Stash `stash@{0}` is poison.** It is a half-finished adjudication from
-2026-09-11 13:05 when Claude Code hit its session limit. It fails validate
-(duplicate order on `V019` / S22). **Do not `git stash pop`.** Inspect with
-`git stash show -p` if you want the attempted merge; otherwise ignore it.
+**Stash `stash@{0}` is still poison.** Half-finished adjudication from
+2026-09-11 that fails validate. Do not `git stash pop`. It is now also
+superseded by the 2e work; it can simply be dropped.
 
-## What is done (Phases 1 and 2b)
+### Phase 2e — adjudication: DONE
 
-**Phase 1 — data is the source of truth.** `python3 -m kf validate` proves:
+`data/ADJUDICATION.md`. Apparatus went **106 → 122**: 40 theological, 28
+reception, 26 unique, 12 rhetorical, 7 historical, 7 scribal, 2 omission; 88
+new, 34 revised, none withdrawn. Lane B: 93 matched, 15 added, 42 rejected. All
+nine unsure calls decided. `tests/test_apparatus.py` added (64 tests pass).
 
-- Five transcripts in `transcripts/` with JSP markup, including cancellations
-  `~~…~~` (B16 / W3 / R7 / C10) and underlines `__…__` (B5 / W25 / R0 / C6).
-  Stripping those markers reproduces the January 2026 paste byte-for-byte.
-- `data/sections.json`: 35 sections, all five witnesses, gapless partition of
-  every body, cuts outside markup.
-- `data/witnesses.json`, `data/footnotes.json`, `src/kf/` (stdlib only).
+Two things a reviewer should know:
 
-**Phase 2b — systematic apparatus.** `data/apparatus.json`: **106 entries**
-(34 revised + 72 new, none withdrawn). Types: theological 40, unique 26,
-rhetorical 12, reception 12, historical 7, scribal 7, omission 2. Every
-eyewitness reading is a verbatim substring of that witness's reading text
-(or `om.`). Report: `data/APPARATUS-REPORT.md`.
+- **The 42 rejection reasons are boilerplate.** Every one reads "Synonym,
+  compression, ordering, or unsupported absence did not independently meet the
+  stated meaning-bearing inclusion rule", and the 93 matches share a second
+  template. The charter asked for a reason per candidate. The merge table is
+  therefore **not auditable** — you cannot tell why any single candidate fell.
+  Noah was told; re-running that one deliverable is cheap and was left open.
+- **No boundary moved.** All six of Lane B's alignment flags were resolved as
+  "defensible in physical order" and recorded in `boundary_notes`. Two
+  independent lanes flagged the same six cuts, so this is deferred rather than
+  settled. `data/ADJUDICATION.md` §"Human-editor review" also flags V018, V038
+  and the W/R council recapitulations in S17.
 
-The root `README.md` *Status* section still described the apparatus as
-"carried forward unchanged" until this handoff; that sentence was stale
-after 2b. Trust `data/apparatus.json` metadata and the report, not the old
-Status paragraph.
+### Phase 3 — the site: DONE
+
+`build.py` → `site/` (gitignored). `python3 -m venv .venv && .venv/bin/pip
+install -r requirements.txt`, then `.venv/bin/python build.py`, or
+`--serve` to serve it. One dependency, `markdown`, build-time only; `src/kf`
+stays standard library.
+
+- `src/kfweb/` — `html.py` (escaping), `render.py` (spans → HTML),
+  `rail.py` (the collation rail), `pages.py` (the five page shapes)
+- `web/edition.css`, `web/edition.js`, `web/fonts/` — self-hosted
+- Reading text is rendered **from the string `jsp.render_reading` produces**,
+  not from a second implementation, so the page and `validate` cannot disagree
+- Reader state = three checkboxes the stylesheet reads with `:has()`, so the
+  edition works with JS off. `edition.js` adds URL state, the slip, the rail's
+  position sense, the keyboard, and citation-on-copy
+- `{{stats.*}}` placeholders in `content/` are filled at build time; an unknown
+  key raises. `site/stats.json` lists every valid key
+- Verified at 375, 1024, 1440 and 1600px, light and dark, no console errors
+
+The stacking rule is expanded by hand over `:has()` combinations because CSS
+cannot count checked boxes. If you add a witness, regenerate those blocks.
+
+### Phase 4 — migration: DONE
+
+Pages project `king-follett`, custom domain, CNAME in the noahairmet.com zone.
+Recipe and its gotchas: `~/.agent-bus/cloudflare-recipes.md`. **Deploys are
+explicit and not tied to git**:
+
+```bash
+source ~/.config/cloudflare/credentials
+export CLOUDFLARE_ACCOUNT_ID CLOUDFLARE_API_KEY CLOUDFLARE_EMAIL
+.venv/bin/python build.py
+~/development/noahairmet.com/node_modules/.bin/wrangler pages deploy site \
+  --project-name king-follett --branch main --commit-dirty=true
+```
+
+`docs/index.html` is now a redirect stub. It only takes effect on GitHub Pages
+once the local commits are pushed; until then the old January edition is still
+what `noah-airmet.github.io/king-follett/` serves.
+
+There is no dated homelab runbook file in `~/development/homelab` — no such
+convention exists — so the recipe went only to `cloudflare-recipes.md`.
 
 ## What is not done
 
-### Phase 2e — adjudicate (blocked, next)
-
-Two independent lists exist and have **not** been merged:
-
-| Lane | Output | Count |
-| --- | --- | ---: |
-| A (Claude Opus 5, 2b) | `data/apparatus.json` | 106 |
-| B (Codex Sol, blind) | `refs/variant-candidates-independent.md` | 150 (62 eyewitness a–e, 88 reception) |
-
-Charter: `charters/phase2e-adjudicate.md`. Principal already ruled **call 10**:
-add separate `reception` entries wherever T departs from all eyewitnesses in
-a meaning-bearing way, or sides with one against the others at a point that
-shaped the received text (~15 extra entries wanted). Keep T readings on
-eyewitness entries too.
-
-Unsure calls 1–9 are listed in `data/APPARATUS-REPORT.md` §"Places where I
-was genuinely unsure". Lane B's six alignment flags are at the end of
-`refs/variant-candidates-independent.md` (T S01/S02, W+R S17/S16, T S17/S18,
-T S21/S22, W S24/S25, T S28/S29). Lane A noted S21/S22 and a few T clause
-offsets via `reading_sections` instead of moving boundaries.
-
-A first 2e attempt on Claude Code died on **session limit**
-("resets 5:20pm America/Denver"). A sleep-until-17:25 retry was scheduled
-that evening and **never ran** (process gone by 2026-09-15). Content
-revision (2d) was chained after 2e and also never ran.
-
 ### Phase 2d — prose (`content/`)
 
-Does not exist. Charter: `charters/phase2d-content.md`. Must wait until 2e
-finishes so the commentary cites the adjudicated apparatus. **Do not edit
-`docs/index.html`.**
+**Dispatched to Codex Sol at medium effort 2026-09-15 ~14:10** as
+`kf-phase2d-content`; check `agent-dispatch status` and
+`~/.agent-bus/done/kf-phase2d-content.md`. Charter:
+`charters/phase2d-content.md` plus a dispatch addendum (placeholder keys, where
+each file lands on the site, and a warning not to defend its own 2e merge in
+the prose).
 
-### Phase 3 — static site
+Until it lands, `/about/` and `/reception/` carry an explicit "not written yet"
+note rather than filler. That was deliberate: the old live page made a
+verification claim the project has disavowed, so an honest gap beats leaving it
+standing. When the prose arrives: rebuild, re-deploy, and review it against
+`data/ADJUDICATION.md` before believing any claim it makes about 2e.
 
-Not started. Keep it a static Python `build.py` + one vanilla JS file, no
-framework, self-hosted Literata/Besley/Plex Mono from noahairmet.com's kit.
-Pages: reading edition, synoptic four/five columns, witness pages, filterable
-apparatus, about. CSP: if this stays a Pages project it can have a small JS
-file; do not try to fold it into `noahairmet.com`.
+`content/witnesses.md` and `content/commentary.md` are written by that charter
+but **not yet wired into any page** — `pages.py` will need a home for them.
 
-### Phase 4 — migrate off GitHub Pages
+### Open, smaller
 
-Pages project + CNAME `kingfollett.noahairmet.com` + custom domain via
-`~/.agent-bus/cloudflare-recipes.md`. Old `docs/index.html` becomes a
-redirect stub (GitHub Pages cannot 301). Document the recipe in that file
-and a dated homelab runbook entry. `npm run deploy` of noahairmet.com is
-unrelated and needs Noah's explicit OK.
+- The apparatus ledger has no free-text search. 122 entries is browsable, but a
+  client-side index over the five witnesses would be a real addition.
+- No OG card. `favicon.svg` is generated inline in `build.py`.
+- Link the edition from noahairmet.com's home page or a field note. **Do not**
+  proxy it through the Astro Worker; `npm run deploy` there is unrelated and
+  needs Noah's explicit OK.
 
 ## Local-only files (`refs/`, gitignored)
 
-Needed for 2e/2d. Do not commit. Copyrighted Smith PDF.
+Needed for 2d. Do not commit. Copyrighted Smith PDF.
 
 - `refs/jsp-json/` — 36 JSP page JSON files; `tools/restore_jsp_markup.py`
   depends on them
@@ -138,55 +157,21 @@ Needed for 2e/2d. Do not commit. Copyrighted Smith PDF.
 - `refs/smith-textual-history-notes.md` — machine-extracted; **verify every
   cite** against the `.txt`. Known error: it said T kept B's "immortal" at
   V017; T actually prints "their spirits existed coequal with God" at that
-  locus (and still has "immortal spirit" nearby). 2b already caught this.
-- `refs/variant-candidates-independent.md` — Lane B
-- `refs/phase1-report.md` — Phase 1 builder notes
-- `refs/collation_map.snapshot.json` — frozen January list
+  locus. 2b already caught this.
+- `refs/variant-candidates-independent.md` — Lane B (Codex Sol, blind pass)
+- `refs/phase1-report.md`, `refs/collation_map.snapshot.json`
 
-## Routing (from `~/.agent-bus/delegation.md` and Noah)
+## Routing
 
-Noah asked: **Claude Code first** (`--to claude --model claude-opus-5
---effort medium|high`), then Codex (`gpt-5.6-sol` or `gpt-5.6-luna`,
-**not Astra**), or Antigravity for bulk. Cursor Fable is the overflow pool
-and was burning the usage this session ran out of — prefer Claude/Codex
-for 2e and 2d.
+Read `~/AGENTS.md`, then `~/.agent-bus/delegation.md`, before delegating
+anything. Two rules this project has already paid for:
 
-```bash
-# 2e
-agent-dispatch submit --to claude --model claude-opus-5 --effort high \
-  --mode write --cwd /Users/nairmet/development/king-follett \
-  --scope "data/, tests/, README.md" \
-  --id kf-phase2e-adjudicate-v2 --timeout 7200 \
-  --prompt-file charters/phase2e-adjudicate.md --run
+- **A lane reviews its own work, never another lane's findings.** Cross-lane
+  adjudication is a principal/Opus job. `~/.agent-bus/models.md` says
+  explicitly that Luna must never be given another lane's guard findings.
+- **If Claude Code says session limit, tell Noah and wait.** Do not silently
+  reroute to Cursor. That happened once on this project.
 
-# 2d only after 2e validates and is committed
-agent-dispatch submit --to claude --model claude-opus-5 --effort medium \
-  --mode write --cwd /Users/nairmet/development/king-follett \
-  --scope "content/ only" \
-  --id kf-phase2d-content --timeout 5400 \
-  --prompt-file charters/phase2d-content.md --run
-```
-
-If Claude Code says session limit, **tell Noah and wait**; do not silently
-reroute to Cursor. (That mistake already happened once this project.)
-
-A lane reviews its own work, never another lane's findings. Adjudication
-is a principal/Opus job, not a cheap-lane review of 2b.
-
-## Acceptance before calling 2e done
-
-- `python3 -m kf validate` and `python3 -m unittest discover tests` pass
-- `tests/test_apparatus.py` exists and covers verbatim readings, types,
-  statuses, unique V-ids, cancellation notation
-- `data/ADJUDICATION.md` exists with the merge table, the ten decisions,
-  boundary decisions, and final counts
-- README *Status* describes the actual apparatus
-- No changes to `docs/`, `refs/`, `transcripts/`
-
-## Site-builder notes (Phase 3, later)
-
-- Numbers in prose must come from data (`{{stats.*}}` placeholders in 2d)
-- T labelled derived in every UI surface
-- Diplomatic vs reading toggle from `src/kf/jsp.py` renderers
-- Variant permalinks `#V017`, section permalinks `#S20`
-- Old GH Pages URL gets a redirect stub, not a 301 (GH Pages cannot 301)
+Cursor's third-party pool was **exhausted as of 2026-09-15** — Noah's report,
+not a probe. Sol and cursor's first-party models were the available lanes that
+day.
