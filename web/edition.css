@@ -141,18 +141,36 @@ a:hover { text-decoration-color: currentColor; }
 
 /* ---- masthead ---------------------------------------------------------- */
 
+/* Grid, not flex, for one reason: the wordmark and the nav sit on a shared
+   baseline, and `align-items: baseline` inside a fixed-height *flex* line pins
+   that baseline group to the top of the box — the text rides against the top
+   edge with all the slack below it. Grid's `align-content` centres the row
+   track within the fixed height while `align-items: baseline` still aligns the
+   two items to each other, so the masthead keeps both properties at once. */
 .masthead {
   position: sticky;
   top: 0;
   z-index: 40;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: baseline;
-  justify-content: space-between;
+  align-content: center;
   gap: 1.5rem;
   height: var(--mast-h);
   padding: 0 1.25rem;
   background: var(--paper);
   border-bottom: 1px solid var(--hair);
+}
+
+/* The nav fills its track rather than being placed at the end of it: an
+   end-placed box whose content is wider than its column overflows *leftward*,
+   across the wordmark, which is what happens at phone widths. Stretching it
+   and aligning the links inside keeps the overflow inside the scroller.
+   `safe` drops back to start alignment when the links do overflow, so the
+   first one stays reachable instead of being pushed off the left edge. */
+.masthead .nav {
+  justify-self: stretch;
+  justify-content: safe flex-end;
 }
 
 .wordmark {

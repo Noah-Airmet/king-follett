@@ -323,7 +323,20 @@ def main() -> int:
         import functools
         from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
-        handler = functools.partial(SimpleHTTPRequestHandler, directory=str(OUT))
+        class Handler(SimpleHTTPRequestHandler):
+            """Serve site/ with caching off.
+
+            The pages are hashed-asset-versioned for production, but the HTML
+            itself is not, and a browser holding a stale index.html will show
+            you the previous build while reporting the new one's URL. That has
+            cost real debugging time on this project more than once.
+            """
+
+            def end_headers(self):
+                self.send_header("Cache-Control", "no-store, must-revalidate")
+                super().end_headers()
+
+        handler = functools.partial(Handler, directory=str(OUT))
         print(f"http://localhost:{args.port}/")
         ThreadingHTTPServer(("127.0.0.1", args.port), handler).serve_forever()
     return 0
