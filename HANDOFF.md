@@ -74,12 +74,17 @@ nine unsure calls decided. `tests/test_apparatus.py` added (64 tests pass).
 
 Two things a reviewer should know:
 
-- **The 42 rejection reasons are boilerplate.** Every one reads "Synonym,
-  compression, ordering, or unsupported absence did not independently meet the
-  stated meaning-bearing inclusion rule", and the 93 matches share a second
-  template. The charter asked for a reason per candidate. The merge table is
-  therefore **not auditable** — you cannot tell why any single candidate fell.
-  Noah was told; re-running that one deliverable is cheap and was left open.
+- **The 42 rejection reasons in the merge table are boilerplate** — one
+  sentence repeated, so the table cannot be checked. `data/REJECTIONS.md`
+  (2026-09-15, `cursor-grok-4.6-high`) is an independent second pass over those
+  forty-two with a specific, checkable reason each. It **upholds 32 and
+  disagrees with 10**; the ten are listed at the end of that file with a short
+  argument each. They have *not* been added to `data/apparatus.json` — that is
+  an editorial call for Noah. Its own strongest two are S24.1 (the scope of
+  which spirits must obey the gospel) and S26.6 (Woodruff makes receiving the
+  Holy Ghost the condition of the unpardonable sin where the others set a
+  mortal-life boundary). The 93 *matches* still share a second boilerplate
+  template; nobody has audited those.
 - **No boundary moved.** All six of Lane B's alignment flags were resolved as
   "defensible in physical order" and recorded in `boundary_notes`. Two
   independent lanes flagged the same six cuts, so this is deferred rather than

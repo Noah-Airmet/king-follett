@@ -2,6 +2,13 @@
 
 ## Merge table
 
+The rejection reasons in this table are boilerplate: one sentence repeated
+across all forty-two, which makes them unauditable. **`data/REJECTIONS.md`
+is an independent second pass over those forty-two** with a specific reason
+per candidate. It upholds thirty-two and disagrees with ten, which are
+listed there for a human editor. The reasons in that file are its own; the
+original adjudicator's are unrecoverable.
+
 | Lane B candidate | Decision | Reason |
 | --- | --- | --- |
 | S01.1 | matched V001 | Same locus and substance; Lane B wording was checked against the existing entry. |
