@@ -2,8 +2,8 @@
   "metadata": {
     "project": "King Follett Discourse — digital critical edition",
     "file": "data/apparatus.json",
-    "description": "A systematic critical apparatus of the King Follett Discourse, built section by section in Phase 2b (September 2026) against the reading rendering of every witness. It replaces the thirty-four hand-picked variants of January 2026, which were collected without stated criteria and whose readings were paraphrases rather than quotations. All thirty-four ids are kept and revised; new entries run from V035 and are numbered in the order they were added, not in discourse order. Entries are ordered by section, then by order within the section.",
-    "phase": "2b",
+    "description": "A systematic critical apparatus of the King Follett Discourse, built in two independent section-by-section passes and adjudicated in Phase 2e (September 2026) against the reading rendering of every witness. It replaces the thirty-four hand-picked variants of January 2026, which were collected without stated criteria and whose readings were paraphrases rather than quotations. All thirty-four ids are kept and revised; new entries run from V035 and are numbered in the order they were added, not in discourse order. Entries are ordered by section, then by order within the section.",
+    "phase": "2e",
     "supersedes": "the January 2026 collation carried forward in Phase 1",
     "base_text": "B",
     "base_text_name": "Thomas Bullock",
@@ -43,7 +43,7 @@
         "rhetorical": "An image, metaphor or framing device is present in some witnesses and absent or different in others (the ladder, the ring, the sun).",
         "unique": "Substantive content stands in exactly one eyewitness; the others are recorded as om.",
         "omission": "A passage present in two or more eyewitnesses is lacking in another witness that is present at that point, and the omission is more than a scribe's compression. The entry must say why.",
-        "reception": "T only. T's reading differs from all four eyewitnesses, or picks one eyewitness against the others, in a way that shaped the received text. Typed separately so it is never confused with eyewitness variation. Where T's behaviour at a locus is only one facet of an eyewitness variant, it is recorded in that entry's T reading instead of getting an entry of its own; a reception entry is made only where T's own reading is the thing to be recorded.",
+        "reception": "T only. Record separately wherever T departs from all eyewitnesses in a meaning-bearing way, or sides with one eyewitness against the others at a point that shaped the received text. T's reading remains in eyewitness entries as well.",
         "scribal": "A cancellation or an insertion in one report bears on the sense. The cancelled reading is quoted in that witness's reading as 'kept text (canc. cancelled text)'; where a scribe struck more than one span at the point, they are separated by '; '."
       },
       "do_not_record": [
@@ -53,13 +53,13 @@
       ]
     },
     "fields": {
-      "id": "Stable identifier. V001–V034 are the January 2026 entries, kept under their original ids.",
+      "id": "Stable identifier. V001–V034 are the January 2026 entries, kept under their original ids; V035–V121 are later additions. IDs are permanent.",
       "section": "The data/sections.json id the variant falls in.",
       "order": "Position of the entry within its section, counting from 1 in the order of the base text.",
       "type": "One of the criteria types above.",
       "status": {
         "revised": "One of the original thirty-four, re-examined against the Phase 1 reading text; lemma, readings and significance rewritten where the old entry was imprecise.",
-        "new": "Added in Phase 2b.",
+        "new": "Added in Phase 2b or the independently adjudicated Phase 2e merge.",
         "withdrawn": "An original entry judged not to meet the criteria. The id and a reason are kept; nothing is deleted. No entry carries this status at present."
       },
       "lemma": "The base text's words at the point of variation, verbatim from the reading rendering.",
@@ -72,15 +72,15 @@
       "legacy_verification": "Carried forward unchanged where the January 2026 pass left one. It records an examination of JSP manuscript scans no longer held in this repository and is history, not evidence."
     },
     "counts": {
-      "entries": 106,
+      "entries": 121,
       "by_status": {
-        "new": 72,
+        "new": 87,
         "revised": 34
       },
       "by_type": {
         "historical": 7,
         "omission": 2,
-        "reception": 12,
+        "reception": 27,
         "rhetorical": 12,
         "scribal": 7,
         "theological": 40,
@@ -175,6 +175,27 @@
       "sources": []
     },
     {
+      "id": "V107",
+      "section": "S01",
+      "order": 5,
+      "type": "reception",
+      "status": "new",
+      "lemma": "stay the winds— & let the prayers of the Saints to heaven appear",
+      "lemma_witness": "B",
+      "readings": {
+        "B": "stay the winds— & let the prayers of the Saints to heaven appear",
+        "W": "there is strength here your prayers will be herd",
+        "R": "om.",
+        "C": "calm the wind that it may enter into the ear of the Ld of Sabaoth",
+        "T": "stay the winds and let the prayers of the saints to heaven appear, that it may enter into the ear of the Lord of Sabaoth"
+      },
+      "significance": "T fuses Bullock’s petition with Clayton’s purpose clause, creating a causal sequence no eyewitness records.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S01.4"
+      ]
+    },
+    {
       "id": "V038",
       "section": "S03",
       "order": 1,
@@ -247,6 +268,27 @@
       ]
     },
     {
+      "id": "V108",
+      "section": "S04",
+      "order": 2,
+      "type": "reception",
+      "status": "new",
+      "lemma": "com: but little more than the brute beast",
+      "lemma_witness": "B",
+      "readings": {
+        "B": "com: but little more than the brute beast",
+        "W": "the world know no more than the brute beast",
+        "R": "om.",
+        "C": "is but little above the beast",
+        "T": "and consequently, but little above the brute beast"
+      },
+      "significance": "T resolves Bullock’s abbreviation as “consequently” and selects Clayton’s comparative rather than Woodruff’s equality.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S04.2"
+      ]
+    },
+    {
       "id": "V041",
       "section": "S05",
       "order": 1,
@@ -283,6 +325,48 @@
       "jsp_footnotes": [],
       "sources": [
         "Smith, p. 288 n. 15"
+      ]
+    },
+    {
+      "id": "V109",
+      "section": "S06",
+      "order": 2,
+      "type": "reception",
+      "status": "new",
+      "lemma": "if I should. be the man to comprehend: the God & I com: them to your heart",
+      "lemma_witness": "B",
+      "readings": {
+        "B": "if I should. be the man to comprehend: the God & I com: them to your heart",
+        "W": "If I am the man that shows you what kind of a being God is",
+        "R": "if I am so fortunate as to comprehend and explain the—",
+        "C": "If I comprehend so that the spirit seal it upon your hearts",
+        "T": "comprehend God, and explain or convey the principles to your hearts so that the spirit seals it upon you"
+      },
+      "significance": "T combines Richards’s explaining with Clayton’s sealing formula into a fuller epistemic claim than any one eyewitness records.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S06.2"
+      ]
+    },
+    {
+      "id": "V110",
+      "section": "S06",
+      "order": 3,
+      "type": "reception",
+      "status": "new",
+      "lemma": "If I do not do it I have no right to revelation. inspn.",
+      "lemma_witness": "B",
+      "readings": {
+        "B": "If I do not do it I have no right to revelation. inspn.",
+        "W": "I will not make any further pretentions to inspiration or to be a prophet",
+        "R": "om.",
+        "C": "it becomes my duty to renounce all my pretensions to inspirations &c",
+        "T": "it becomes my duty to renounce all my pretensions to revelations, inspirations, &c."
+      },
+      "significance": "T selects Clayton’s strongest consequence, a duty to renounce prophetic claims, and expands its objects.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S06.3"
       ]
     },
     {
@@ -351,6 +435,30 @@
         "JSP B n. 11",
         "Smith, p. 289 n. 24"
       ]
+    },
+    {
+      "id": "V111",
+      "section": "S07",
+      "order": 4,
+      "type": "reception",
+      "status": "new",
+      "lemma": "What kind of a being was God in the beginning",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "What kind of a being was God in the beginning",
+        "T": "What sort of a being was God in the beginning? Open your ears and hear all ye ends of the earth; for I am going to prove it to you by the Bible, and I am going to tell you the designs of God to the human race, and why he interferes with the affairs of man."
+      },
+      "significance": "T splices Clayton’s next-topic question and Bullock’s later proof announcement into the conscience argument, creating the received transition.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S07.5"
+      ],
+      "reading_sections": {
+        "C": "S08"
+      }
     },
     {
       "id": "V002",
@@ -591,6 +699,27 @@
       "jsp_footnotes": [],
       "sources": [
         "Smith, p. 289 n. 36"
+      ]
+    },
+    {
+      "id": "V112",
+      "section": "S10",
+      "order": 4,
+      "type": "reception",
+      "status": "new",
+      "lemma": "lay down his body & take it up",
+      "lemma_witness": "B",
+      "readings": {
+        "B": "lay down his body & take it up",
+        "W": "lay down my body & take it up again",
+        "R": "Lay down his body. & take it up again",
+        "C": "lay down my life as my father did",
+        "T": "lay down my life, as my Father did, and take it up again"
+      },
+      "significance": "T fuses Clayton’s “life” and paternal comparison with the other witnesses’ “take it up again.”",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S10.2"
       ]
     },
     {
@@ -961,6 +1090,27 @@
       ]
     },
     {
+      "id": "V113",
+      "section": "S15",
+      "order": 6,
+      "type": "reception",
+      "status": "new",
+      "lemma": "sheet where do it come from",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "sheet where do it come from",
+        "T": "Sheit, gramatical termination."
+      },
+      "significance": "T turns Clayton’s question into an asserted grammatical gloss unsupported by another eyewitness.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S15.4"
+      ]
+    },
+    {
       "id": "V013",
       "section": "S16",
       "order": 1,
@@ -980,6 +1130,27 @@
         "Smith, p. 33",
         "Smith, p. 64",
         "Smith, p. 291 n. 50"
+      ]
+    },
+    {
+      "id": "V114",
+      "section": "S16",
+      "order": 2,
+      "type": "reception",
+      "status": "new",
+      "lemma": "contemplated the creation of the worlds that was created at that time",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "contemplated the creation of the world",
+        "R": "to bring forth the world",
+        "C": "contemplated the creation of the worlds that was created at that time",
+        "T": "contemplated the creation of the worlds that were created at that time"
+      },
+      "significance": "T selects Clayton’s plural worlds against Woodruff and Richards’s singular world.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S16.2"
       ]
     },
     {
@@ -1107,6 +1278,48 @@
       ]
     },
     {
+      "id": "V115",
+      "section": "S17",
+      "order": 7,
+      "type": "reception",
+      "status": "new",
+      "lemma": "an old book in the Latin Greek Hebrew & German",
+      "lemma_witness": "B",
+      "readings": {
+        "B": "an old book in the Latin Greek Hebrew & German",
+        "W": "an old book containing the four languages",
+        "R": "Greek Hebrew. German. & Latin",
+        "C": "an old Book (N. T ). in the Hebrew. Latin German & Greek",
+        "T": "an old book of the New Testament in the Hebrew, Latin, German and Greek"
+      },
+      "significance": "T adopts Clayton’s identification of the polyglot as a New Testament, absent from the other eyewitnesses.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S17.1"
+      ]
+    },
+    {
+      "id": "V116",
+      "section": "S17",
+      "order": 8,
+      "type": "reception",
+      "status": "new",
+      "lemma": "I shod. not have brot. up this wod only to shew that I am right",
+      "lemma_witness": "B",
+      "readings": {
+        "B": "I shod. not have brot. up this wod only to shew that I am right",
+        "W": "om.",
+        "R": "om.",
+        "C": "Should not have introduced this testimony were it not to back up the word rosh— The head father of the Gods",
+        "T": "I should not have introduced this testimony were it not to back up the word Rosh, the head, Father of the Gods. I should not have brought it up only to show that I am right."
+      },
+      "significance": "T serializes Bullock’s and Clayton’s likely parallel rationales as two distinct statements.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S17.6"
+      ]
+    },
+    {
       "id": "V067",
       "section": "S18",
       "order": 1,
@@ -1200,6 +1413,48 @@
       }
     },
     {
+      "id": "V117",
+      "section": "S18",
+      "order": 5,
+      "type": "reception",
+      "status": "new",
+      "lemma": "same as you wod. organize a Ship",
+      "lemma_witness": "B",
+      "readings": {
+        "B": "same as you wod. organize a Ship",
+        "W": "om.",
+        "R": "om.",
+        "C": "same as a man would use to build a ship",
+        "T": "the same as a man would organize a ship"
+      },
+      "significance": "T selects Bullock’s technical “organize” over Clayton’s “build,” shaping the received creation analogy.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S18.2"
+      ]
+    },
+    {
+      "id": "V118",
+      "section": "S18",
+      "order": 6,
+      "type": "reception",
+      "status": "new",
+      "lemma": "that nothing can destroy they never can have an ending they exist eternally",
+      "lemma_witness": "B",
+      "readings": {
+        "B": "that nothing can destroy they never can have an ending they exist eternally",
+        "W": "they are principles that cannot be disolved they may be reorganized",
+        "R": "Elements— nothing. can destroy. no beginning no end",
+        "C": "element had an existence from the time he had. The pure pure principles of element are principles that never can be destroyed— they may be organized— and reorganized— but not destroyed",
+        "T": "Element had an existence from the time he had. The pure principles of element, are principles that can never be destroyed. They may be organized and re-organized; but not destroyed."
+      },
+      "significance": "T follows Clayton’s relative-duration formulation and omits Bullock and Richards’s explicit no-beginning claim.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S18.3"
+      ]
+    },
+    {
       "id": "V070",
       "section": "S19",
       "order": 1,
@@ -1257,6 +1512,27 @@
       "significance": "Richards alone adds that the spirit put into man 'was created before'. Taken at face value it is in tension with the sermon's central claim, argued a few sections later, that God never had power to create the spirit of man at all. It may record a compression of 'existed before' rather than a claim about creation, but it is the only place in any report where a witness has the spirit created.",
       "jsp_footnotes": [],
       "sources": []
+    },
+    {
+      "id": "V119",
+      "section": "S19",
+      "order": 4,
+      "type": "reception",
+      "status": "new",
+      "lemma": "Make a man appear a fool before he gets through if he dont believe it",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "Make a man appear a fool before he gets through if he dont believe it",
+        "T": "I will make a man appear a fool before I get through, if you dont believe it"
+      },
+      "significance": "T converts Clayton’s third-person taunt into Joseph’s first-person threat.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S19.4"
+      ]
     },
     {
       "id": "V017",
@@ -1376,6 +1652,30 @@
         "Smith, p. 170",
         "Smith, p. 280"
       ]
+    },
+    {
+      "id": "V120",
+      "section": "S21",
+      "order": 3,
+      "type": "reception",
+      "status": "new",
+      "lemma": "All the spirits that God ever sent into the world are susceptible of enlargement",
+      "lemma_witness": "C",
+      "readings": {
+        "B": "om.",
+        "W": "om.",
+        "R": "om.",
+        "C": "All the spirits that God ever sent into the world are susceptible of enlargement",
+        "T": "All the spirits that God ever sent into the world are susceptible of enlargement"
+      },
+      "significance": "T relocates Clayton’s S22 enlargement claim to close S21, shaping the ring argument’s received conclusion.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S21.4"
+      ],
+      "reading_sections": {
+        "C": "S22"
+      }
     },
     {
       "id": "V074",
@@ -2400,6 +2700,27 @@
         "superseded": true,
         "caveat": "First-pass assessment made against JSP manuscript scans that are no longer held in this repository. Retained as history only; it is not evidence for the present edition."
       }
+    },
+    {
+      "id": "V121",
+      "section": "S35",
+      "order": 4,
+      "type": "reception",
+      "status": "new",
+      "lemma": "when I am called at the trump & weighed in the balance you will know me then",
+      "lemma_witness": "B",
+      "readings": {
+        "B": "when I am called at the trump & weighed in the balance you will know me then",
+        "W": "om.",
+        "R": "you never will",
+        "C": "om.",
+        "T": "When I am called at the trump of the ark-angel, and weighed in the balance, you will all know me then"
+      },
+      "significance": "T sides with Bullock against Richards and heightens the promise with “all” and the ark-angel.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S35.6"
+      ]
     }
   ]
 }
