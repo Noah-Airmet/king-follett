@@ -764,9 +764,29 @@
       ]
     },
     {
-      "id": "V005",
+      "id": "V131",
       "section": "S11",
       "order": 3,
+      "type": "theological",
+      "status": "new",
+      "lemma": "same as all have done",
+      "readings": {
+        "B": "same as all have done",
+        "W": "om.",
+        "R": "om.",
+        "C": "as all Gods has done",
+        "T": "the same as all Gods have done"
+      },
+      "significance": "Bullock's 'all' leaves the antecedent open; Clayton reads it as prior Gods, and T prints Clayton's plural. The difference decides whether the pattern being followed is that of other men who have been exalted or that of a succession of Gods, which is the sermon's most contested claim. V007 records the neighbouring 'be a God' / 'make yourselves Gods' variation, not this one.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S11.2; recorded there as matched to V007, which is a different locus; added on the principal's audit of the 93 matches, 2026-09-15"
+      ]
+    },
+    {
+      "id": "V005",
+      "section": "S11",
+      "order": 4,
       "type": "theological",
       "status": "revised",
       "lemma": "from grace to grace until the resurrection.",
@@ -788,7 +808,7 @@
     {
       "id": "V006",
       "section": "S11",
-      "order": 4,
+      "order": 5,
       "type": "theological",
       "status": "revised",
       "lemma": "& sit in everlasting power as they who have gone before",
@@ -1175,9 +1195,29 @@
       ]
     },
     {
-      "id": "V062",
+      "id": "V123",
       "section": "S17",
       "order": 2,
+      "type": "historical",
+      "status": "new",
+      "lemma": "it corespends the nearest to the revelations. that I have given the last 14 years",
+      "readings": {
+        "B": "it corespends the nearest to the revelations. that I have given the last 14 years",
+        "W": "om.",
+        "R": "om.",
+        "C": "find it to correspond with the revelations I have recieved.",
+        "T": "it corresponds nearest to the revelations I have given for the last fourteen years"
+      },
+      "significance": "Bullock alone dates the revelatory career, at fourteen years, in the appeal to the German text; Clayton records the same claim of correspondence with no span attached, and Woodruff and Richards do not report the comparison at this point. T prints Bullock's figure, so the received text carries a date that rests on one report. Richards gives the same fourteen years later, of baptism rather than of revelation.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S17.2; upheld in the second pass (cursor-grok-4.6-high, data/REJECTIONS.md); adjudicated by the principal 2026-09-15"
+      ]
+    },
+    {
+      "id": "V062",
+      "section": "S17",
+      "order": 3,
       "type": "theological",
       "status": "new",
       "lemma": "& how can we escape the damnation. of hell witht. God reveal to us.",
@@ -1195,7 +1235,7 @@
     {
       "id": "V014",
       "section": "S17",
-      "order": 3,
+      "order": 4,
       "type": "rhetorical",
       "status": "revised",
       "lemma": "thank God I have got this book & I thank him more for the gift of the H G.",
@@ -1216,7 +1256,7 @@
     {
       "id": "V064",
       "section": "S17",
-      "order": 4,
+      "order": 5,
       "type": "scribal",
       "status": "new",
       "lemma": "Greek says Jacob",
@@ -1234,7 +1274,7 @@
     {
       "id": "V063",
       "section": "S17",
-      "order": 5,
+      "order": 6,
       "type": "rhetorical",
       "status": "new",
       "lemma": "I shod. not have brot. up this wod only to shew that I am right",
@@ -1259,7 +1299,7 @@
     {
       "id": "V065",
       "section": "S17",
-      "order": 6,
+      "order": 7,
       "type": "rhetorical",
       "status": "new",
       "lemma": "The Gods came together & concocked the plan of making the world & the inhabitants,",
@@ -1280,7 +1320,7 @@
     {
       "id": "V115",
       "section": "S17",
-      "order": 7,
+      "order": 8,
       "type": "reception",
       "status": "new",
       "lemma": "an old book in the Latin Greek Hebrew & German",
@@ -1301,7 +1341,7 @@
     {
       "id": "V116",
       "section": "S17",
-      "order": 8,
+      "order": 9,
       "type": "reception",
       "status": "new",
       "lemma": "I shod. not have brot. up this wod only to shew that I am right",
@@ -1744,6 +1784,26 @@
       "sources": []
     },
     {
+      "id": "V124",
+      "section": "S22",
+      "order": 4,
+      "type": "theological",
+      "status": "new",
+      "lemma": "given me by Inspiration of the H S.",
+      "readings": {
+        "B": "when I tell you— of these things that were given me by Inspiration of the H S.",
+        "W": "they are given to me by the revelations of Jesus Christ",
+        "R": "om.",
+        "C": "when I tell you those words of eternal life that are given to me",
+        "T": "when I tell you these words of eternal life, that are given to me"
+      },
+      "significance": "The reports differ over the claimed source of what is being taught: Bullock has the inspiration of the Holy Spirit, Woodruff the revelations of Jesus Christ, and Clayton leaves the giver unnamed. T follows Clayton and so drops the attribution altogether, which removes from the received text the one place in this passage where the speaker names the channel of his own authority.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S22.4; upheld in the second pass (cursor-grok-4.6-high, data/REJECTIONS.md); adjudicated by the principal 2026-09-15"
+      ]
+    },
+    {
       "id": "V077",
       "section": "S23",
       "order": 1,
@@ -1799,9 +1859,29 @@
       "sources": []
     },
     {
-      "id": "V080",
+      "id": "V125",
       "section": "S24",
       "order": 1,
+      "type": "theological",
+      "status": "new",
+      "lemma": "for all the Spirits must either obey the Gospel or be damned",
+      "readings": {
+        "B": "for all the Spirits must either obey the Gospel or be damned",
+        "W": "if they do not be baptized they must be damned",
+        "R": "All spirits— who have not obeyed the Gospel must be damnd.",
+        "C": "for all spirits who have not obeyed the gospel in the flesh must obey the gospel or be damned",
+        "T": "for all the spirits who have not obeyed the gospel in the flesh, must either obey the gospel or be damned"
+      },
+      "significance": "The reports differ over both the scope of the requirement and what it requires. Bullock puts it on 'all the Spirits' without qualification; Clayton restricts the class to those who did not obey 'in the flesh', which leaves the mortally obedient outside the demand; Richards has the gospel condition without Clayton's mortal qualifier; and Woodruff makes the requirement baptism specifically rather than the gospel generally. T takes Clayton's scope, so the received text states the narrower claim.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S24.1; upheld in the second pass (cursor-grok-4.6-high, data/REJECTIONS.md); adjudicated by the principal 2026-09-15"
+      ]
+    },
+    {
+      "id": "V080",
+      "section": "S24",
+      "order": 2,
       "type": "omission",
       "status": "new",
       "lemma": "to let you know I am not a fallen prophet—",
@@ -1821,7 +1901,7 @@
     {
       "id": "V079",
       "section": "S24",
-      "order": 2,
+      "order": 3,
       "type": "reception",
       "status": "new",
       "lemma": "the greatest responsibility that God has laid upon us to seek after our dead—",
@@ -1839,7 +1919,7 @@
     {
       "id": "V081",
       "section": "S24",
-      "order": 3,
+      "order": 4,
       "type": "unique",
       "status": "new",
       "lemma": "meet Paul 1/2 way.—",
@@ -1858,7 +1938,7 @@
     {
       "id": "V020",
       "section": "S24",
-      "order": 4,
+      "order": 5,
       "type": "unique",
       "status": "revised",
       "lemma": "God said he shall send Elijah &c",
@@ -2061,6 +2141,26 @@
       ]
     },
     {
+      "id": "V126",
+      "section": "S26",
+      "order": 6,
+      "type": "theological",
+      "status": "new",
+      "lemma": "no man can commit the unpardonable sin after the dissn. of the body but they must do it in this world",
+      "readings": {
+        "B": "no man can commit the unpardonable sin after the dissn. of the body but they must do it in this world",
+        "W": "No man can commit the unpardonable sin, untill He receives the Holy Ghost",
+        "R": "must commit the unpardonable sin in this world",
+        "C": "I said no man could commit the unpardonable sin after the dissolution of the body",
+        "T": "I said no man can commit the unpardonable sin after the dissolution of the body, but they must do it in this world"
+      },
+      "significance": "Bullock, Richards and Clayton make the limit temporal — the sin must be committed in mortality and cannot be committed after death — while Woodruff makes it a prerequisite of knowledge, that no one can commit it until he has received the Holy Ghost. The two are not equivalent: one bounds the opportunity, the other names a qualification for it. T follows the temporal form. Woodruff states the knowledge condition again at S28, where V025 records the fuller sequence.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S26.6; upheld in the second pass (cursor-grok-4.6-high, data/REJECTIONS.md); adjudicated by the principal 2026-09-15"
+      ]
+    },
+    {
       "id": "V024",
       "section": "S27",
       "order": 1,
@@ -2238,6 +2338,27 @@
       "sources": []
     },
     {
+      "id": "V130",
+      "section": "S29",
+      "order": 4,
+      "type": "theological",
+      "status": "new",
+      "lemma_witness": "C",
+      "lemma": "You cant renew them to repentance— awful is the consequence",
+      "readings": {
+        "B": "om.",
+        "W": "you cannot save them",
+        "R": "om.",
+        "C": "You cant renew them to repentance— awful is the consequence",
+        "T": "You cannot bring them to repentance. Awful is the consequence"
+      },
+      "significance": "Woodruff and Clayton both put apostates beyond recovery but name different impossibilities: Woodruff that they cannot be saved, Clayton that they cannot be renewed to repentance, which is the language of Hebrews 6:6 and closes the means rather than reporting the outcome. T follows Clayton, so the received text states the stronger form. V091 records Clayton's separate mechanism, that the spirit leaves them.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S29.3; recorded there as matched to V091, which is a different locus; added on the principal's audit of the 93 matches, 2026-09-15"
+      ]
+    },
+    {
       "id": "V027",
       "section": "S30",
       "order": 1,
@@ -2409,9 +2530,29 @@
       ]
     },
     {
-      "id": "V099",
+      "id": "V127",
       "section": "S32",
       "order": 1,
+      "type": "historical",
+      "status": "new",
+      "lemma": "I have a Far. Bror. Friends who are gone to a world of Sp",
+      "readings": {
+        "B": "I have a Far. Bror. Friends who are gone to a world of Sp",
+        "W": "I have Fathers, Brothers, Children, that are gone to eternity",
+        "R": "om.",
+        "C": "om.",
+        "T": "I have a father, brothers, and friends who are gone to a world of spirits"
+      },
+      "significance": "Woodruff includes children among the speaker's own dead where Bullock has a father, a brother and friends, and T follows Bullock. In a funeral sermon the list is a biographical detail rather than a doctrinal one, and the reports do not agree on it.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S32.1; upheld in the second pass (cursor-grok-4.6-high, data/REJECTIONS.md); adjudicated by the principal 2026-09-15"
+      ]
+    },
+    {
+      "id": "V099",
+      "section": "S32",
+      "order": 2,
       "type": "unique",
       "status": "new",
       "lemma": "no fear of mobs—",
@@ -2429,7 +2570,7 @@
     {
       "id": "V100",
       "section": "S32",
-      "order": 2,
+      "order": 3,
       "type": "unique",
       "status": "new",
       "lemma": "the trump will soon be blown.",
@@ -2536,9 +2677,49 @@
       ]
     },
     {
-      "id": "V103",
+      "id": "V128",
       "section": "S34",
       "order": 1,
+      "type": "reception",
+      "status": "new",
+      "lemma": "the Baptism of Water witht. the Baptism of Fire & the H G. attending it are necy",
+      "readings": {
+        "B": "the Baptism of Water witht. the Baptism of Fire & the H G. attending it are necy",
+        "W": "John said his baptism was good for nothing without the Baptism of Jesus Christ",
+        "R": "Baptism of water fire & Holy Ghost. are inseparably— connected.",
+        "C": "om.",
+        "T": "The baptism of water without the baptism of fire and the Holy Ghost attending it is of no use: they are necessary."
+      },
+      "significance": "T states both that water baptism alone 'is of no use' and that the three 'are necessary'. Bullock, its source here, has only the necessity; Richards calls the three inseparably connected, which is a claim about their relation rather than about the worthlessness of one; and Woodruff, who does say John's baptism was good for nothing alone, was not used in the composite. The strengthening in the printed text therefore does not come from the reports it was made from.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S34.1; upheld in the second pass (cursor-grok-4.6-high, data/REJECTIONS.md); adjudicated by the principal 2026-09-15"
+      ]
+    },
+    {
+      "id": "V129",
+      "section": "S34",
+      "order": 2,
+      "type": "theological",
+      "status": "new",
+      "lemma": "when J comes who has the power",
+      "readings": {
+        "B": "when J comes who has the power",
+        "W": "when Jesus Christ comes He shall administer the baptism of fire & the Holy Ghost",
+        "R": "when Jesus comes having the keys",
+        "C": "om.",
+        "T": "when Jesus comes, who has the power"
+      },
+      "significance": "Richards grounds the authority to baptize with fire and the Holy Ghost in keys, Bullock in power, and Woodruff names no ground at all. Keys name a conferred office in this speaker's usage where power need not, so the reports differ on what kind of claim is being made. T follows Bullock, and the received text has power.",
+      "jsp_footnotes": [],
+      "sources": [
+        "independent pass (Codex Sol) S34.2; upheld in the second pass (cursor-grok-4.6-high, data/REJECTIONS.md); adjudicated by the principal 2026-09-15"
+      ]
+    },
+    {
+      "id": "V103",
+      "section": "S34",
+      "order": 3,
       "type": "reception",
       "status": "new",
       "lemma": "I call upon all to say I— (shouts of I)",
@@ -2556,7 +2737,7 @@
     {
       "id": "V031",
       "section": "S34",
-      "order": 2,
+      "order": 4,
       "type": "historical",
       "status": "revised",
       "lemma": "Alexander Campbell— how are you going to save them with water—",
@@ -2577,7 +2758,7 @@
     {
       "id": "V104",
       "section": "S34",
-      "order": 3,
+      "order": 5,
       "type": "unique",
       "status": "new",
       "lemma": "There has also been remarks made concerning all men being redeemed from Hell,",
@@ -2596,7 +2777,7 @@
     {
       "id": "V032",
       "section": "S34",
-      "order": 4,
+      "order": 6,
       "type": "theological",
       "status": "revised",
       "lemma": "but they shall die the 2nd. death—",
@@ -2617,7 +2798,7 @@
     {
       "id": "V033",
       "section": "S34",
-      "order": 5,
+      "order": 7,
       "type": "theological",
       "status": "revised",
       "lemma": "some shall rise to the everlasting burning of God & some shall rise to the dn. of their own filthiness— same as the lake of fire & brimstone—",

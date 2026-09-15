@@ -67,9 +67,9 @@ superseded by the 2e work; it can simply be dropped.
 
 ### Phase 2e — adjudication: DONE
 
-`data/ADJUDICATION.md`. Apparatus went **106 → 122**: 40 theological, 28
-reception, 26 unique, 12 rhetorical, 7 historical, 7 scribal, 2 omission; 88
-new, 34 revised, none withdrawn. Lane B: 93 matched, 15 added, 42 rejected. All
+`data/ADJUDICATION.md`. Apparatus went 106 → 122 there, and **122 → 131**
+after the audit below: 46 theological, 29 reception, 26 unique, 12 rhetorical,
+9 historical, 7 scribal, 2 omission; 97 new, 34 revised, none withdrawn. Lane B: 93 matched, 15 added, 42 rejected. All
 nine unsure calls decided. `tests/test_apparatus.py` added (64 tests pass).
 
 Two things a reviewer should know:

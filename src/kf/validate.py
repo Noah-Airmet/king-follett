@@ -19,7 +19,7 @@ EXPECTED_SECTION_IDS = [f"S{n:02d}" for n in range(1, 36)]
 #: entries, kept under their original ids; V035 onward were added in Phase 2b.
 #: Ids are never reused and never deleted: an entry that fails the criteria is
 #: kept with ``status: "withdrawn"`` and a reason.
-EXPECTED_VARIANT_IDS = [f"V{n:03d}" for n in range(1, 123)]
+EXPECTED_VARIANT_IDS = [f"V{n:03d}" for n in range(1, 132)]
 
 VARIANT_TYPES = {
     "theological",

@@ -9,6 +9,12 @@ per candidate. It upholds thirty-two and disagrees with ten, which are
 listed there for a human editor. The reasons in that file are its own; the
 original adjudicator's are unrecoverable.
 
+**`data/AUDIT.md`** then settled those ten (seven added, three rejected) and
+audited the ninety-three *matched* rows in this table as well, which share
+their own boilerplate. Two of those were misses and are now entries; one
+points at the wrong V-id. The apparatus is 131 entries, not the 122 stated
+below.
+
 | Lane B candidate | Decision | Reason |
 | --- | --- | --- |
 | S01.1 | matched V001 | Same locus and substance; Lane B wording was checked against the existing entry. |

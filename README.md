@@ -78,7 +78,7 @@ citing the 1844 amalgamation, `scripture` for cross-references, `other` for
 historical and bibliographical annotation. The kinds are tested in that order,
 so a `TEXT:` note that also mentions the *Times and Seasons* is `textual`.
 
-**`data/apparatus.json`** — the critical apparatus: 106 variants `V001`–`V106`
+**`data/apparatus.json`** — the critical apparatus: 131 variants `V001`–`V131`
 where the witnesses differ in doctrinal claim, historical detail, rhetorical
 force, scribal cancellation, or T's reception of the notes. Each names its
 section and keeps lemma, per-witness readings (B W R C **and** T), type, and
@@ -267,11 +267,13 @@ manuscript-verification claim has been withdrawn.
 
 **Data layer (Phases 1–2e, September 2026).** Transcripts, alignment, footnotes
 and the `src/kf` parser are in place and validated. The apparatus in
-`data/apparatus.json` is a systematic collation of **122 entries**, built by two
-independent passes and adjudicated: 40 theological, 28 reception, 26 unique,
-12 rhetorical, 7 historical, 7 scribal, 2 omission. Statuses are 88 new and
-34 revised; none are withdrawn. See `data/APPARATUS-REPORT.md` and
-`data/ADJUDICATION.md`. JSP transcriptions are accepted as authoritative;
+`data/apparatus.json` is a systematic collation of **131 entries**, built by two
+independent passes, adjudicated, and then audited: 46 theological, 29 reception,
+26 unique, 12 rhetorical, 9 historical, 7 scribal, 2 omission. Statuses are 97
+new and 34 revised; none are withdrawn. See `data/APPARATUS-REPORT.md`,
+`data/ADJUDICATION.md`, `data/REJECTIONS.md` (an independent second pass over
+the forty-two rejected candidates) and `data/AUDIT.md` (the principal's review
+of that second pass and of the ninety-three accepted matches). JSP transcriptions are accepted as authoritative;
 January 2026 scan notes survive only as `legacy_verification` and are not
 evidence for this edition.
 
